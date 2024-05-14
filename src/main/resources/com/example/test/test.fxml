@@ -15,7 +15,7 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <TextField layoutX="219.0" layoutY="149.0" />
-      <TextField layoutX="219.0" layoutY="200.0" />
+      <TextField layoutX="219.0" layoutY="160.0" />
+      <TextField layoutX="219.0" layoutY="210.0" />
    </children>
 </AnchorPane>
