@@ -2,4 +2,6 @@
 Project for the database assignment.
 
 - aaa
-- 
+- bbb
+- ccc
+- ddd
