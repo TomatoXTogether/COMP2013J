@@ -10,12 +10,13 @@ import java.util.List;
 public class StudentDAO {
     public static List<Student> getAllStudents() {
         List<Student> employees = new ArrayList<Student>();
+        List<Lecture> lectures = new ArrayList<Lecture>();
 
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM students");
+            ResultSet rs = st.executeQuery("SELECT DISTINCT studentID, name, email, password FROM students");
 
             for (int i = 0; i < 6; i ++) {
                 int studentID = rs.getInt("studentID");
@@ -23,7 +24,7 @@ public class StudentDAO {
                 String email = rs.getString("email");
                 int password = rs.getInt(" password");
 
-                Student e = new Student(studentID, name, password, email);
+                Student e = new Student(studentID, name, password, email, lectures);
 
                 employees.add(e);
             }
