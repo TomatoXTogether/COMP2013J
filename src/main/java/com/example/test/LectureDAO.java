@@ -44,4 +44,43 @@ public class LectureDAO {
 
         return lectures;
     }
+
+    public static Lecture getLectureByID(int lectureID) {
+        Lecture lecture = null;
+        for (Lecture l : getAllLectures()) {
+            if (l.getLectureID() == lectureID) {
+                lecture = l;
+                break;
+            }
+        }
+        return lecture;
+    }
+
+    public static void insertLecture(Lecture lecture) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("INSERT INTO lecture VALUES (" + lecture.getLectureID() + ", '" + lecture.getLecturerID() + "', '" + lecture.getName() + "', "
+                    + lecture.getRoom() + "', '" + lecture.getBuilding() + "', '" + lecture.getSchedule() + "', '" + lecture.getStartDate() + "', '" + lecture.getEndDate() + ")");
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteLectureByID(int lectureID) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("DELETE FROM lecture WHERE lectureID = " + lectureID);
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
