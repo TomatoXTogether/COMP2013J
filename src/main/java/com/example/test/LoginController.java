@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
                 }
-                else if (checkAccountAndPassword(account, password, students)){
+                else if (getUser(account, password, students) != null){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
                     errorMessageForEmpty.setVisible(true);
                     System.out.println("Please enter your account and password");
                 }
-                else if (checkAccountAndPassword(account, password, lectures)){
+                else if (getUser(account, password, lectures) != null){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -177,13 +177,13 @@ public class LoginController implements Initializable {
         Password.setTextFormatter(passwordFormatter);
     }
 
-    public boolean checkAccountAndPassword(String account, String password, List<User> users) {
+    public Student getUser(String account, String password, List<User> users) {
         for (User user : users) {
             if (String.valueOf(user.getID()).equals(account) && String.valueOf(user.getPassword()).equals(password)) {
-                return true;
+                return (Student) user;
             }
         }
-        return false;
+        return null;
     }
 
 }
