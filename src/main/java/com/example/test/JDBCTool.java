@@ -15,7 +15,7 @@ public class JDBCTool {
     return conn;
 }
     public static Connection getConnection() {
-        return JDBCTool.getConnection("localhost", "learningmanagementsystem", "root", "123456");
+        return JDBCTool.getConnection("localhost", " learningmanagementsystem", "root", "123456");
         //这里输入数据库的url，数据库名，用户名，密码
     }
 }

@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
 
         switch (choseIdentity.getValue()){
             case "Student":
-                //List<Student> students = StudentDAO.getAllStudents();
+                List<Student> students = StudentDAO.getAllStudents();
                 if (account.equals("") || password.equals("")){
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForWrong.setVisible(false);
