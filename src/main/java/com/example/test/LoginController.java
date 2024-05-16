@@ -66,7 +66,7 @@ public class LoginController implements Initializable {
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
                 }
-                else if (checkAccount(account, students) && checkPassword(password, students)){
+                else if (checkAccountAndPassword(account, password, students)){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
                     errorMessageForEmpty.setVisible(true);
                     System.out.println("Please enter your account and password");
                 }
-                else if (checkAccount(account, lectures) && checkPassword(password, lectures)){
+                else if (checkAccountAndPassword(account, password, lectures)){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -177,18 +177,9 @@ public class LoginController implements Initializable {
         Password.setTextFormatter(passwordFormatter);
     }
 
-    public boolean checkAccount(String account, List<User> users) {
+    public boolean checkAccountAndPassword(String account, String password, List<User> users) {
         for (User user : users) {
-            if (String.valueOf(user.getID()).equals(account)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkPassword(String password, List<User> users) {
-        for (User user : users) {
-            if (String.valueOf(user.getPassword()).equals(password)) {
+            if (String.valueOf(user.getID()).equals(account) && String.valueOf(user.getPassword()).equals(password)) {
                 return true;
             }
         }
