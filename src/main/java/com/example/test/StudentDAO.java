@@ -15,13 +15,13 @@ public class StudentDAO {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM students");
+            ResultSet rs = st.executeQuery("SELECT DISTINCT studentID, name, email, password FROM students");
 
             while (rs.next()) {
                 int studentID = rs.getInt("studentID");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
-                int password = rs.getInt(" password");
+                int password = rs.getInt("password");
 
                 Student e = new Student(studentID, name, password, email);
 

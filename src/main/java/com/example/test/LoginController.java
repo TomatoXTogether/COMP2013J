@@ -46,6 +46,7 @@ public class LoginController implements Initializable {
     @FXML
     private Label errorMessageForWrong1;
 
+
     @FXML
     void LoginAction(ActionEvent event) throws IOException {
         String account = Account.getText();
@@ -65,7 +66,7 @@ public class LoginController implements Initializable {
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
                 }
-                else if (account.equals("1") && password.equals("1")){
+                else if (checkAccount(account, students) && checkPassword(password, students)){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -173,6 +174,24 @@ public class LoginController implements Initializable {
 
         // Set the TextFormatter for the Password TextField
         Password.setTextFormatter(passwordFormatter);
+    }
+
+    public boolean checkAccount(String account, List<Student> students) {
+        for (Student student : students) {
+            if (String.valueOf(student.getStudentID()).equals(account)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkPassword(String password, List<Student> students) {
+        for (Student student : students) {
+            if (String.valueOf(student.getPassword()).equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
