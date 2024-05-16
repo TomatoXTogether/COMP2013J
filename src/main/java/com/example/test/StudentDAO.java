@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
-    public static List<Student> getAllStudents() {
-        List<Student> employees = new ArrayList<Student>();
+    public static List<User> getAllStudents() {
+        List<User> users = new ArrayList<User>();
 
         try {
             Connection conn = JDBCTool.getConnection();
@@ -25,7 +25,7 @@ public class StudentDAO {
 
                 Student e = new Student(studentID, name, password, email);
 
-                employees.add(e);
+                users.add(e);
             }
 
             rs.close();
@@ -37,6 +37,6 @@ public class StudentDAO {
             e.printStackTrace();
         }
 
-        return employees;
+        return users;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.test;
 
-public class Lecturer {
+public class Lecturer extends User{
 
     private int lecturerID;
     private String firstname;
@@ -22,14 +22,6 @@ public class Lecturer {
         this.office = office;
     }
 
-    public int getLecturerID() {
-        return lecturerID;
-    }
-
-    public void setLecturerID(int lecturerID) {
-        this.lecturerID = lecturerID;
-    }
-
     public String getFirstname() {
         return firstname;
     }
@@ -46,6 +38,16 @@ public class Lecturer {
         this.lastname = lastname;
     }
 
+    @Override
+    public int getID() {
+        return lecturerID;
+    }
+
+    public void setLecturerID(int lecturerID) {
+        this.lecturerID = lecturerID;
+    }
+
+    @Override
     public int getPassword() {
         return password;
     }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LecturerDAO {
-    public static List<Lecturer> getAllLecturers() {
-        List<Lecturer> lecturers = new ArrayList<Lecturer>();
+    public static List<User> getAllLecturers() {
+        List<User> lecturers = new ArrayList<User>();
 
         try {
             Connection conn = JDBCTool.getConnection();
@@ -42,21 +42,21 @@ public class LecturerDAO {
     }
 
     public static Lecturer getLecturerByID(int lecturerID) {
-        Lecturer lecturer = null;
-        for (Lecturer l : getAllLecturers()) {
-            if (l.getLecturerID() == lecturerID) {
+        User lecturer = null;
+        for (User l : getAllLecturers()) {
+            if (l.getID() == lecturerID) {
                 lecturer = l;
                 break;
             }
         }
-        return lecturer;
+        return (Lecturer) lecturer;
     }
 
     public static void insertLecturer(Lecturer lecturer) {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("INSERT INTO lecturer VALUES (" + lecturer.getLecturerID() + ", '" + lecturer.getFirstname() + "', '" + lecturer.getLastname() + "', "
+            ResultSet rs = st.executeQuery("INSERT INTO lecturer VALUES (" + lecturer.getID() + ", '" + lecturer.getFirstname() + "', '" + lecturer.getLastname() + "', "
                     + lecturer.getPassword() + "', '" + lecturer.getEmail() + "', '" + lecturer.getOffice() + ")");
             rs.close();
             st.close();

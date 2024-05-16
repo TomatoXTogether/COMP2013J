@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
 
         switch (choseIdentity.getValue()){
             case "Student":
-                List<Student> students = StudentDAO.getAllStudents();
+                List<User> students = StudentDAO.getAllStudents();
                 if (account.equals("") || password.equals("")){
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForWrong.setVisible(false);
@@ -84,13 +84,14 @@ public class LoginController implements Initializable {
                 }
                 break;
             case "Lecturer":
+                List<User> lectures = LecturerDAO.getAllLecturers();
                 if (account.equals("") || password.equals("")){
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
                     System.out.println("Please enter your account and password");
                 }
-                else if (account.equals("2") && password.equals("2")){
+                else if (checkAccount(account, lectures) && checkPassword(password, lectures)){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
@@ -176,18 +177,18 @@ public class LoginController implements Initializable {
         Password.setTextFormatter(passwordFormatter);
     }
 
-    public boolean checkAccount(String account, List<Student> students) {
-        for (Student student : students) {
-            if (String.valueOf(student.getStudentID()).equals(account)) {
+    public boolean checkAccount(String account, List<User> users) {
+        for (User user : users) {
+            if (String.valueOf(user.getID()).equals(account)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean checkPassword(String password, List<Student> students) {
-        for (Student student : students) {
-            if (String.valueOf(student.getPassword()).equals(password)) {
+    public boolean checkPassword(String password, List<User> users) {
+        for (User user : users) {
+            if (String.valueOf(user.getPassword()).equals(password)) {
                 return true;
             }
         }

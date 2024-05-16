@@ -1,6 +1,6 @@
 package com.example.test;
 
-public class Student {
+public class Student extends User{
     private int studentID;
     private String name;
     private int password;
@@ -15,18 +15,23 @@ public class Student {
         JDBCTool.getConnection();
     }
 
-    public int getStudentID() {
-        return studentID;
-    }
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
-    }
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public int getID() {
+        return studentID;
+    }
+
+    public void setID(int studentID) {
+        this.studentID = studentID;
+    }
+
+    @Override
     public int getPassword() {
         return password;
     }
