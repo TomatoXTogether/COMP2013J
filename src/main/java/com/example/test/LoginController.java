@@ -6,16 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -40,37 +38,80 @@ public class LoginController implements Initializable {
     private Button reset;
 
     @FXML
+    private Label errorMessageForEmpty;
+
+    @FXML
+    private Label errorMessageForWrong;
+
+    @FXML
+    private Label errorMessageForWrong1;
+
+    @FXML
     void LoginAction(ActionEvent event) throws IOException {
         String account = Account.getText();
         String password = Password.getText();
+        if (choseIdentity.getValue()== null) {
+            errorMessageForEmpty.setVisible(false);
+            errorMessageForWrong.setVisible(false);
+            errorMessageForWrong1.setVisible(true);
+            return;
+        }
+
         switch (choseIdentity.getValue()){
             case "Student":
+                //List<Student> students = StudentDAO.getAllStudents();
                 if (account.equals("") || password.equals("")){
-                    System.out.println("Please enter your account and password");
+                    errorMessageForWrong1.setVisible(false);
+                    errorMessageForWrong.setVisible(false);
+                    errorMessageForEmpty.setVisible(true);
                 }
                 else if (account.equals("1") && password.equals("1")){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
-                    Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("StudentHomePage.fxml"));
                     Stage newStage = new Stage();
                     newStage.setScene(new Scene(root));
                     newStage.show();
 
                 }
                 else {
+                    errorMessageForWrong1.setVisible(false);
+                    errorMessageForEmpty.setVisible(false);
+                    errorMessageForWrong.setVisible(true);
                     System.out.println("Wrong account or password");
                 }
                 break;
             case "Lecturer":
                 if (account.equals("") || password.equals("")){
+                    errorMessageForWrong1.setVisible(false);
+                    errorMessageForWrong.setVisible(false);
+                    errorMessageForEmpty.setVisible(true);
                     System.out.println("Please enter your account and password");
                 }
                 else if (account.equals("2") && password.equals("2")){
                     System.out.println("Login Successfully");
+                    Stage currentStage = (Stage) login.getScene().getWindow();
+                    currentStage.close();
+                    Parent root = FXMLLoader.load(getClass().getResource("LectureHomePage.fxml"));
+                    Stage newStage = new Stage();
+                    newStage.setScene(new Scene(root));
+                    newStage.show();
                 }
                 else {
+                    errorMessageForWrong1.setVisible(false);
+                    errorMessageForEmpty.setVisible(false);
+                    errorMessageForWrong.setVisible(true);
                     System.out.println("Wrong account or password");
+                }
+                break;
+            default:
+                errorMessageForEmpty.setVisible(false);
+                errorMessageForWrong.setVisible(false);
+                errorMessageForWrong1.setVisible(true);
+                if (account.equals("") || password.equals("")){
+                    errorMessageForWrong.setVisible(false);
+                    errorMessageForEmpty.setVisible(true);
                 }
                 break;
         }

@@ -1,21 +1,18 @@
 package com.example.test;
 
-import java.util.List;
-
 public class Student {
     private int studentID;
     private String name;
     private int password;
     private String email;
-    private List<Lecture> lectures;
 
-    public Student(int studentID, String name, int password, String email, List<Lecture> lectures){
+    public Student(int studentID, String name, int password, String email){
         this.studentID = studentID;
         this.name = name;
         this.password = password;
         this.email = email;
-        this.lectures = lectures;
 
+        JDBCTool.getConnection();
     }
 
     public int getStudentID() {
