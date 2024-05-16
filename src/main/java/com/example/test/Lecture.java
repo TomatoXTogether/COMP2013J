@@ -8,13 +8,13 @@ public class Lecture {
     private int room;
     private int building;
     private String schedule;
-    private String start;
-    private String end;
+    private String startDate;
+    private String endDate;
 
     public Lecture() {
     }
 
-    public Lecture(int lectureID, int lecturerID, String name, int room, int building, String schedule, String start, String end) {
+    public Lecture(int lectureID, int lecturerID, String name, int room, int building, String schedule, String startDate, String endDate) {
         super();
         this.lectureID = lectureID;
         this.lecturerID = lecturerID;
@@ -22,8 +22,8 @@ public class Lecture {
         this.room = room;
         this.building = building;
         this.schedule = schedule;
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int getLectureID() {
@@ -74,19 +74,19 @@ public class Lecture {
         this.schedule = schedule;
     }
 
-    public String getStart() {
-        return start;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setStartDate(String start) {
+        this.startDate = startDate;
     }
 
-    public String getEnd() {
-        return end;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEndDate(String end) {
+        this.endDate = endDate;
     }
 }
