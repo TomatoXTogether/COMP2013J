@@ -1,6 +1,6 @@
 package com.example.test;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +17,7 @@ public class StudentDAO {
 
             ResultSet rs = st.executeQuery("SELECT * FROM students");
 
-            for (int i = 0; i < 6; i ++) {
+            while (rs.next()) {
                 int studentID = rs.getInt("studentID");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
