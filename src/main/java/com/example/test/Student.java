@@ -3,10 +3,10 @@ package com.example.test;
 public class Student {
     private int studentID;
     private String name;
-    private String password;
+    private int password;
     private String email;
 
-    public Student(int studentID, String name, String password, String email){
+    public Student(int studentID, String name, int password, String email){
         this.studentID = studentID;
         this.name = name;
         this.password = password;
@@ -27,10 +27,10 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
-    public String getPassword() {
+    public int getPassword() {
         return password;
     }
-    public void setPassword(String password) {
+    public void setPassword(int password) {
         this.password = password;
     }
     public String getEmail() {
