@@ -42,11 +42,15 @@ public class StudentHomePageController {
         @FXML
         private Button studentScore;
 
-        private LoginController lc;
+        private LoginController userInfo;
+
+        public StudentHomePageController(LoginController userInfo){
+                this.userInfo = userInfo;
+        }
 
         @FXML
         void atopShowStudentName(MouseEvent event) {
-                Student st = (Student) lc.user;
+                Student st = (Student) userInfo.user;
                 studentName.setText(st.getName());
         }
 

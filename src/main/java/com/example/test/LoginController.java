@@ -61,8 +61,8 @@ public class LoginController implements Initializable {
 
     @FXML
     void LoginAction(ActionEvent event) throws IOException {
-        String account = Account.getText();
-        String password = Password.getText();
+        this.account = Account.getText();
+        this.password = Password.getText();
         if (choseIdentity.getValue()== null) {
             errorMessageForEmpty.setVisible(false);
             errorMessageForWrong.setVisible(false);
