@@ -46,6 +46,18 @@ public class LoginController implements Initializable {
     @FXML
     private Label errorMessageForWrong1;
 
+    private List<User> users;
+
+    public static User user;
+
+    private String account;
+
+    private String password;
+
+    public LoginController(){
+        this.user = getUser(account, password, users);
+    }
+
 
     @FXML
     void LoginAction(ActionEvent event) throws IOException {
