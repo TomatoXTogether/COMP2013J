@@ -37,20 +37,35 @@ public class StudentHomePageController {
         private Text studentID;
 
         @FXML
-        private Text studentName;
+        private Text StudName;
+
+        @FXML
+        private Text atopStudName;
 
         @FXML
         private Button studentScore;
 
-        /*public StudentHomePageController(LoginController userInfo){
-                this.userInfo = userInfo;
-        }*/
+        private Student userInfo;
 
-        @FXML
-        void atopShowStudentName(MouseEvent event) {
-                //Student st = (Student) userInfo.user;
-                //studentName.setText(st.getName());
+        public StudentHomePageController(Student userInfo){
+                this.userInfo = userInfo;
         }
+
+        public StudentHomePageController() {
+                // 无参构造器
+        }
+
+        public void setUserInfo(Student userInfo) {
+                this.userInfo = userInfo;
+                StudName.setText(userInfo.getName());
+                atopStudName.setText(userInfo.getName());
+                studentEmail.setText(userInfo.getEmail());
+                studentID.setText(String.valueOf(userInfo.getID()));
+
+        }
+
+
+
 
         @FXML
         void changeStudentEmail(ActionEvent event) {
@@ -72,20 +87,6 @@ public class StudentHomePageController {
 
         }
 
-        @FXML
-        void showStudentEmail(MouseEvent event) {
-
-        }
-
-        @FXML
-        void showStudentID(MouseEvent event) {
-
-        }
-
-        @FXML
-        void showStudentName(MouseEvent event) {
-
-        }
 
         @FXML
         void studentClassSchedule(ActionEvent event) {

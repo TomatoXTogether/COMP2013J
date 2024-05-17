@@ -49,7 +49,8 @@ public class LecturerHomePageController {
 
         @FXML
         void atopShowLecturerName(MouseEvent event) {
-
+                String lecturerNameValue = lecturerName.getText();
+                this.lecturerName.setText(lecturerNameValue);
         }
 
         @FXML

@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -77,11 +79,15 @@ public class LoginController implements Initializable {
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
                 }
-                else if (getUser(account, password, students) != null){
+                Student student = (Student) getUser(account, password, students);
+                if ( student!= null){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
-                    Parent root = FXMLLoader.load(getClass().getResource("StudentHomePage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+                    Parent root = loader.load();
+                    StudentHomePageController controller = loader.getController();
+                    controller.setUserInfo(student);
                     Stage newStage = new Stage();
                     newStage.setScene(new Scene(root));
                     newStage.show();
@@ -106,7 +112,7 @@ public class LoginController implements Initializable {
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
-                    Parent root = FXMLLoader.load(getClass().getResource("LectureHomePage.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("LecturerHomePage.fxml"));
                     Stage newStage = new Stage();
                     newStage.setScene(new Scene(root));
                     newStage.show();
