@@ -22,15 +22,15 @@
       <Button fx:id="myCourses" layoutX="811.0" layoutY="50.0" mnemonicParsing="false" onAction="#myCoursesAction" prefHeight="39.0" prefWidth="102.0" text="My courses" />
       <TableView fx:id="LectureTable" layoutX="74.0" layoutY="136.0" prefHeight="606.0" prefWidth="852.0">
         <columns>
-          <TableColumn fx:id="lectureID" prefWidth="100.0" text="Lecture ID" />
-            <TableColumn fx:id="name" prefWidth="100.0" text="Name" />
-          <TableColumn fx:id="lecturer" prefWidth="100.0" text="Lecturer" />
-            <TableColumn fx:id="building" prefWidth="100.0" text="Building" />
-            <TableColumn fx:id="room" prefWidth="100.0" text="Room" />
-            <TableColumn fx:id="schedule" prefWidth="100.0" text="Schedule" />
-            <TableColumn fx:id="startDate" prefWidth="100.0" text="Start Date" />
-            <TableColumn fx:id="endDate" prefWidth="100.0" text="End Date" />
-            <TableColumn fx:id="checkBox" prefWidth="50.0" />
+          <TableColumn fx:id="lectureID" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Lecture ID" />
+            <TableColumn fx:id="name" editable="false" minWidth="-Infinity" prefWidth="100.0" resizable="false" sortable="false" text="Name" />
+          <TableColumn fx:id="lecturer" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Lecturer" />
+            <TableColumn fx:id="building" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Building" />
+            <TableColumn fx:id="room" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Room" />
+            <TableColumn fx:id="schedule" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Schedule" />
+            <TableColumn fx:id="startDate" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="Start Date" />
+            <TableColumn fx:id="endDate" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="End Date" />
+            <TableColumn fx:id="checkBox" editable="false" prefWidth="50.0" resizable="false" sortable="false" />
         </columns>
       </TableView>
       <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
