@@ -17,7 +17,7 @@
       </Text>
       <Button fx:id="back" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" onAction="#backBottonAction" prefHeight="39.0" prefWidth="74.0" text="Back" />
       <Button fx:id="refresh" layoutX="369.0" layoutY="58.0" mnemonicParsing="false" onAction="#refreshBottonAction" prefHeight="23.0" prefWidth="59.0" text="Refresh" />
-      <TextField layoutX="544.0" layoutY="58.0" />
+      <TextField fx:id="search" layoutX="544.0" layoutY="58.0" onAction="#searchBottonAction" />
       <Button fx:id="check" layoutX="713.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
       <Button fx:id="myCourses" layoutX="811.0" layoutY="50.0" mnemonicParsing="false" onAction="#myCoursesAction" prefHeight="39.0" prefWidth="102.0" text="My courses" />
       <TableView fx:id="LectureTable" layoutX="74.0" layoutY="136.0" prefHeight="606.0" prefWidth="852.0">

@@ -2,10 +2,16 @@ package com.example.test;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ScoreInquiryController {
 
@@ -40,8 +46,14 @@ public class ScoreInquiryController {
     private TableColumn<?, ?> score;
 
     @FXML
-    void backBottonAction(ActionEvent event) {
-
+    void backBottonAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+        Parent root = loader.load();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML
@@ -55,8 +67,14 @@ public class ScoreInquiryController {
     }
 
     @FXML
-    void myCoursesAction(ActionEvent event) {
-
+    void myCoursesAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+        Parent root = loader.load();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML

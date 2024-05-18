@@ -6,10 +6,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -58,13 +64,23 @@ public class LectureChoosingController {
 
     @FXML
     private TableColumn<Lecture, String> startDate;
+    @FXML
+    private TextField search;
 
     private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
 
 
     @FXML
-    void backBottonAction(ActionEvent event) {
-
+    void backBottonAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+        Parent root = loader.load();
+        //StudentHomePageController controller = loader.getController();
+        //controller.setUserInfo(student);
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML
@@ -73,8 +89,14 @@ public class LectureChoosingController {
     }
 
     @FXML
-    void myCoursesAction(ActionEvent event) {
-
+    void myCoursesAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+        Parent root = loader.load();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML
@@ -84,6 +106,11 @@ public class LectureChoosingController {
 
     @FXML
     void saveBottonAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchBottonAction(ActionEvent event) {
 
     }
 

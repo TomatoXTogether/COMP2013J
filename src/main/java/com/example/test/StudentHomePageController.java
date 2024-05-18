@@ -10,6 +10,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class StudentHomePageController {
 
         @FXML
@@ -87,7 +89,7 @@ public class StudentHomePageController {
 
 
         @FXML
-        void studentClassSchedule(ActionEvent event) {
+        void studentClassSchedule(ActionEvent event) throws IOException {
 
         }
 
@@ -102,8 +104,14 @@ public class StudentHomePageController {
         }
 
         @FXML
-        void studentScoreInquiry(ActionEvent event) {
-
+        void studentScoreInquiry(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) studentScore.getScene().getWindow();
+                currentStage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ScoreInquiry.fxml"));
+                Parent root = loader.load();
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
 
         }
 }
