@@ -28,7 +28,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private ChoiceBox<String> choseIdentity;
-    private String[] type = { "Student", "Lecturer"};
+
+    private final String[] type = { "Student", "Lecturer"};
 
     @FXML
     private Button login;
@@ -108,11 +109,16 @@ public class LoginController implements Initializable {
                     errorMessageForEmpty.setVisible(true);
                     System.out.println("Please enter your account and password");
                 }
-                else if (getUser(account, password, lectures) != null){
+                Lecturer lecturer = (Lecturer) getUser(account, password, lectures);
+                if (lecturer != null){
                     System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
-                    Parent root = FXMLLoader.load(getClass().getResource("LecturerHomePage.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerHomePage.fxml"));
+                    Parent root;
+                    root = loader.load();
+                    LecturerHomePageController controller = loader.getController();
+                    controller.setUserInfo(lecturer);
                     Stage newStage = new Stage();
                     newStage.setScene(new Scene(root));
                     newStage.show();

@@ -65,8 +65,6 @@ public class StudentHomePageController {
         }
 
 
-
-
         @FXML
         void changeStudentEmail(ActionEvent event) {
 

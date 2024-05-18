@@ -47,11 +47,25 @@ public class LecturerHomePageController {
         @FXML
         private Text welcomeLecturerName;
 
-        @FXML
-        void atopShowLecturerName(MouseEvent event) {
-                String lecturerNameValue = lecturerName.getText();
-                this.lecturerName.setText(lecturerNameValue);
+        private Lecturer userInfo;
+
+        public LecturerHomePageController(Lecturer userInfo){
+                this.userInfo = userInfo;
         }
+
+        public LecturerHomePageController() {
+                // 无参构造器
+        }
+
+        public void setUserInfo(Lecturer userInfo) {
+                this.userInfo = userInfo;
+                lecturerName.setText(userInfo.getFirstname() + " " + userInfo.getLastname());
+                lecturerOffice.setText(userInfo.getOffice());
+                lecturerEmail.setText(userInfo.getEmail());
+                lecturerID.setText(String.valueOf(userInfo.getID()));
+                welcomeLecturerName.setText(userInfo.getFirstname() + " " + userInfo.getLastname());
+        }
+
 
         @FXML
         void changeLecturerEmail(ActionEvent event) {
@@ -90,26 +104,6 @@ public class LecturerHomePageController {
 
         @FXML
         void lecturerScoreManagement(ActionEvent event) {
-
-        }
-
-        @FXML
-        void showLecturerEmail(MouseEvent event) {
-
-        }
-
-        @FXML
-        void showLecturerID(MouseEvent event) {
-
-        }
-
-        @FXML
-        void showLecturerName(MouseEvent event) {
-
-        }
-
-        @FXML
-        void showLecturerOffice(MouseEvent event) {
 
         }
 

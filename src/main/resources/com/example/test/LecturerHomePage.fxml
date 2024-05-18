@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.LecturerHomePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.LecturerHomePageController">
    <children>
       <Separator layoutX="200.0" layoutY="125.0" prefWidth="800.0" />
       <Separator layoutX="200.0" orientation="VERTICAL" prefHeight="800.0" />
@@ -69,12 +64,12 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <Text layoutX="392.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Lecturer">
+      <Text layoutX="350.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Lecturer">
          <font>
             <Font size="33.0" />
          </font>
       </Text>
-      <Text layoutX="11.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal information">
+      <Text layoutX="11.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal information">
          <font>
             <Font size="18.0" />
          </font>
@@ -94,22 +89,22 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="welcomeLecturerName" layoutX="692.0" layoutY="66.0" onDragDetected="#atopShowLecturerName" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="194.0">
+      <Text fx:id="welcomeLecturerName" layoutX="657.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="306.5">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Text>
+      <Text fx:id="lecturerID" layoutX="3.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="lecturerID" layoutX="3.0" layoutY="261.0" onDragDetected="#showLecturerID" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+      <Text fx:id="lecturerName" layoutX="-1.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="lecturerName" layoutX="-1.0" layoutY="384.0" onDragDetected="#showLecturerName" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Text fx:id="lecturerEmail" layoutX="3.0" layoutY="500.0" onDragDetected="#showLecturerEmail" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+      <Text fx:id="lecturerEmail" layoutX="3.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -119,7 +114,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="lecturerOffice" layoutX="3.0" layoutY="612.0" onDragDetected="#showLecturerOffice" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
+      <Text fx:id="lecturerOffice" layoutX="3.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
             <Font size="18.0" />
          </font>
