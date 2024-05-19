@@ -90,7 +90,17 @@ public class StudentHomePageController {
 
         @FXML
         void studentClassSchedule(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) studentCourse.getScene().getWindow();
+                currentStage.close();
 
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
+                Parent root = loader.load();
+                StudentCoursesController controller = loader.getController();
+                controller.setStudentInfo(userInfo);
+
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
         }
 
         @FXML

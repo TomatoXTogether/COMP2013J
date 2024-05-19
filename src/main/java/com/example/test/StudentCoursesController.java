@@ -1,5 +1,7 @@
 package com.example.test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ScoreInquiryController {
+public class StudentCoursesController {
 
     @FXML
     private TableView<?> LectureTable;
@@ -22,10 +24,25 @@ public class ScoreInquiryController {
     private Button back;
 
     @FXML
+    private TableColumn<?, ?> building;
+
+    @FXML
     private Button check;
 
     @FXML
-    private TextField checkBox;
+    private TableColumn<?, ?> checkBox;
+
+    @FXML
+    private Button delete;
+
+    @FXML
+    private TableColumn<?, ?> endDate;
+
+    @FXML
+    private TextField input;
+
+    @FXML
+    private Button lectureChoosing;
 
     @FXML
     private TableColumn<?, ?> lectureID;
@@ -34,23 +51,34 @@ public class ScoreInquiryController {
     private TableColumn<?, ?> lecturer;
 
     @FXML
-    private Button myCourses;
-
-    @FXML
     private TableColumn<?, ?> name;
 
     @FXML
     private Button refresh;
 
     @FXML
-    private TableColumn<?, ?> score;
+    private TableColumn<?, ?> room;
+
+    @FXML
+    private Button save;
+
+    @FXML
+    private TableColumn<?, ?> schedule;
+
+    @FXML
+    private TableColumn<?, ?> startDate;
+
+    private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
 
     private Student userInfo;
 
-    public ScoreInquiryController() {
-        //空构造器
+    public StudentCoursesController(Student userInfo){
+        this.userInfo = userInfo;
     }
 
+    public StudentCoursesController(){
+        //无参构造器
+    }
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
     }
@@ -76,18 +104,23 @@ public class ScoreInquiryController {
     }
 
     @FXML
-    void getInput(ActionEvent event) {
+    void deleteBottonAction(ActionEvent event) {
 
     }
 
     @FXML
-    void myCoursesAction(ActionEvent event) throws IOException {
+    void inputBottonAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void lectureChoosingAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LectureChoosing.fxml"));
         Parent root = loader.load();
-        StudentCoursesController controller = loader.getController();
+        LectureChoosingController controller = loader.getController();
         controller.setStudentInfo(userInfo);
 
         Stage newStage = new Stage();
@@ -100,5 +133,9 @@ public class ScoreInquiryController {
 
     }
 
-  
+    @FXML
+    void saveBottonAction(ActionEvent event) {
+
+    }
+
 }

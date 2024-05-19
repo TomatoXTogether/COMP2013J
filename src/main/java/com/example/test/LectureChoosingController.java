@@ -64,6 +64,7 @@ public class LectureChoosingController {
 
     @FXML
     private TableColumn<Lecture, String> startDate;
+
     @FXML
     private TextField search;
 
@@ -79,14 +80,17 @@ public class LectureChoosingController {
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
     }
+
     @FXML
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
         Parent root = loader.load();
         StudentHomePageController controller = loader.getController();
         controller.setUserInfo(userInfo);
+
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
         newStage.show();
@@ -101,8 +105,12 @@ public class LectureChoosingController {
     void myCoursesAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
         Parent root = loader.load();
+        StudentCoursesController controller = loader.getController();
+        controller.setStudentInfo(userInfo);
+
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
         newStage.show();
@@ -110,7 +118,8 @@ public class LectureChoosingController {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-
+        List<Lecture> lectures = LectureDAO.getAllLectures();
+        LectureTable.setItems(FXCollections.observableArrayList(lectures));
     }
 
     @FXML
@@ -147,10 +156,10 @@ public class LectureChoosingController {
         this.endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
         //this.checkBox.setCellValueFactory(cellData -> cellData.getValue().Checkbox.getCheckBox());
 
-        //List<Lecture> lectures = Lecture.getLectureList();
+        List<Lecture> lectures = LectureDAO.getAllLectures();
         LectureTable.setItems(lecturesData);
 
-        //lecturesData.add();
+//        //lecturesData.add();
 //        try {
 //            lectureList = ServantFile.servantJson();
 //            final ObservableList<ServantCheck> tarData = FXCollections.observableArrayList(servantlist);

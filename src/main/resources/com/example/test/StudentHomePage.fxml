@@ -17,15 +17,15 @@
             <Image url="@../Github/databaseProject/COMP2013J/project/src/photo/lecturer.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="studentCourse" layoutX="535.0" layoutY="197.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="105.0" prefWidth="351.0" text="Course management">
+      <Button fx:id="studentCourse" layoutX="535.0" layoutY="197.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="105.0" prefWidth="351.0" text="Course Management">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="studentClass" layoutX="535.0" layoutY="384.0" mnemonicParsing="false" onAction="#studentClassSchedule" prefHeight="105.0" prefWidth="351.0" text="My class schedule">
+      <Button fx:id="studentClass" layoutX="535.0" layoutY="384.0" mnemonicParsing="false" onAction="#studentClassSchedule" prefHeight="105.0" prefWidth="351.0" text="My Courses Schedule">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="studentScore" layoutX="535.0" layoutY="560.0" mnemonicParsing="false" onAction="#studentScoreInquiry" prefHeight="105.0" prefWidth="351.0" text="Score inquiry">
+      <Button fx:id="studentScore" layoutX="535.0" layoutY="560.0" mnemonicParsing="false" onAction="#studentScoreInquiry" prefHeight="105.0" prefWidth="351.0" text="Score Inquiry">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -44,7 +44,7 @@
             <Image url="@../Github/COLLEGE/其他/lecturer4.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="newStudentID" layoutX="1.0" layoutY="296.0" mnemonicParsing="false" onAction="#changeStudentID" prefHeight="23.0" prefWidth="200.0" text="Change id">
+      <Button fx:id="newStudentID" layoutX="1.0" layoutY="296.0" mnemonicParsing="false" onAction="#changeStudentID" prefHeight="23.0" prefWidth="200.0" text="Change ID">
          <font>
             <Font size="12.0" />
          </font>
@@ -54,7 +54,7 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <Button fx:id="newStudentEmail" layoutX="1.0" layoutY="535.0" mnemonicParsing="false" onAction="#changeStudentEmail" prefHeight="23.0" prefWidth="200.0" text="Change email">
+      <Button fx:id="newStudentEmail" layoutX="1.0" layoutY="535.0" mnemonicParsing="false" onAction="#changeStudentEmail" prefHeight="23.0" prefWidth="200.0" text="Change Email">
          <font>
             <Font size="12.0" />
          </font>
@@ -64,7 +64,7 @@
             <Font size="33.0" />
          </font>
       </Text>
-      <Text layoutX="11.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal information">
+      <Text layoutX="11.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information">
          <font>
             <Font size="18.0" />
          </font>
@@ -104,7 +104,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="newStudentPassword" layoutX="1.0" layoutY="624.0" mnemonicParsing="false" onAction="#changeStudentPassword" prefHeight="23.0" prefWidth="200.0" text="Change password">
+      <Button fx:id="newStudentPassword" layoutX="1.0" layoutY="624.0" mnemonicParsing="false" onAction="#changeStudentPassword" prefHeight="23.0" prefWidth="200.0" text="Change Password">
          <font>
             <Font size="12.0" />
          </font>
