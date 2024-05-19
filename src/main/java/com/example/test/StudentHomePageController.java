@@ -97,11 +97,12 @@ public class StudentHomePageController {
         void studentCourseManagement(ActionEvent event) throws Exception {
                 Stage currentStage = (Stage) studentCourse.getScene().getWindow();
                 currentStage.close();
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("LectureChoosing.fxml"));
                 Parent root = loader.load();
                 LectureChoosingController controller = loader.getController();
                 controller.setStudentInfo(userInfo);
-                //Parent root = FXMLLoader.load(getClass().getResource("LectureChoosing.fxml"));
+
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.show();
@@ -111,8 +112,12 @@ public class StudentHomePageController {
         void studentScoreInquiry(ActionEvent event) throws IOException {
                 Stage currentStage = (Stage) studentScore.getScene().getWindow();
                 currentStage.close();
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("ScoreInquiry.fxml"));
                 Parent root = loader.load();
+                ScoreInquiryController controller = loader.getController();
+                controller.setStudentInfo(userInfo);
+
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.show();
