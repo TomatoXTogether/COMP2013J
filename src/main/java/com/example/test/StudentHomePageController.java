@@ -97,7 +97,11 @@ public class StudentHomePageController {
         void studentCourseManagement(ActionEvent event) throws Exception {
                 Stage currentStage = (Stage) studentCourse.getScene().getWindow();
                 currentStage.close();
-                Parent root = FXMLLoader.load(getClass().getResource("LectureChoosing.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LectureChoosing.fxml"));
+                Parent root = loader.load();
+                LectureChoosingController controller = loader.getController();
+                controller.setStudentInfo(userInfo);
+                //Parent root = FXMLLoader.load(getClass().getResource("LectureChoosing.fxml"));
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.show();

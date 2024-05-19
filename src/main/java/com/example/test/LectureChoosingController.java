@@ -69,15 +69,24 @@ public class LectureChoosingController {
 
     private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
 
+    private Student userInfo;
 
+
+    public void LectureChoosingController(){
+        //空构造器
+    }
+
+    public void setStudentInfo(Student userInfo){
+        this.userInfo = userInfo;
+    }
     @FXML
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
         Parent root = loader.load();
-        //StudentHomePageController controller = loader.getController();
-        //controller.setUserInfo(student);
+        StudentHomePageController controller = loader.getController();
+        controller.setUserInfo(userInfo);
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
         newStage.show();
