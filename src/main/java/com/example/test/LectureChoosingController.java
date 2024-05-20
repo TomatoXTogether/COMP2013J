@@ -1,6 +1,6 @@
 package com.example.test;
 
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,16 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class LectureChoosingController implements Initializable {
     //学生的选课界面
@@ -30,7 +29,7 @@ public class LectureChoosingController implements Initializable {
     private Button back;
 
     @FXML
-    private TableColumn<Lecture, Checkbox> checkBox;
+    private TableColumn<Lecture, Boolean> checkBox;
 
     @FXML
     private TableColumn<Lecture, String> building;
@@ -71,16 +70,17 @@ public class LectureChoosingController implements Initializable {
     @FXML
     private TextField search;
 
-    private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
+    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     private Student userInfo;
 
+    private StudentDAO studentDAO;
 
-    public void LectureChoosingController(){
+    public void LectureChoosingController() {
         //空构造器
     }
 
-    public void setStudentInfo(Student userInfo){
+    public void setStudentInfo(Student userInfo) {
         this.userInfo = userInfo;
     }
 
@@ -97,6 +97,11 @@ public class LectureChoosingController implements Initializable {
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
         newStage.show();
+    }
+
+    @FXML
+    void searchBottonAction(ActionEvent event) {
+
     }
 
 
@@ -126,71 +131,54 @@ public class LectureChoosingController implements Initializable {
         lecturesData.clear();
         lecturesData.addAll(lectures);
         LectureTable.setItems(lecturesData);
-        //LectureTable.setItems(FXCollections.observableArrayList(lectures));
-
-
     }
 
     @FXML
     void saveBottonAction(ActionEvent event) {
+        List<Lecture> selectedLectures = lecturesData.stream()
+                .filter(Lecture::isSelected)
+                .peek(lecture -> lecture.setSelected(true))
+                .collect(Collectors.toList());
+
+        if (!selectedLectures.isEmpty()) {
+            System.out.println("Selected lectures:");
+            for (Lecture lecture : selectedLectures) {
+                System.out.println("Selected lecture: " + lecture.getName() + ", isSelected: " + lecture.isSelected());
+                // 在此处添加保存逻辑//
+                studentDAO.selectLecture(userInfo, lecture);
+            }
+        } else {
+            System.out.println("No lectures selected.");
+        }
+        System.out.println("Total lectures: " + lecturesData.size());
+        System.out.println("Selected lectures: " + selectedLectures.size());
 
     }
 
-    @FXML
-    void searchBottonAction(ActionEvent event) {
 
-    }
 
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        //表格与实体类的属性进行绑定
-        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
-        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
-        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
-        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
-        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
-        checkBox.setCellValueFactory(cellData -> new SimpleObjectProperty<>(new Checkbox()));
+    public void initialize (URL arg0, ResourceBundle arg1){
+            //表格与实体类的属性进行绑定
+            lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
+            name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+            lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
+            building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
+            room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
+            startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+            endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+            schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
 
-        System.out.println(LectureDAO.getAllLectures());
-        refreshBottonAction(null);
+            TableColumn checkBoxColumn = new TableColumn("");
+            checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+            checkBox.setCellValueFactory(cellData -> {
+                Lecture lecture = cellData.getValue();
+                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
+                booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
+                return booleanProp;
+            });
+            TableColumn<Lecture, Boolean> selectCol = new TableColumn<>("Select");
+            selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
 
-//        this.lectureID.setCellValueFactory(cellData -> {
-//            int value = cellData.getValue().getLectureID();
-//            return new SimpleStringProperty(Integer.toString(value));
-//        });
-//        this.lecturer.setCellValueFactory(cellData -> {
-//            int value = cellData.getValue().getLecturerID();//id转化成名字
-//            return new SimpleStringProperty(Integer.toString(value));
-//        });
-//        this.name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-//
-//        this.room.setCellValueFactory(cellData -> {
-//            int value = cellData.getValue().getRoom();
-//            return new SimpleStringProperty(Integer.toString(value));
-//        });
-//        this.building.setCellValueFactory(cellData -> {
-//            int value = cellData.getValue().getBuilding();
-//            return new SimpleStringProperty(Integer.toString(value));
-//        });
-//        this.schedule.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSchedule()));
-//        this.startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-//        this.endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-//        //this.checkBox.setCellValueFactory(cellData -> cellData.getValue().Checkbox.getCheckBox());
-//
-//        List<Lecture> lectures = LectureDAO.getAllLectures();
-//        LectureTable.setItems(lecturesData);
-
-//        //lecturesData.add();
-//        try {
-//            lectureList = ServantFile.servantJson();
-//            final ObservableList<ServantCheck> tarData = FXCollections.observableArrayList(servantlist);
-//            this.showServantTable(tarData);
-//            tableView.setItems(tarData);
-//        } catch (Exception e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-    }
+            refreshBottonAction(null);
+        }
 }

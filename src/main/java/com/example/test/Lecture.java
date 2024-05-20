@@ -10,6 +10,8 @@ public class Lecture {
     private String schedule;
     private String startDate;
     private String endDate;
+    private boolean selected;
+
 
     public Lecture() {
     }
@@ -88,5 +90,16 @@ public class Lecture {
 
     public void setEndDate(String end) {
         this.endDate = endDate;
+    }
+
+
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        System.out.println("Lecture " + getName() + " isSelected: " + selected);
     }
 }
