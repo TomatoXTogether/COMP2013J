@@ -1,10 +1,12 @@
 package com.example.test;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,59 +16,37 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentCoursesController {
+public class StudentCoursesController implements Initializable {
 
     @FXML
-    private TableView<?> LectureTable;
+    private TableView<Lecture> LectureTable;
 
     @FXML
     private Button back;
 
     @FXML
-    private TableColumn<?, ?> building;
-
-    @FXML
-    private Button check;
-
-    @FXML
-    private TableColumn<?, ?> checkBox;
-
-    @FXML
-    private Button delete;
-
-    @FXML
-    private TableColumn<?, ?> endDate;
-
-    @FXML
-    private TextField input;
-
-    @FXML
     private Button lectureChoosing;
-
-    @FXML
-    private TableColumn<?, ?> lectureID;
-
-    @FXML
-    private TableColumn<?, ?> lecturer;
-
-    @FXML
-    private TableColumn<?, ?> name;
 
     @FXML
     private Button refresh;
 
     @FXML
-    private TableColumn<?, ?> room;
+    private TableColumn<Lecture, String> monday;
 
     @FXML
-    private Button save;
+    private TableColumn<Lecture, String> tuesday;
 
     @FXML
-    private TableColumn<?, ?> schedule;
+    private TableColumn<Lecture, String> wednesday;
 
     @FXML
-    private TableColumn<?, ?> startDate;
+    private TableColumn<Lecture, String> thursday;
+
+    @FXML
+    private TableColumn<Lecture, String> friday;
 
     private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
 
@@ -97,20 +77,6 @@ public class StudentCoursesController {
         newStage.show();
     }
 
-    @FXML
-    void checkBottonAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void deleteBottonAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void inputBottonAction(ActionEvent event) {
-
-    }
 
     @FXML
     void lectureChoosingAction(ActionEvent event) throws IOException {
@@ -132,9 +98,10 @@ public class StudentCoursesController {
 
     }
 
-    @FXML
-    void saveBottonAction(ActionEvent event) {
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        monday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
+        LectureChoosingController.getSelectedLectures();
     }
-
 }

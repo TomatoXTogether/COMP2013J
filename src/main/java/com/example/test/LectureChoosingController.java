@@ -16,7 +16,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -74,7 +76,8 @@ public class LectureChoosingController implements Initializable {
 
     private Student userInfo;
 
-    private StudentDAO studentDAO;
+    private List<Lecture> selectedLectures;
+
 
     public void LectureChoosingController() {
         //空构造器
@@ -127,32 +130,52 @@ public class LectureChoosingController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-        List<Lecture> lectures = LectureDAO.getAllLectures();
-        lecturesData.clear();
-        lecturesData.addAll(lectures);
+        // 先获取之前选中的课程
+        selectedLectures = lecturesData.stream()
+                .filter(Lecture::isSelected)
+                .collect(Collectors.toList());
+
+        List<Lecture> updatedLectures = LectureDAO.getAllLectures();
+
+        for (Lecture lecture : lecturesData) {
+            // 更新课程对象的属性，保持勾选状态不变
+            updatedLectures.stream()
+                    .filter(l -> Objects.equals(l.getLectureID(), lecture.getLectureID()))
+                    .findFirst().ifPresent(updatedLecture -> updatedLecture.setSelected(lecture.isSelected()));
+        }
+        lecturesData.setAll(updatedLectures);
+
         LectureTable.setItems(lecturesData);
     }
 
+
+
     @FXML
-    void saveBottonAction(ActionEvent event) {
-        List<Lecture> selectedLectures = lecturesData.stream()
+     List<Lecture> saveBottonAction(ActionEvent event) {
+        selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .peek(lecture -> lecture.setSelected(true))
                 .collect(Collectors.toList());
 
+        List<Lecture> lectures = new ArrayList<Lecture>();
+
         if (!selectedLectures.isEmpty()) {
-            System.out.println("Selected lectures:");
+            //System.out.println("Selected lectures:");
             for (Lecture lecture : selectedLectures) {
-                System.out.println("Selected lecture: " + lecture.getName() + ", isSelected: " + lecture.isSelected());
+                //System.out.println("Selected lecture: " + lecture.getName() + ", isSelected: " + lecture.isSelected());
                 // 在此处添加保存逻辑//
-                studentDAO.selectLecture(userInfo, lecture);
+                lectures = StudentDAO.selectLecture(userInfo, lecture);
             }
         } else {
             System.out.println("No lectures selected.");
         }
-        System.out.println("Total lectures: " + lecturesData.size());
-        System.out.println("Selected lectures: " + selectedLectures.size());
+        //System.out.println("Total lectures: " + lecturesData.size());
+        //System.out.println("Selected lectures: " + selectedLectures.size());
+        return lectures;
+    }
 
+    public static List<Lecture> getSelectedLectures() {
+        return getSelectedLectures();
     }
 
 
