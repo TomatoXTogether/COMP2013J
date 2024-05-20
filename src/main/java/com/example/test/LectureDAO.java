@@ -45,7 +45,7 @@ public class LectureDAO {
         return lectures;
     }
 
-    public static Lecture getLectureByID(int lectureID) {
+    public static Lecture getLectureByID(String lectureID) {
         Lecture lecture = null;
         for (Lecture l : getAllLectures()) {
             if (l.getLectureID() == lectureID) {

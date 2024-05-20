@@ -53,7 +53,7 @@ public class StudentDAO {
             ResultSet rs = st.executeQuery("SELECT lectureID FROM students WHERE studentID =" + student.getID());
 
             while (rs.next()) {
-                int lectureID = rs.getInt("lectureID");
+                String lectureID = rs.getString("lectureID");
                 Lecture lecture = LectureDAO.getLectureByID(lectureID);
 
                 lectures.add(lecture);
