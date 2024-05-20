@@ -86,10 +86,12 @@ public class LectureChoosingController {
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerHomePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
         Parent root = loader.load();
+
         StudentHomePageController controller = loader.getController();
         controller.setUserInfo(userInfo);
+
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
         newStage.show();
