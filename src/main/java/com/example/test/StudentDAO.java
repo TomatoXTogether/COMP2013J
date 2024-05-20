@@ -100,7 +100,7 @@ public class StudentDAO {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            st.executeUpdate("DELETE from students where lectureID = " + lecture.getLecturerID());
+            st.executeUpdate("DELETE from students where lectureID = " + lecture.getLecturerName());
             lectures.remove(lecture);
 
             st.close();
@@ -110,4 +110,50 @@ public class StudentDAO {
         }
         return lectures;
     }
+
+    public class Grade{
+        String lectureID;
+        String lectureName;
+        String grade;
+
+        public Grade(String lectureID, String lectureName, String grade){
+            this.lectureID = lectureID;
+            this.lectureName = lectureName;
+            this.grade = grade;
+        }
+
+        public List<Grade> getGrade(int studentID){
+            List<Grade> grades = new ArrayList<Grade>();
+
+            try {
+                Connection conn = JDBCTool.getConnection();
+                Statement st = conn.createStatement();
+
+                ResultSet rs = st.executeQuery("SELECT lectureID, grade FROM students WHERE studentID = " + studentID);
+
+                while (rs.next()) {
+                    String lectureID = rs.getString("lectureID");
+                    String grade = rs.getString("grade");
+
+                    Lecture lecture = LectureDAO.getLectureByID(lectureID);
+                    String lectureName = lecture.getName();
+
+                    Grade g = new Grade(lectureID, lectureName, grade);
+
+                    grades.add(g);
+                }
+
+                rs.close();
+                st.close();
+                conn.close();
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return grades;
+        }
+    }
+
 }
