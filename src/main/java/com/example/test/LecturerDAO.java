@@ -8,37 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LecturerDAO {
-    public static List<User> getAllLecturers() {
-        List<User> lecturers = new ArrayList<User>();
-
+    public static List<Lecturer> getAllLecturers() {
+        List<Lecturer> lectures = new ArrayList<Lecturer>();
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM lecturer");
+            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer");
 
             while (rs.next()) {
-                int lecturerID = rs.getInt("lecturerID");
-                String firstname = rs.getString("firstname");
-                String lastname = rs.getString("lastname");
-                int password = rs.getInt("password");
-                String email = rs.getString("email");
-                String office = rs.getString("office");
+                String lectureID = rs.getString("lectureID");
+                Lecture lecture = LectureDAO.getLectureByID(lectureID);
 
-                Lecturer e = new Lecturer(lecturerID, firstname, lastname, password, email, office);
-
-                lecturers.add(e);
+                lectures.add(lecture);
             }
-
             rs.close();
             st.close();
             conn.close();
 
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return lecturers;
+        return lectures;
     }
 
     public static Lecturer getLecturerByID(int lecturerID) {
