@@ -3,7 +3,7 @@ package com.example.test;
 public class Lecture {
 
     private String lectureID;
-    private int lecturerID;
+    private String lecturerName;
     private String name;
     private int room;
     private int building;
@@ -14,10 +14,10 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(String lectureID, int lecturerID, String name, int room, int building, String schedule, String startDate, String endDate) {
+    public Lecture(String lectureID, String lecturerName, String name, int room, int building, String schedule, String startDate, String endDate) {
         super();
         this.lectureID = lectureID;
-        this.lecturerID = lecturerID;
+        this.lecturerName = lecturerName;
         this.name = name;
         this.room = room;
         this.building = building;
@@ -34,12 +34,12 @@ public class Lecture {
         this.lectureID = lectureID;
     }
 
-    public int getLecturerID() {
-        return lecturerID;
+    public String getLecturerName() {
+        return lecturerName;
     }
 
-    public void setLecturerID(int lecturerID) {
-        this.lecturerID = lecturerID;
+    public void setLecturerID(String lecturerID) {
+        this.lecturerName = lecturerID;
     }
 
     public String getName() {

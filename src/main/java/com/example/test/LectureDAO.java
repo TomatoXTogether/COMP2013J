@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.test.LecturerDAO.getAllLecturers;
+
 
 public class LectureDAO {
     public static List<Lecture> getAllLectures() {
@@ -28,7 +30,9 @@ public class LectureDAO {
                 String startDate = rs.getString("startDate");
                 String endDate = rs.getString("endDate");
 
-                Lecture e = new Lecture(lectureID, lecturerID, name, room, building, schedule, startDate, endDate);
+                String lectureName = getLecturerNameByID(lecturerID);
+
+                Lecture e = new Lecture(lectureID, lectureName, name, room, building, schedule, startDate, endDate);
 
                 lectures.add(e);
             }
@@ -56,11 +60,22 @@ public class LectureDAO {
         return lecture;
     }
 
+    public static String getLecturerNameByID(int lecturerID){
+        Lecturer lecturer = null;
+        for (User l : getAllLecturers()) {
+            if (l.getID() == lecturerID) {
+                lecturer = (Lecturer) l;
+                break;
+            }
+        }
+        return lecturer.getFirstname() + " " + lecturer.getLastname();
+    }
+
     public static void insertLecture(Lecture lecture) {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("INSERT INTO lecture VALUES (" + lecture.getLectureID() + ", '" + lecture.getLecturerID() + "', '" + lecture.getName() + "', "
+            ResultSet rs = st.executeQuery("INSERT INTO lecture VALUES (" + lecture.getLectureID() + ", '" + lecture.getLecturerName() + "', '" + lecture.getName() + "', "
                     + lecture.getRoom() + "', '" + lecture.getBuilding() + "', '" + lecture.getSchedule() + "', '" + lecture.getStartDate() + "', '" + lecture.getEndDate() + ")");
             rs.close();
             st.close();
