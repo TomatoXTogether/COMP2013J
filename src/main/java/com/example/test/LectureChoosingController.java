@@ -161,7 +161,7 @@ public class LectureChoosingController implements Initializable {
             //表格与实体类的属性进行绑定
             lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
             name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-            lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerID())));
+            lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
             building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
             room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
             startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
@@ -181,6 +181,4 @@ public class LectureChoosingController implements Initializable {
 
             refreshBottonAction(null);
         }
-
-
 }
