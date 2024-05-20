@@ -16,10 +16,10 @@ public class LectureDAO {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM lecture");
+            ResultSet rs = st.executeQuery("SELECT * FROM lectures");
 
             while(rs.next()) {
-                int lectureID = rs.getInt("lectureID");
+                String lectureID = rs.getString("lectureID");
                 int lecturerID = rs.getInt("lecturerID");
                 String name = rs.getString("name");
                 int room = rs.getInt("room");

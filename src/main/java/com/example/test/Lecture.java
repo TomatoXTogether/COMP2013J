@@ -2,7 +2,7 @@ package com.example.test;
 
 public class Lecture {
 
-    private int lectureID;
+    private String lectureID;
     private int lecturerID;
     private String name;
     private int room;
@@ -14,7 +14,7 @@ public class Lecture {
     public Lecture() {
     }
 
-    public Lecture(int lectureID, int lecturerID, String name, int room, int building, String schedule, String startDate, String endDate) {
+    public Lecture(String lectureID, int lecturerID, String name, int room, int building, String schedule, String startDate, String endDate) {
         super();
         this.lectureID = lectureID;
         this.lecturerID = lecturerID;
@@ -26,11 +26,11 @@ public class Lecture {
         this.endDate = endDate;
     }
 
-    public int getLectureID() {
+    public String getLectureID() {
         return lectureID;
     }
 
-    public void setLectureID(int lectureID) {
+    public void setLectureID(String lectureID) {
         this.lectureID = lectureID;
     }
 

@@ -76,7 +76,7 @@ public class StudentDAO {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO students (studentID, lectureID, name, email, password, grade) VALUES (?, ?, ?, ?, ?, ?);");
 
             stmt.setInt(1, student.getID());
-            stmt.setInt(2, lecture.getLectureID() );
+            stmt.setString(2, lecture.getLectureID() );
             stmt.setString(3, student.getName());
             stmt.setString(4, student.getEmail());
             stmt.setInt(5, student.getPassword());

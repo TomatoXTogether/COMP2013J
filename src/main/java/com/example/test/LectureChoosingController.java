@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,12 +21,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class LectureChoosingController {
+public class LectureChoosingController implements Initializable {
+    //学生的选课界面
     @FXML
     private TableView<Lecture> LectureTable;
+
     @FXML
     private Button back;
-
 
     @FXML
     private TableColumn<Lecture, Checkbox> checkBox;
@@ -121,7 +123,12 @@ public class LectureChoosingController {
     @FXML
     void refreshBottonAction(ActionEvent event) {
         List<Lecture> lectures = LectureDAO.getAllLectures();
-        LectureTable.setItems(FXCollections.observableArrayList(lectures));
+        lecturesData.clear();
+        lecturesData.addAll(lectures);
+        LectureTable.setItems(lecturesData);
+        //LectureTable.setItems(FXCollections.observableArrayList(lectures));
+
+
     }
 
     @FXML
@@ -136,30 +143,44 @@ public class LectureChoosingController {
 
     public void initialize(URL arg0, ResourceBundle arg1) {
         //表格与实体类的属性进行绑定
-        this.lectureID.setCellValueFactory(cellData -> {
-            int value = cellData.getValue().getLectureID();
-            return new SimpleStringProperty(Integer.toString(value));
-        });
-        this.lecturer.setCellValueFactory(cellData -> {
-            int value = cellData.getValue().getLecturerID();//id转化成名字
-            return new SimpleStringProperty(Integer.toString(value));
-        });
-        this.name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        this.room.setCellValueFactory(cellData -> {
-            int value = cellData.getValue().getRoom();
-            return new SimpleStringProperty(Integer.toString(value));
-        });
-        this.building.setCellValueFactory(cellData -> {
-            int value = cellData.getValue().getBuilding();
-            return new SimpleStringProperty(Integer.toString(value));
-        });
-        this.schedule.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSchedule()));
-        this.startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-        this.endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-        //this.checkBox.setCellValueFactory(cellData -> cellData.getValue().Checkbox.getCheckBox());
+        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
+        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerID())));
+        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
+        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
+        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
+        checkBox.setCellValueFactory(cellData -> new SimpleObjectProperty<>(new Checkbox()));
 
-        List<Lecture> lectures = LectureDAO.getAllLectures();
-        LectureTable.setItems(lecturesData);
+        System.out.println(LectureDAO.getAllLectures());
+        refreshBottonAction(null);
+
+//        this.lectureID.setCellValueFactory(cellData -> {
+//            int value = cellData.getValue().getLectureID();
+//            return new SimpleStringProperty(Integer.toString(value));
+//        });
+//        this.lecturer.setCellValueFactory(cellData -> {
+//            int value = cellData.getValue().getLecturerID();//id转化成名字
+//            return new SimpleStringProperty(Integer.toString(value));
+//        });
+//        this.name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+//
+//        this.room.setCellValueFactory(cellData -> {
+//            int value = cellData.getValue().getRoom();
+//            return new SimpleStringProperty(Integer.toString(value));
+//        });
+//        this.building.setCellValueFactory(cellData -> {
+//            int value = cellData.getValue().getBuilding();
+//            return new SimpleStringProperty(Integer.toString(value));
+//        });
+//        this.schedule.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getSchedule()));
+//        this.startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+//        this.endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+//        //this.checkBox.setCellValueFactory(cellData -> cellData.getValue().Checkbox.getCheckBox());
+//
+//        List<Lecture> lectures = LectureDAO.getAllLectures();
+//        LectureTable.setItems(lecturesData);
 
 //        //lecturesData.add();
 //        try {
