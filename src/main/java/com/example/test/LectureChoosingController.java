@@ -74,8 +74,6 @@ public class LectureChoosingController implements Initializable {
 
     private Student userInfo;
 
-    private StudentDAO studentDAO;
-
     public void LectureChoosingController() {
         //空构造器
     }
@@ -145,7 +143,7 @@ public class LectureChoosingController implements Initializable {
             for (Lecture lecture : selectedLectures) {
                 System.out.println("Selected lecture: " + lecture.getName() + ", isSelected: " + lecture.isSelected());
                 // 在此处添加保存逻辑//
-                studentDAO.selectLecture(userInfo, lecture);
+                StudentDAO.selectLecture(userInfo, lecture);
             }
         } else {
             System.out.println("No lectures selected.");

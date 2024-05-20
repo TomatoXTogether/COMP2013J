@@ -69,7 +69,7 @@ public class StudentDAO {
         return lectures;
     }
 
-    public List<Lecture> selectLecture(Student student, Lecture lecture) {
+    public static List<Lecture> selectLecture(Student student, Lecture lecture) {
         List<Lecture> lectures = getAllLectures(student);
         try {
             Connection conn = JDBCTool.getConnection();
