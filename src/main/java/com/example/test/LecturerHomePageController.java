@@ -2,9 +2,15 @@ package com.example.test;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LecturerHomePageController {
 
@@ -66,7 +72,22 @@ public class LecturerHomePageController {
                 welcomeLecturerName.setText(userInfo.getFirstname() + " " + userInfo.getLastname());
         }
 
+        @FXML
+        void lecturerCourseManagement(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) lecturerCourse.getScene().getWindow();
+                currentStage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerCourse.fxml"));
+                Parent root = loader.load();
+                LecturerCoursesController controller = loader.getController();
+                controller.setLecturerInfo(userInfo);
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+        }
+        @FXML
+        void lecturerClassSchedule(ActionEvent event) {
 
+        }
         @FXML
         void changeLecturerEmail(ActionEvent event) {
 
@@ -92,15 +113,8 @@ public class LecturerHomePageController {
 
         }
 
-        @FXML
-        void lecturerClassSchedule(ActionEvent event) {
 
-        }
 
-        @FXML
-        void lecturerCourseManagement(ActionEvent event) {
-
-        }
 
         @FXML
         void lecturerScoreManagement(ActionEvent event) {
