@@ -8,13 +8,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LecturerDAO {
-    public static List<Lecturer> getAllLecturers() {
-        List<Lecturer> lectures = new ArrayList<Lecturer>();
+    public static List<User> getAllLecturers() {
+        List<User> lecturers = new ArrayList<User>();
+
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer");
+            ResultSet rs = st.executeQuery("SELECT * FROM lecturer");
+
+            while (rs.next()) {
+                int lecturerID = rs.getInt("lecturerID");
+                String firstname = rs.getString("firstname");
+                String lastname = rs.getString("lastname");
+                int password = rs.getInt("password");
+                String email = rs.getString("email");
+                String office = rs.getString("office");
+
+                Lecturer e = new Lecturer(lecturerID, firstname, lastname, password, email, office);
+
+                lecturers.add(e);
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lecturers;
+    }
+
+    public static List<Lecture> getAllLectures(Lecturer lecturer){
+        List<Lecture> lectures = new ArrayList<Lecture>();
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer WHERE lecturerID =" + lecturer.getID());
 
             while (rs.next()) {
                 String lectureID = rs.getString("lectureID");
@@ -32,7 +65,6 @@ public class LecturerDAO {
         }
         return lectures;
     }
-
     public static Lecturer getLecturerByID(int lecturerID) {
         User lecturer = null;
         for (User l : getAllLecturers()) {

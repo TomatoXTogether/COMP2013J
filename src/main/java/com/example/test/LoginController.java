@@ -1,3 +1,4 @@
+
 package com.example.test;
 
 import javafx.event.ActionEvent;
@@ -8,11 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -197,7 +201,7 @@ public class LoginController implements Initializable {
         Password.setTextFormatter(passwordFormatter);
     }
 
-    public User getUser(String account, String password, List<Lecturer> users) {
+    public User getUser(String account, String password, List<User> users) {
         for (User user : users) {
             if (String.valueOf(user.getID()).equals(account) && String.valueOf(user.getPassword()).equals(password)) {
                 return user;
