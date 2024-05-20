@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -78,15 +77,23 @@ public class LecturerHomePageController {
                 currentStage.close();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerCourse.fxml"));
                 Parent root = loader.load();
-                LecturerCoursesController controller = loader.getController();
+                LecturerCoursesManagementController controller = loader.getController();
                 controller.setLecturerInfo(userInfo);
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.show();
         }
         @FXML
-        void lecturerClassSchedule(ActionEvent event) {
-
+        void lecturerClassSchedule(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) lecturerCourse.getScene().getWindow();
+                currentStage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerCourseSchedule.fxml"));
+                Parent root = loader.load();
+                LecturerCourseScheduleController controller = loader.getController();
+                controller.setLecturerInfo(userInfo);
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
         }
         @FXML
         void changeLecturerEmail(ActionEvent event) {

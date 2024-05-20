@@ -2,12 +2,18 @@ package com.example.test;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class LecturerCoursesController {
+import java.io.IOException;
+
+public class LecturerCourseScheduleController {
 
     @FXML
     private TableView<?> LectureTable;
@@ -64,19 +70,26 @@ public class LecturerCoursesController {
     private TableColumn<?, ?> startDate;
 
     @FXML
-    private  Lecturer userInfo;
+    private Lecturer userInfo;
 
-    public void LecturerCoursesController(Lecturer userInfo){
+    public void LecturerCourseScheduleController(Lecturer userInfo){
         //空构造器
     }
-
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
     }
 
     @FXML
-    void backBottonAction(ActionEvent event) {
-
+    void backBottonAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerHomePage.fxml"));
+        Parent root = loader.load();
+        LecturerHomePageController controller = loader.getController();
+        controller.setUserInfo(userInfo);
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML
@@ -110,3 +123,4 @@ public class LecturerCoursesController {
     }
 
 }
+
