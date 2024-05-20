@@ -20,7 +20,7 @@
       <TextField fx:id="search" layoutX="544.0" layoutY="58.0" onAction="#searchBottonAction" />
       <Button fx:id="check" layoutX="713.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
       <Button fx:id="myCourses" layoutX="811.0" layoutY="50.0" mnemonicParsing="false" onAction="#myCoursesAction" prefHeight="39.0" prefWidth="102.0" text="My courses" />
-      <TableView fx:id="LectureTable" layoutX="37.0" layoutY="119.0" prefHeight="630.0" prefWidth="949.0">
+      <TableView fx:id="LectureTable" layoutX="54.0" layoutY="119.0" prefHeight="630.0" prefWidth="891.0">
         <columns>
           <TableColumn fx:id="lectureID" editable="false" prefWidth="81.33330917358398" resizable="false" sortable="false" text="Lecture ID" />
             <TableColumn fx:id="name" editable="false" minWidth="-Infinity" prefWidth="221.33330535888672" resizable="false" sortable="false" text="Name" />
