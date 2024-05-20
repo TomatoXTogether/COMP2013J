@@ -41,41 +41,46 @@ public class LecturerDAO {
         return lecturers;
     }
 
-    public static Lecturer getLecturerByID(int lecturerID) {
-        User lecturer = null;
-        for (User l : getAllLecturers()) {
-            if (l.getID() == lecturerID) {
-                lecturer = l;
-                break;
+    // 显示老师所教课程
+    public static List<Lecture> getAllLectures(Lecturer lecturer) {
+        List<Lecture> lectures = new ArrayList<Lecture>();
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer WHERE lecturerID =" + lecturer.getID());
+
+            while (rs.next()) {
+                String lectureID = rs.getString("lectureID");
+                Lecture lecture = LectureDAO.getLectureByID(lectureID);
+
+                lectures.add(lecture);
             }
-        }
-        return (Lecturer) lecturer;
-    }
 
-    public static void insertLecturer(Lecturer lecturer) {
-        try {
-            Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("INSERT INTO lecturer VALUES (" + lecturer.getID() + ", '" + lecturer.getFirstname() + "', '" + lecturer.getLastname() + "', "
-                    + lecturer.getPassword() + "', '" + lecturer.getEmail() + "', '" + lecturer.getOffice() + ")");
             rs.close();
             st.close();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return lectures;
     }
 
-    public static void deleteLecturerByID(int lecturerID) {
-        try {
-            Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("DELETE FROM lecturer WHERE lecturerID = " + lecturerID);
-            rs.close();
-            st.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    // 打印出老师教的课程
+    public static void printAllLecturers(Lecturer lecturer) {
+        List<Lecture> lectures = getAllLectures(lecturer);
+
+        for (Lecture lecture : lectures) {
+            System.out.println("\tLecture ID: " + lecture.getLectureID());
+            System.out.println("\tLecture Name: " + lecture.getName());
+            System.out.println("\tRoom: " + lecture.getRoom());
+            System.out.println("\tBuilding: " + lecture.getBuilding());
+            System.out.println("\tSchedule: " + lecture.getSchedule());
+            System.out.println("\tStart Date: " + lecture.getStartDate());
+            System.out.println("\tEnd Date: " + lecture.getEndDate());
+            System.out.println();
         }
+
     }
+
 }
