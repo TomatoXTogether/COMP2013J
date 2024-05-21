@@ -1,8 +1,12 @@
 package com.example.test;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,29 +16,27 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class LecturerCourseScheduleController {
+public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
-    private TableView<?> LectureTable;
+    private TableView<Lecture> LectureTable;
 
     @FXML
     private Button back;
 
     @FXML
-    private TableColumn<?, ?> building;
-
-    @FXML
     private Button check;
 
-    @FXML
-    private TableColumn<?, ?> checkBox;
 
     @FXML
     private Button delete;
 
     @FXML
-    private TableColumn<?, ?> endDate;
+    private TableColumn<Lecture, String> lectureName;
 
     @FXML
     private TextField input;
@@ -43,13 +45,7 @@ public class LecturerCourseScheduleController {
     private Button lectureChoosing;
 
     @FXML
-    private TableColumn<?, ?> lectureID;
-
-    @FXML
-    private TableColumn<?, ?> lecturer;
-
-    @FXML
-    private TableColumn<?, ?> name;
+    private TableColumn<Lecture, String> lectureID;
 
     @FXML
     private Button newLecture;
@@ -58,19 +54,26 @@ public class LecturerCourseScheduleController {
     private Button refresh;
 
     @FXML
-    private TableColumn<?, ?> room;
+    private TableColumn<Lecture, String> building;
+    @FXML
+    private TableColumn<Lecture, String> room;
 
     @FXML
     private Button save;
 
     @FXML
-    private TableColumn<?, ?> schedule;
+    private TableColumn<Lecture, String> schedule;
 
     @FXML
-    private TableColumn<?, ?> startDate;
+    private TableColumn<Lecture, String> startDate;
+
+    @FXML
+    private TableColumn<Lecture, String> endDate;
 
     @FXML
     private Lecturer userInfo;
+
+    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     public void LecturerCourseScheduleController(Lecturer userInfo){
         //空构造器
@@ -78,6 +81,8 @@ public class LecturerCourseScheduleController {
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
     }
+
+
 
     @FXML
     void backBottonAction(ActionEvent event) throws IOException {
@@ -122,5 +127,21 @@ public class LecturerCourseScheduleController {
 
     }
 
+    public List<Lecture> getLecturesTaught() {
+        return LecturerDAO.getAllLectures(userInfo);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
+        lectureName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
+        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
+        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
+        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+
+        refreshBottonAction(null);
+    }
 }
 

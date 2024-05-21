@@ -23,11 +23,11 @@
       <TableView fx:id="LectureTable" layoutX="74.0" layoutY="136.0" prefHeight="606.0" prefWidth="852.0">
          <columns>
             <TableColumn fx:id="lectureID" editable="false" prefWidth="144.5" resizable="false" sortable="false" text="Lecture ID" />
-            <TableColumn fx:id="name" editable="false" minWidth="-Infinity" prefWidth="108.5" resizable="false" sortable="false" text="Lecturer" />
-            <TableColumn fx:id="lecturer" editable="false" prefWidth="117.0" resizable="false" sortable="false" text="Student's name" />
-            <TableColumn fx:id="startDate" editable="false" prefWidth="161.0" resizable="false" sortable="false" text="Start Date" />
-            <TableColumn fx:id="endDate" editable="false" prefWidth="141.0" resizable="false" sortable="false" text="End Date" />
-            <TableColumn fx:id="checkBox" editable="false" prefWidth="108.0" resizable="false" sortable="false" text="Score" />
+            <TableColumn fx:id="LectureName" editable="false" minWidth="-Infinity" prefWidth="159.0" resizable="false" sortable="false" text="LectureName" />
+            <TableColumn fx:id="StudentID" editable="false" prefWidth="123.0" resizable="false" sortable="false" text="Student ID" />
+            <TableColumn fx:id="StudentName" editable="false" prefWidth="161.5" resizable="false" sortable="false" text="Student name" />
+            <TableColumn fx:id="Email" editable="false" prefWidth="143.5" resizable="false" sortable="false" text="Email" />
+            <TableColumn fx:id="Grade" editable="false" prefWidth="119.5" resizable="false" sortable="false" text="Grade" />
          </columns>
       </TableView>
       <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />

@@ -23,12 +23,11 @@
       <TableView fx:id="LectureTable" layoutX="74.0" layoutY="136.0" prefHeight="606.0" prefWidth="852.0">
          <columns>
             <TableColumn fx:id="lectureID" editable="false" prefWidth="128.0" resizable="false" sortable="false" text="Lecture ID" />
-            <TableColumn fx:id="name" editable="false" minWidth="-Infinity" prefWidth="96.5" resizable="false" sortable="false" text="Name" />
-            <TableColumn fx:id="lecturer" editable="false" prefWidth="103.5" resizable="false" sortable="false" text="Lecturer" />
-            <TableColumn fx:id="office" editable="false" prefWidth="108.5" resizable="false" sortable="false" text="Building" />
-            <TableColumn fx:id="email" editable="false" prefWidth="142.0" resizable="false" sortable="false" text="Room" />
-            <TableColumn fx:id="startDate" editable="false" prefWidth="142.5" resizable="false" sortable="false" text="Start Date" />
-            <TableColumn fx:id="endDate" editable="false" prefWidth="130.0" resizable="false" sortable="false" text="End Date" />
+            <TableColumn fx:id="name" editable="false" minWidth="-Infinity" prefWidth="213.5" resizable="false" sortable="false" text="Name" />
+            <TableColumn fx:id="office" editable="false" prefWidth="118.5" resizable="false" sortable="false" text="Building" />
+            <TableColumn fx:id="email" editable="false" prefWidth="110.0" resizable="false" sortable="false" text="Room" />
+            <TableColumn fx:id="startDate" editable="false" prefWidth="134.0" resizable="false" sortable="false" text="Start Date" />
+            <TableColumn fx:id="endDate" editable="false" prefWidth="147.0" resizable="false" sortable="false" text="End Date" />
          </columns>
       </TableView>
       <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
