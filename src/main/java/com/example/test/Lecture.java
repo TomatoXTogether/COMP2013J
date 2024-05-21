@@ -93,13 +93,12 @@ public class Lecture {
     }
 
 
-
     public boolean isSelected() {
         return selected;
     }
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-        System.out.println("Lecture " + getName() + " isSelected: " + selected);
+        //System.out.println("Lecture " + getName() + " isSelected: " + selected);
     }
 }

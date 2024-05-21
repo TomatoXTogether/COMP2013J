@@ -134,9 +134,9 @@ public class LectureChoosingController implements Initializable {
         selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .collect(Collectors.toList());
-
+        System.out.println(selectedLectures.size());
         List<Lecture> updatedLectures = LectureDAO.getAllLectures();
-
+        System.out.println(selectedLectures.size());
         for (Lecture lecture : lecturesData) {
             // 更新课程对象的属性，保持勾选状态不变
             updatedLectures.stream()
@@ -144,7 +144,7 @@ public class LectureChoosingController implements Initializable {
                     .findFirst().ifPresent(updatedLecture -> updatedLecture.setSelected(lecture.isSelected()));
         }
         lecturesData.setAll(updatedLectures);
-
+        System.out.println(selectedLectures.size());
         LectureTable.setItems(lecturesData);
     }
 
@@ -193,12 +193,14 @@ public class LectureChoosingController implements Initializable {
 
             TableColumn checkBoxColumn = new TableColumn("");
             checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+
             checkBox.setCellValueFactory(cellData -> {
                 Lecture lecture = cellData.getValue();
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
                 booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
                 return booleanProp;
             });
+
             TableColumn<Lecture, Boolean> selectCol = new TableColumn<>("Select");
             selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
 
