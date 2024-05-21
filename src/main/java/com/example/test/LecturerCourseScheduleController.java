@@ -74,16 +74,17 @@ public class LecturerCourseScheduleController implements Initializable {
     private Lecturer userInfo;
 
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
-    public void LecturerCourseScheduleController(Lecturer userInfo){
+    public  LecturerCourseScheduleController(){
         //
     }
 
-    //public LecturerCourseScheduleController(Lecturer userInfo){
-        //this.userInfo = userInfo;
-    //}
+    public LecturerCourseScheduleController(Lecturer userInfo){
+        this.userInfo = userInfo;
+    }
 
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
+        loadLectures();
     }
 
 
@@ -123,12 +124,7 @@ public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-        if (userInfo != null) {
-            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
-            lecturesData.clear();
-            lecturesData.addAll(lectures);
-            LectureTable.setItems(lecturesData);
-        }
+
     }
 
     @FXML
@@ -139,7 +135,14 @@ public class LecturerCourseScheduleController implements Initializable {
     public List<Lecture> getLecturesTaught() {
         return LecturerDAO.getAllLectures(userInfo);
     }
-
+    private void loadLectures(){
+        if (userInfo != null) {
+            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
+            lecturesData.clear();
+            lecturesData.addAll(lectures);
+            LectureTable.setItems(lecturesData);
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
@@ -150,7 +153,7 @@ public class LecturerCourseScheduleController implements Initializable {
         startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
         endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
 
-        refreshBottonAction(null);
+        //refreshBottonAction(null);
     }
 }
 

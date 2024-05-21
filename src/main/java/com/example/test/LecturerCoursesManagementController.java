@@ -55,7 +55,7 @@ public class LecturerCoursesManagementController implements Initializable {
     private TableColumn<Lecture, String> lectureID;
 
     @FXML
-    private TableColumn<Lecture, String> lecturerName;
+    private TableColumn<Lecture, String> lecturer;
 
     @FXML
     private TableColumn<Lecture, String> name;
@@ -141,7 +141,7 @@ public class LecturerCoursesManagementController implements Initializable {
         //表格与实体类的属性进行绑定
         lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
         name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        lecturerName.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
+        lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
         building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
         room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
         startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
