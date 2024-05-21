@@ -76,14 +76,14 @@ public class LectureChoosingController implements Initializable {
 
     private Student userInfo;
 
-    private List<Lecture> selectedLectures;
+    private static List<Lecture> selectedLectures;
 
 
     public void LectureChoosingController() {
         //空构造器
     }
 
-    public void setStudentInfo(Student userInfo) {
+   public void setStudentInfo(Student userInfo) {
         this.userInfo = userInfo;
     }
 
@@ -169,16 +169,16 @@ public class LectureChoosingController implements Initializable {
         } else {
             System.out.println("No lectures selected.");
         }
+        System.out.println(userInfo.getName());
         //System.out.println("Total lectures: " + lecturesData.size());
         //System.out.println("Selected lectures: " + selectedLectures.size());
         return lectures;
     }
 
-    public static List<Lecture> getSelectedLectures() {
-        return getSelectedLectures();
+    public static List<Lecture> getLectures(){
+        System.out.println(selectedLectures);
+        return selectedLectures;
     }
-
-
 
     public void initialize (URL arg0, ResourceBundle arg1){
             //表格与实体类的属性进行绑定

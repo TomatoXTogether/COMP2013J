@@ -1,5 +1,6 @@
 package com.example.test;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -48,13 +50,9 @@ public class StudentCoursesController implements Initializable {
     @FXML
     private TableColumn<Lecture, String> friday;
 
-    private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
+    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
 
     private Student userInfo;
-
-    public StudentCoursesController(Student userInfo){
-        this.userInfo = userInfo;
-    }
 
     public StudentCoursesController(){
         //无参构造器
@@ -102,6 +100,12 @@ public class StudentCoursesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         monday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        LectureChoosingController.getSelectedLectures();
+        tuesday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
+        wednesday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
+        thursday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
+        friday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
+        //LectureChoosingController.getSelectedLectures(userInfo);
+
+        lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
     }
 }
