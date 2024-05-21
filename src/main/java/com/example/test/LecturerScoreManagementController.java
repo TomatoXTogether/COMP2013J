@@ -1,7 +1,5 @@
 package com.example.test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,16 +13,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class StudentCoursesController {
+public class LecturerScoreManagementController {
 
     @FXML
     private TableView<?> LectureTable;
 
     @FXML
     private Button back;
-
-    @FXML
-    private TableColumn<?, ?> building;
 
     @FXML
     private Button check;
@@ -54,32 +49,25 @@ public class StudentCoursesController {
     private TableColumn<?, ?> name;
 
     @FXML
-    private Button refresh;
+    private Button newLecture;
 
     @FXML
-    private TableColumn<?, ?> room;
+    private Button refresh;
 
     @FXML
     private Button save;
 
     @FXML
-    private TableColumn<?, ?> schedule;
-
-    @FXML
     private TableColumn<?, ?> startDate;
 
-    private ObservableList<Lecture> lecturesData= FXCollections.observableArrayList();
+    @FXML
+    private  Lecturer userInfo;
 
-    private Student userInfo;
-
-    public StudentCoursesController(Student userInfo){
-        this.userInfo = userInfo;
+    public void LecturerScoreManagementController(Lecturer userInfo){
+        //空构造器
     }
 
-    public StudentCoursesController(){
-        //无参构造器
-    }
-    public void setStudentInfo(Student userInfo){
+    public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
     }
 
@@ -87,9 +75,9 @@ public class StudentCoursesController {
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
         currentStage.close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerHomePage.fxml"));
         Parent root = loader.load();
-        StudentHomePageController controller = loader.getController();
+        LecturerHomePageController controller = loader.getController();
         controller.setUserInfo(userInfo);
 
         Stage newStage = new Stage();
@@ -113,18 +101,8 @@ public class StudentCoursesController {
     }
 
     @FXML
-    void lectureChoosingAction(ActionEvent event) throws IOException {
-        Stage currentStage = (Stage) back.getScene().getWindow();
-        currentStage.close();
+    void lectureChoosingAction(ActionEvent event) {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LectureChoosing.fxml"));
-        Parent root = loader.load();
-        LectureChoosingController controller = loader.getController();
-        controller.setStudentInfo(userInfo);
-
-        Stage newStage = new Stage();
-        newStage.setScene(new Scene(root));
-        newStage.show();
     }
 
     @FXML

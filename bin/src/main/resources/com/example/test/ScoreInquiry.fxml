@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.ScoreInquiryController">
+   <children>
+      <Text layoutX="138.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score Inquiry">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Text>
+      <Button fx:id="back" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" onAction="#backBottonAction" prefHeight="39.0" prefWidth="74.0" text="Back" />
+      <Button fx:id="refresh" layoutX="452.0" layoutY="58.0" mnemonicParsing="false" onAction="#refreshBottonAction" prefHeight="23.0" prefWidth="59.0" text="Refresh" />
+      <TextField fx:id="checkBox" layoutX="544.0" layoutY="58.0" onAction="#getInput" />
+      <Button fx:id="check" layoutX="713.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
+      <Button fx:id="myCourses" layoutX="811.0" layoutY="50.0" mnemonicParsing="false" onAction="#myCoursesAction" prefHeight="39.0" prefWidth="102.0" text="My courses" />
+      <TableView fx:id="LectureTable" layoutX="99.0" layoutY="144.0" prefHeight="606.0" prefWidth="801.0">
+         <columns>
+            <TableColumn fx:id="lectureID" prefWidth="200.0" text="Lecture ID" />
+            <TableColumn fx:id="name" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="lecturer" prefWidth="200.0" text="Lecturer" />
+            <TableColumn fx:id="score" prefWidth="200.0" text="Score" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

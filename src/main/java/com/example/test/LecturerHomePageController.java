@@ -124,8 +124,16 @@ public class LecturerHomePageController {
 
 
         @FXML
-        void lecturerScoreManagement(ActionEvent event) {
-
+        void lecturerScoreManagement(ActionEvent event) throws IOException{
+                Stage currentStage = (Stage) lecturerCourse.getScene().getWindow();
+                currentStage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerScoreManagement.fxml"));
+                Parent root = loader.load();
+                LecturerScoreManagementController controller = loader.getController();
+                controller.setLecturerInfo(userInfo);
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
         }
 
 }
