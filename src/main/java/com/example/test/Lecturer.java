@@ -8,6 +8,7 @@ public class Lecturer extends User{
     private int password;
     private String email;
     private String office;
+    private boolean selected;
 
     public Lecturer() {
     }
@@ -20,6 +21,7 @@ public class Lecturer extends User{
         this.password = password;
         this.email = email;
         this.office = office;
+        this.selected = false;
     }
 
     public String getFirstname() {
@@ -70,6 +72,14 @@ public class Lecturer extends User{
 
     public void setOffice(String office) {
         this.office = office;
+    }
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        System.out.println("Lecture " + getFirstname() + " isSelected: " + selected);
     }
 
 }

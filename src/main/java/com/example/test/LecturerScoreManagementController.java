@@ -1,5 +1,7 @@
 package com.example.test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LecturerScoreManagementController {
 
@@ -62,6 +65,8 @@ public class LecturerScoreManagementController {
 
     @FXML
     private  Lecturer userInfo;
+
+
 
     public void LecturerScoreManagementController(Lecturer userInfo){
         //空构造器

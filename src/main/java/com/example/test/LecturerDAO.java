@@ -14,7 +14,6 @@ public class LecturerDAO {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
-
             ResultSet rs = st.executeQuery("SELECT * FROM lecturer");
 
             while (rs.next()) {
