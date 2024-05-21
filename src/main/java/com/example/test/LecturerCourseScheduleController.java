@@ -74,10 +74,14 @@ public class LecturerCourseScheduleController implements Initializable {
     private Lecturer userInfo;
 
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
-
     public void LecturerCourseScheduleController(Lecturer userInfo){
-        //空构造器
+        //
     }
+
+    //public LecturerCourseScheduleController(Lecturer userInfo){
+        //this.userInfo = userInfo;
+    //}
+
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
     }
@@ -119,7 +123,12 @@ public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-
+        if (userInfo != null) {
+            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
+            lecturesData.clear();
+            lecturesData.addAll(lectures);
+            LectureTable.setItems(lecturesData);
+        }
     }
 
     @FXML
