@@ -41,6 +41,30 @@ public class LecturerDAO {
         return lecturers;
     }
 
+    public static List<Lecture> getAllLectures(Lecturer lecturer){
+        List<Lecture> lectures = new ArrayList<Lecture>();
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer WHERE lecturerID =" + lecturer.getID());
+
+            while (rs.next()) {
+                String lectureID = rs.getString("lectureID");
+                Lecture lecture = LectureDAO.getLectureByID(lectureID);
+
+                lectures.add(lecture);
+            }
+            rs.close();
+            st.close();
+            conn.close();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lectures;
+    }
     public static Lecturer getLecturerByID(int lecturerID) {
         User lecturer = null;
         for (User l : getAllLecturers()) {
