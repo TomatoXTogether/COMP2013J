@@ -73,19 +73,30 @@ public class StudentDAO {
         List<Lecture> lectures = getAllLectures(student);
         try {
             Connection conn = JDBCTool.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO students (studentID, lectureID, name, email, password, grade) VALUES (?, ?, ?, ?, ?, ?);");
 
-            stmt.setInt(1, student.getID());
-            stmt.setString(2, lecture.getLectureID() );
-            stmt.setString(3, student.getName());
-            stmt.setString(4, student.getEmail());
-            stmt.setInt(5, student.getPassword());
-            stmt.setString(6, "null");
-            stmt.executeUpdate();
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM students WHERE studentID = ? AND lectureID = ?");
+            checkStmt.setInt(1, student.getID());
+            checkStmt.setString(2, lecture.getLectureID());
+            ResultSet rs = checkStmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            checkStmt.close();
 
-            lectures.add(lecture);
+            if(count == 0){
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO students (studentID, lectureID, name, email, password, grade) VALUES (?, ?, ?, ?, ?, ?);");
 
-            stmt.close();
+                stmt.setInt(1, student.getID());
+                stmt.setString(2, lecture.getLectureID() );
+                stmt.setString(3, student.getName());
+                stmt.setString(4, student.getEmail());
+                stmt.setInt(5, student.getPassword());
+                stmt.setString(6, "null");
+                stmt.executeUpdate();
+
+                lectures.add(lecture);
+                stmt.close();
+            }
+
             conn.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
