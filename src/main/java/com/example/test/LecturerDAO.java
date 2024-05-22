@@ -101,4 +101,26 @@ public class LecturerDAO {
             e.printStackTrace();
         }
     }
+    public static String getLectureNameByID(String lectureID) {
+        String lectureName = null;
+
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT name FROM lectures WHERE lectureID = '" + lectureID + "'");
+
+            if (rs.next()) {
+                lectureName = rs.getString("name");
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lectureName;
+    }
 }
