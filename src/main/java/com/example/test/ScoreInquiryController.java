@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -138,14 +139,25 @@ public class ScoreInquiryController {
             return new SimpleStringProperty(name);
         });
 
-//        score.setCellValueFactory(cellData -> {
-//            String name = Optional.ofNullable(cellData.getValue())
-//                    .map(Lecture::getGrade)
-//                    .orElse("");
-//
-//            return new SimpleStringProperty(name);
-//        });
-        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+        score.setCellValueFactory(cellData -> {
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+
+            List<StudentDAO.Grade> grades = StudentDAO.Grade.getGrade(userInfo.getID()); // 假设Grade类在StudentDAO包下，并提供了正确的getGrade方法
+
+            for (StudentDAO.Grade grade : grades) {
+                if (grade.getLectureID().equals(lectureID)) {
+                    return new SimpleStringProperty(grade.getGrade(userInfo.getID()).toString());
+                }
+            }
+
+            return new SimpleStringProperty(""); // 如果没有找到匹配的成绩，返回空字符串
+        });
+
+
+
+        lectures = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
         LectureTable.setItems(lectures);
 
