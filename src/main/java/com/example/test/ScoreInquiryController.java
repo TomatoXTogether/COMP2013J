@@ -1,5 +1,8 @@
 package com.example.test;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +15,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class ScoreInquiryController {
 
     @FXML
-    private TableView<?> LectureTable;
+    private TableView<Lecture> LectureTable;
 
     @FXML
     private Button back;
@@ -28,22 +35,24 @@ public class ScoreInquiryController {
     private TextField checkBox;
 
     @FXML
-    private TableColumn<?, ?> lectureID;
+    private TableColumn<Lecture,String > lectureID;
 
     @FXML
-    private TableColumn<?, ?> lecturer;
+    private TableColumn<Lecture, String> lecturer;
 
     @FXML
     private Button myCourses;
 
     @FXML
-    private TableColumn<?, ?> name;
+    private TableColumn<Lecture, String> name;
 
     @FXML
     private Button refresh;
 
     @FXML
-    private TableColumn<?, ?> score;
+    private TableColumn<Lecture, Integer> score;
+
+    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
 
     private Student userInfo;
 
@@ -53,6 +62,7 @@ public class ScoreInquiryController {
 
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
+        initialize(null,null,userInfo);
     }
 
     @FXML
@@ -97,6 +107,47 @@ public class ScoreInquiryController {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
+
+    }
+
+    public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
+        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+
+        lectureID.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+        name.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+        lecturer.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+//        score.setCellValueFactory(cellData -> {
+//            String name = Optional.ofNullable(cellData.getValue())
+//                    .map(Lecture::getGrade)
+//                    .orElse("");
+//
+//            return new SimpleStringProperty(name);
+//        });
+        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+        LectureTable.setItems(lectures);
 
     }
 

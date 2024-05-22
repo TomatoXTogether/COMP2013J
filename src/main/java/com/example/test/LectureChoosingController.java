@@ -120,14 +120,10 @@ public class LectureChoosingController implements Initializable {
         String search=this.search.getText();
         if (search!=null) {
             LectureTable.getItems().clear();
-            // 调用 LectureDAO 的方法来通过讲座 ID 查找讲座
             Lecture foundLecture = LectureDAO.getLectureByID(search);
             if (foundLecture != null) {
-                // 处理找到的讲座对象，例如显示在界面上或进行其他操作
                 ObservableList<Lecture> lecturesList = LectureTable.getItems();
-                // 在数据源的最前面插入找到的课程
                 lecturesList.add(0, foundLecture);
-                // 刷新表格以显示更新后的数据
                 LectureTable.setItems(lecturesList);
             } else {
                 notFound.setVisible(true);
@@ -154,13 +150,11 @@ public class LectureChoosingController implements Initializable {
     void refreshBottonAction(ActionEvent event) {
         this.search.setText("");
         notFound.setVisible(false);
-        // 先获取之前选中的课程
         selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .collect(Collectors.toList());
         List<Lecture> updatedLectures = LectureDAO.getAllLectures();
         for (Lecture lecture : lecturesData) {
-            // 更新课程对象的属性，保持勾选状态不变
             updatedLectures.stream()
                     .filter(l -> Objects.equals(l.getLectureID(), lecture.getLectureID()))
                     .findFirst().ifPresent(updatedLecture -> updatedLecture.setSelected(lecture.isSelected()));
@@ -182,7 +176,6 @@ public class LectureChoosingController implements Initializable {
 
         if (!selectedLectures.isEmpty()) {
             for (Lecture lecture : selectedLectures) {
-                // 在此处添加保存逻辑//
                 StudentDAO.selectLecture(userInfo, lecture);
                 StudentDAO.getStudentByID(userInfo.getID()).lectures.add(lecture);
             }
@@ -203,7 +196,6 @@ public class LectureChoosingController implements Initializable {
 
         if (!selectedLectures.isEmpty()) {
             for (Lecture lecture : selectedLectures) {
-                // 在此处添加保存逻辑//
                 StudentDAO.cancelLecture(userInfo, lecture);
             }
         } else {
