@@ -129,4 +129,31 @@ public class LectureDAO {
         return lectures;
     }
 
+    public static void giveGrade(String input, Lecture lecture, Student student){
+//        try {
+//            Connection conn = JDBCTool.getConnection();
+//            Statement st = conn.createStatement();
+//            ResultSet rs = st.executeQuery("SELECT * FROM lectures WHERE lecturerID = " + lecturerID);
+//
+//            while (rs.next()) {
+//                String lectureID = rs.getString("lectureID");
+//                String name = rs.getString("name");
+//                int room = rs.getInt("room");
+//                int building = rs.getInt("building");
+//                String schedule = rs.getString("schedule");
+//                String startDate = rs.getString("startDate");
+//                String endDate = rs.getString("endDate");
+//
+//                Lecture lecture = new Lecture(lectureID, lecturerID, name, room, building, schedule, startDate, endDate);
+//                lectures.add(lecture);
+//            }
+//
+//            rs.close();
+//            st.close();
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+    }
+
 }

@@ -50,15 +50,17 @@ public class StudentCoursesController implements Initializable {
     @FXML
     private TableColumn<Lecture, String> friday;
 
-    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
+    private static ObservableList<Lecture> lectures = FXCollections.observableArrayList();
 
     private Student userInfo;
 
     public StudentCoursesController(){
-        //无参构造器
+
     }
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
+        setLectures();
+        System.out.println("Set Successfully");
     }
 
     @FXML
@@ -93,7 +95,9 @@ public class StudentCoursesController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
+        lectures = FXCollections.observableArrayList(userInfo.lectures);
 
+        LectureTable.setItems(lectures);
     }
 
 
@@ -106,6 +110,17 @@ public class StudentCoursesController implements Initializable {
         friday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
         //LectureChoosingController.getSelectedLectures(userInfo);
 
-        lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
+        lectures = FXCollections.observableArrayList();
+        //LectureTable.setItems(lectures);
+
+//        lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
+//
+//        refreshBottonAction(null);
+//        LectureTable.setItems(lectures);
+    }
+
+    public void setLectures() {
+        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
+        LectureTable.setItems(lectures);
     }
 }

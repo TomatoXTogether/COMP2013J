@@ -1,10 +1,13 @@
 package com.example.test;
 
+import java.util.List;
+
 public class Student extends User{
     private int studentID;
     private String name;
     private int password;
     private String email;
+    public List<Lecture> lectures;
 
     public Student(int studentID, String name, int password, String email){
         this.studentID = studentID;
