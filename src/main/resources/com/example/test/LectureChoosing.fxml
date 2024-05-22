@@ -33,6 +33,7 @@
             <TableColumn fx:id="checkBox" prefWidth="62.0" resizable="false" sortable="false" />
         </columns>
       </TableView>
-      <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
+      <Button fx:id="save" layoutX="457.0" layoutY="38.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
+      <Button fx:id="delete" layoutX="457.0" layoutY="77.0" mnemonicParsing="false" onAction="#deleteBottonAction" prefHeight="23.0" prefWidth="59.0" text="Delete" />
    </children>
 </AnchorPane>

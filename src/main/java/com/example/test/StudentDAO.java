@@ -125,7 +125,7 @@ public class StudentDAO {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            st.executeUpdate("DELETE from students where lectureID = " + lecture.getLecturerName());
+            st.executeUpdate("DELETE from students where lectureID = " + lecture.getLectureID());
             lectures.remove(lecture);
 
             st.close();
