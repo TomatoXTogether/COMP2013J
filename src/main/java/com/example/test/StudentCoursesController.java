@@ -19,10 +19,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class StudentCoursesController implements Initializable {
+public class StudentCoursesController {
 
     @FXML
     private TableView<Lecture> LectureTable;
@@ -51,19 +52,18 @@ public class StudentCoursesController implements Initializable {
     @FXML
     private TableColumn<Lecture, String> friday;
 
-    private static ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
+    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
 
     private Student userInfo;
 
     public StudentCoursesController(){
+        //无参构造器
 
+        //initialize(null,null,userInfo);
     }
-
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
-        loadLectures();
-        //setLectures();
-        System.out.println("Set Successfully");
+        initialize(null,null,userInfo);
     }
 
     @FXML
@@ -98,40 +98,35 @@ public class StudentCoursesController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-//        lecturesData = FXCollections.observableArrayList(userInfo.lectures);
-//
-//        LectureTable.setItems(lecturesData);
-    }
 
-    private void loadLectures(){
-        if (userInfo != null) {
-            List<Lecture> lectures = StudentDAO.getAllLectures(Integer.valueOf(userInfo.getID()));
-            lecturesData.clear();
-            lectures.addAll(lectures);
-            LectureTable.setItems(lecturesData);
-        }
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        monday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        tuesday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        wednesday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        thursday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        friday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
-        //LectureChoosingController.getSelectedLectures(userInfo);
 
-//        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
-//        LectureTable.setItems(lectures);
-//        //lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
-//
-//       refreshBottonAction(null);
-//        LectureTable.setItems(lectures);
+    public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
+        // 使用 Optional 来包装获取讲座列表的结果
+        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+
+        monday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
+                .map(Lecture::getName)
+                .orElse("")));
+        tuesday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
+                .map(Lecture::getName)
+                .orElse("")));
+        wednesday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
+                .map(Lecture::getName)
+                .orElse("")));
+        thursday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
+                .map(Lecture::getName)
+                .orElse("")));
+        friday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
+                .map(Lecture::getName)
+                .orElse("")));
+
+        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+        LectureTable.setItems(lectures);
     }
 
-//    public void setLectures() {
-//        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
-//        LectureTable.setItems(lectures);
-//    }
 }

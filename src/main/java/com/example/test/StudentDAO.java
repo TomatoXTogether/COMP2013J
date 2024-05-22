@@ -59,6 +59,7 @@ public class StudentDAO {
     //selectLecture: 用于添加学生所选课程
     //cancelLecture: 用于删除学生所选课程
     public static List<Lecture> getAllLectures(int studentID) {
+        List<Lecture> lectures = new ArrayList<Lecture>();
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
@@ -69,7 +70,8 @@ public class StudentDAO {
                 String lectureID = rs.getString("lectureID");
                 Lecture lecture = LectureDAO.getLectureByID(lectureID);
 
-                getStudentByID(studentID).lectures.add(lecture);
+                lectures.add(lecture);
+                StudentDAO.getStudentByID(studentID).lectures = lectures;
         }
             rs.close();
             st.close();
@@ -79,7 +81,7 @@ public class StudentDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return getStudentByID(studentID).lectures;
+        return lectures;
     }
 
     public static List<Lecture> selectLecture(Student student, Lecture lecture) {
