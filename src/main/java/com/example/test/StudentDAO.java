@@ -182,6 +182,31 @@ public class StudentDAO {
 
             return grades;
         }
+
+        public String getEveryGrade(int studentId, String lectureID){
+            {
+                try {
+                    Connection conn = JDBCTool.getConnection();
+
+                    PreparedStatement checkStmt = conn.prepareStatement("SELECT grade FROM students WHERE studentID = ? AND lectureID = ?");
+                    checkStmt.setInt(1, studentId);
+                    checkStmt.setString(2, lectureID);
+                    ResultSet rs = checkStmt.executeQuery();
+                    rs.next();
+
+                    String grade = rs.getString(1);
+
+                    checkStmt.close();
+                    conn.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                return grade;
+            }
+        }
     }
+
 
 }
