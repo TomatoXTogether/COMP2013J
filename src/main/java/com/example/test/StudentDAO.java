@@ -123,9 +123,12 @@ public class StudentDAO {
         List<Lecture> lectures = getAllLectures(student.getID());
         try {
             Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
+            PreparedStatement st = conn.prepareStatement("DELETE from students where lectureID = ? and studentID = ?");
 
-            st.executeUpdate("DELETE from students where lectureID = " + lecture.getLectureID());
+            st.setString(1, lecture.getLectureID());
+            st.setInt(2, student.getID());
+            st.executeUpdate();
+
             lectures.remove(lecture);
 
             st.close();

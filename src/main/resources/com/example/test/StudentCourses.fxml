@@ -15,7 +15,6 @@
          </font>
       </Text>
       <Button fx:id="back" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" onAction="#backBottonAction" prefHeight="39.0" prefWidth="74.0" text="Back" />
-      <Button fx:id="refresh" layoutX="701.0" layoutY="58.0" mnemonicParsing="false" onAction="#refreshBottonAction" prefHeight="23.0" prefWidth="59.0" text="Refresh" />
       <Button fx:id="lectureChoosing" layoutX="801.0" layoutY="50.0" mnemonicParsing="false" onAction="#lectureChoosingAction" prefHeight="39.0" prefWidth="124.0" text="Lecture Choosing" />
       <TableView fx:id="LectureTable" layoutX="61.0" layoutY="133.0" prefHeight="630.0" prefWidth="878.0">
          <columns>

@@ -83,7 +83,7 @@ public class LectureDAO {
         }
     }
 
-    public static void deleteLectureByID(int lectureID) {
+    public static void deleteLectureByID(String lectureID) {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
