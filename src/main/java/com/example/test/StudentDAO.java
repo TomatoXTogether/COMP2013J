@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.test.LecturerDAO.getAllLecturers;
+
 public class StudentDAO {
     public static List<User> getAllStudents() {
         List<User> users = new ArrayList<User>();
@@ -40,22 +42,34 @@ public class StudentDAO {
         return users;
     }
 
+    public static Student getStudentByID(int studentID) {
+        Student student  = null;
+        for (User s : getAllStudents()) {
+            if (s.getID() == studentID) {
+                student = (Student) s;
+                break;
+            }
+        }
+
+        return student;
+}
+
     //以下三类用于更新学生所选课程
     //getAllLectures: 用于显示学生所选课程
     //selectLecture: 用于添加学生所选课程
     //cancelLecture: 用于删除学生所选课程
-    public static List<Lecture> getAllLectures(Student student) {
+    public static List<Lecture> getAllLectures(int studentID) {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT lectureID FROM students WHERE studentID =" + student.getID());
+            ResultSet rs = st.executeQuery("SELECT lectureID FROM students WHERE studentID =" + studentID);
 
             while (rs.next()) {
                 String lectureID = rs.getString("lectureID");
                 Lecture lecture = LectureDAO.getLectureByID(lectureID);
 
-                student.lectures.add(lecture);
+                getStudentByID(studentID).lectures.add(lecture);
         }
             rs.close();
             st.close();
@@ -65,7 +79,7 @@ public class StudentDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return student.lectures;
+        return getStudentByID(studentID).lectures;
     }
 
     public static List<Lecture> selectLecture(Student student, Lecture lecture) {
@@ -104,7 +118,7 @@ public class StudentDAO {
     }
 
     public static List<Lecture> cancelLecture(Student student, Lecture lecture) {
-        List<Lecture> lectures = getAllLectures(student);
+        List<Lecture> lectures = getAllLectures(student.getID());
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();

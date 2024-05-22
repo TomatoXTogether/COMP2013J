@@ -105,7 +105,7 @@ public class StudentCoursesController implements Initializable {
 
     private void loadLectures(){
         if (userInfo != null) {
-            List<Lecture> lectures = StudentDAO.getAllLectures(String.valueOf(userInfo.getID()));
+            List<Lecture> lectures = StudentDAO.getAllLectures(Integer.valueOf(userInfo.getID()));
             lecturesData.clear();
             lectures.addAll(lectures);
             LectureTable.setItems(lecturesData);
