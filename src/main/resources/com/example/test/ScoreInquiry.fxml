@@ -17,7 +17,7 @@
       </Text>
       <Button fx:id="back" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" onAction="#backBottonAction" prefHeight="39.0" prefWidth="74.0" text="Back" />
       <Button fx:id="refresh" layoutX="452.0" layoutY="58.0" mnemonicParsing="false" onAction="#refreshBottonAction" prefHeight="23.0" prefWidth="59.0" text="Refresh" />
-      <TextField fx:id="checkBox" layoutX="544.0" layoutY="58.0" onAction="#getInput" />
+      <TextField fx:id="search" layoutX="544.0" layoutY="58.0" onAction="#searchBottonAction" />
       <Button fx:id="check" layoutX="713.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
       <Button fx:id="myCourses" layoutX="811.0" layoutY="50.0" mnemonicParsing="false" onAction="#myCoursesAction" prefHeight="39.0" prefWidth="102.0" text="My courses" />
       <TableView fx:id="LectureTable" layoutX="99.0" layoutY="144.0" prefHeight="606.0" prefWidth="801.0">
@@ -28,5 +28,6 @@
             <TableColumn fx:id="score" editable="false" prefWidth="200.0" resizable="false" sortable="false" text="Score" />
          </columns>
       </TableView>
+      <Text fx:id="notFound" fill="RED" layoutX="573.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture not found" visible="false" />
    </children>
 </AnchorPane>

@@ -1,5 +1,7 @@
 package com.example.test;
 
+import java.util.List;
+
 public class Lecture {
 
     private String lectureID;
@@ -100,4 +102,5 @@ public class Lecture {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
 }

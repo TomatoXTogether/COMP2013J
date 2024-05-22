@@ -1,5 +1,8 @@
 package com.example.test;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,14 +12,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScoreInquiryController {
 
     @FXML
-    private TableView<?> LectureTable;
+    private TableView<Lecture> LectureTable;
 
     @FXML
     private Button back;
@@ -25,27 +32,35 @@ public class ScoreInquiryController {
     private Button check;
 
     @FXML
-    private TextField checkBox;
+    private Text notFound;
 
     @FXML
-    private TableColumn<?, ?> lectureID;
+    private TextField search;
 
     @FXML
-    private TableColumn<?, ?> lecturer;
+    private TableColumn<Lecture,String > lectureID;
+
+    @FXML
+    private TableColumn<Lecture, String> lecturer;
 
     @FXML
     private Button myCourses;
 
     @FXML
-    private TableColumn<?, ?> name;
+    private TableColumn<Lecture, String> name;
 
     @FXML
     private Button refresh;
 
     @FXML
-    private TableColumn<?, ?> score;
+    private TableColumn<Lecture, Integer> score;
+
+    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     private Student userInfo;
+
+    private static List<Lecture> selectedLectures;
+
 
     public ScoreInquiryController() {
         //空构造器
@@ -53,6 +68,7 @@ public class ScoreInquiryController {
 
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
+        initialize(null,null,userInfo);
     }
 
     @FXML
@@ -72,12 +88,23 @@ public class ScoreInquiryController {
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        String search=this.search.getText();
+        if (search!=null) {
+            LectureTable.getItems().clear();
+            Lecture foundLecture = LectureDAO.getLectureByID(search);
+            if (foundLecture != null) {
+                ObservableList<Lecture> lecturesList = LectureTable.getItems();
+                lecturesList.add(0, foundLecture);
+                LectureTable.setItems(lecturesList);
+            } else {
+                notFound.setVisible(true);
+            }
+        }
     }
 
     @FXML
-    void getInput(ActionEvent event) {
-
+    String searchBottonAction(ActionEvent event) {
+        return this.search.getText();
     }
 
     @FXML
@@ -97,6 +124,45 @@ public class ScoreInquiryController {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
+        this.search.setText("");
+        notFound.setVisible(false);
+        initialize(null,null,userInfo);
+    }
+
+    public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
+        lecturesData = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+
+        lectureID.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+        name.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+        lecturer.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+
+            return new SimpleStringProperty(name);
+        });
+
+        //score.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGrade()));
+
+
+        lecturesData = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))
+                .orElseGet(Collections::emptyList));
+        LectureTable.setItems(lecturesData);
 
     }
 
