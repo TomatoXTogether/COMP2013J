@@ -29,7 +29,6 @@
             <TableColumn fx:id="schedule" editable="false" prefWidth="92.5" resizable="false" sortable="false" text="Schedule" />
             <TableColumn fx:id="startDate" editable="false" prefWidth="88.5" resizable="false" sortable="false" text="Start Date" />
             <TableColumn fx:id="endDate" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="End Date" />
-            <TableColumn fx:id="checkBox" prefWidth="62.0" resizable="false" sortable="false" />
          </columns>
       </TableView>
       <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />

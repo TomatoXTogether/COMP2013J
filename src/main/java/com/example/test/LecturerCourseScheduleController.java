@@ -1,6 +1,5 @@
 package com.example.test;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -73,9 +71,6 @@ public class LecturerCourseScheduleController implements Initializable {
     private TableColumn<Lecture, String> endDate;
 
     @FXML
-    private TableColumn<Lecture, Boolean> checkBox;
-
-    @FXML
     private Lecturer userInfo;
 
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
@@ -114,14 +109,7 @@ public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
     void deleteBottonAction(ActionEvent event) {
-        ObservableList<Lecture> selectedLectures = FXCollections.observableArrayList();
-        for (Lecture lecture : lecturesData) {
-            if (lecture.isSelected()) {
-                selectedLectures.add(lecture);
-                LectureDAO.deleteLectureByID(lecture.getLectureID());
-            }
-        }
-        lecturesData.removeAll(selectedLectures);
+
     }
 
     @FXML
@@ -161,9 +149,6 @@ public class LecturerCourseScheduleController implements Initializable {
         schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
         startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
         endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-
-        checkBox.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isSelected()));
-        checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBox));
 
         // Refresh the table on initialization
         loadLectures();
