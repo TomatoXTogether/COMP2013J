@@ -58,8 +58,6 @@ public class StudentCoursesController {
 
     public StudentCoursesController(){
         //无参构造器
-
-        //initialize(null,null,userInfo);
     }
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
@@ -96,33 +94,118 @@ public class StudentCoursesController {
         newStage.show();
     }
 
-    @FXML
-    void refreshBottonAction(ActionEvent event) {
-
-    }
-
-
-
     public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
         // 使用 Optional 来包装获取讲座列表的结果
         lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
 
-        monday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
-                .map(Lecture::getName)
-                .orElse("")));
-        tuesday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
-                .map(Lecture::getName)
-                .orElse("")));
-        wednesday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
-                .map(Lecture::getName)
-                .orElse("")));
-        thursday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
-                .map(Lecture::getName)
-                .orElse("")));
-        friday.setCellValueFactory(cellData -> new SimpleStringProperty(Optional.ofNullable(cellData.getValue())
-                .map(Lecture::getName)
-                .orElse("")));
+        monday.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            String lecturerName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+            String room = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            String building = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            String schedule= Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(schedule.equals("Monday") ? lectureID+"\n"+name+"\n"+lecturerName+"\nRoom  "+room+"\nBuilding "+building : null);
+        });
+
+        tuesday.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            String lecturerName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+            String room = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            String building = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            String schedule= Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(schedule.equals("Tuesday") ? lectureID+"\n"+name+"\n"+lecturerName+"\nRoom  "+room+"\nBuilding "+building : null);
+        });
+
+        wednesday.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            String lecturerName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+            String room = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            String building = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            String schedule= Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(schedule.equals("Wednesday") ? lectureID+"\n"+name+"\n"+lecturerName+"\nRoom  "+room+"\nBuilding "+building : null);
+        });
+        thursday.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            String lecturerName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+            String room = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            String building = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            String schedule= Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(schedule.equals("Thursday") ? lectureID+"\n"+name+"\n"+lecturerName+"\nRoom  "+room+"\nBuilding "+building : null);
+        });
+        friday.setCellValueFactory(cellData -> {
+            String name = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            String lectureID = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            String lecturerName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLecturerName)
+                    .orElse("");
+            String room = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            String building = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            String schedule= Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(schedule.equals("Friday") ? lectureID+"\n"+name+"\n"+lecturerName+"\nRoom  "+room+"\nBuilding "+building : null);
+        });
 
         lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
