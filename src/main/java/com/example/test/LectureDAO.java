@@ -51,25 +51,22 @@ public class LectureDAO {
 
 
     public static Lecture getLectureByID(String lectureID) {
-        Lecture lecture = null;
         for (Lecture l : getAllLectures()) {
-            if (l.getLectureID() == lectureID) {
-                lecture = l;
-                break;
+            if (l.getLectureID().equals(lectureID)) {
+                return l;
             }
         }
-        return lecture;
+        return null;
     }
 
     public static String getLecturerNameByID(int lecturerID){
-        Lecturer lecturer = null;
         for (User l : getAllLecturers()) {
-            if (l.getID() == lecturerID) {
-                lecturer = (Lecturer) l;
-                break;
+            if (l.getID() == (lecturerID)) {
+                return ((Lecturer)l).getFirstname() + " " + ((Lecturer)l).getLastname();
+
             }
         }
-        return lecturer.getFirstname() + " " + lecturer.getLastname();
+        return null;
     }
 
     public static void insertLecture(Lecture lecture) {
