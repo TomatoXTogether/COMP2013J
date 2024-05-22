@@ -12,14 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScoreInquiryController {
 
@@ -33,7 +32,10 @@ public class ScoreInquiryController {
     private Button check;
 
     @FXML
-    private TextField checkBox;
+    private Text notFound;
+
+    @FXML
+    private TextField search;
 
     @FXML
     private TableColumn<Lecture,String > lectureID;
@@ -53,9 +55,12 @@ public class ScoreInquiryController {
     @FXML
     private TableColumn<Lecture, Integer> score;
 
-    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
+    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     private Student userInfo;
+
+    private static List<Lecture> selectedLectures;
+
 
     public ScoreInquiryController() {
         //空构造器
@@ -83,12 +88,23 @@ public class ScoreInquiryController {
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        String search=this.search.getText();
+        if (search!=null) {
+            LectureTable.getItems().clear();
+            Lecture foundLecture = LectureDAO.getLectureByID(search);
+            if (foundLecture != null) {
+                ObservableList<Lecture> lecturesList = LectureTable.getItems();
+                lecturesList.add(0, foundLecture);
+                LectureTable.setItems(lecturesList);
+            } else {
+                notFound.setVisible(true);
+            }
+        }
     }
 
     @FXML
-    void getInput(ActionEvent event) {
-
+    String searchBottonAction(ActionEvent event) {
+        return this.search.getText();
     }
 
     @FXML
@@ -108,11 +124,13 @@ public class ScoreInquiryController {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-
+        this.search.setText("");
+        notFound.setVisible(false);
+        initialize(null,null,userInfo);
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
-        lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
+        lecturesData = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
 
         lectureID.setCellValueFactory(cellData -> {
@@ -139,27 +157,12 @@ public class ScoreInquiryController {
             return new SimpleStringProperty(name);
         });
 
-        score.setCellValueFactory(cellData -> {
-            String lectureID = Optional.ofNullable(cellData.getValue())
-                    .map(Lecture::getLectureID)
-                    .orElse("");
-
-            List<StudentDAO.Grade> grades = StudentDAO.Grade.getGrade(userInfo.getID()); // 假设Grade类在StudentDAO包下，并提供了正确的getGrade方法
-
-            for (StudentDAO.Grade grade : grades) {
-                if (grade.getLectureID().equals(lectureID)) {
-                    return new SimpleStringProperty(grade.getGrade(userInfo.getID()).toString());
-                }
-            }
-
-            return new SimpleStringProperty(""); // 如果没有找到匹配的成绩，返回空字符串
-        });
+        //score.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGrade()));
 
 
-
-        lectures = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))
+        lecturesData = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
-        LectureTable.setItems(lectures);
+        LectureTable.setItems(lecturesData);
 
     }
 

@@ -149,6 +149,9 @@ public class StudentDAO {
             this.lectureName = lectureName;
             this.grade = grade;
         }
+        public Grade(){
+
+        }
 
         public static List<Grade> getGrade(int studentID){
             List<Grade> grades = new ArrayList<Grade>();
