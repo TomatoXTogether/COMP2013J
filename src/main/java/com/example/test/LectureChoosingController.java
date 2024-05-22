@@ -76,9 +76,7 @@ public class LectureChoosingController implements Initializable {
 
     private Student userInfo;
 
-    private static List<Lecture> lectures = new ArrayList<>();
-
-    private static List<Lecture> allLectures;
+    private static List<Lecture> selectedLectures;
 
 
     public void LectureChoosingController() {
@@ -87,7 +85,6 @@ public class LectureChoosingController implements Initializable {
 
    public void setStudentInfo(Student userInfo) {
         this.userInfo = userInfo;
-        System.out.println(this.userInfo.getName());
     }
 
     @FXML
@@ -99,7 +96,6 @@ public class LectureChoosingController implements Initializable {
 
         StudentHomePageController controller = loader.getController();
         controller.setUserInfo(userInfo);
-
 
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
@@ -125,7 +121,7 @@ public class LectureChoosingController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
         Parent root = loader.load();
         StudentCoursesController controller = loader.getController();
-        controller.setStudentInfo(this.userInfo);
+        controller.setStudentInfo(userInfo);
 
         Stage newStage = new Stage();
         newStage.setScene(new Scene(root));
@@ -135,10 +131,12 @@ public class LectureChoosingController implements Initializable {
     @FXML
     void refreshBottonAction(ActionEvent event) {
         // 先获取之前选中的课程
-        lectures = lecturesData.stream()
+        selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .collect(Collectors.toList());
+        System.out.println(selectedLectures.size());
         List<Lecture> updatedLectures = LectureDAO.getAllLectures();
+        System.out.println(selectedLectures.size());
         for (Lecture lecture : lecturesData) {
             // 更新课程对象的属性，保持勾选状态不变
             updatedLectures.stream()
@@ -146,30 +144,41 @@ public class LectureChoosingController implements Initializable {
                     .findFirst().ifPresent(updatedLecture -> updatedLecture.setSelected(lecture.isSelected()));
         }
         lecturesData.setAll(updatedLectures);
+        System.out.println(selectedLectures.size());
         LectureTable.setItems(lecturesData);
     }
 
+
+
     @FXML
      List<Lecture> saveBottonAction(ActionEvent event) {
-        lectures = lecturesData.stream()
+        selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .peek(lecture -> lecture.setSelected(true))
                 .collect(Collectors.toList());
 
-        if (!lectures.isEmpty()) {
-            //System.out.println("Selected lectures:");
-            for (Lecture lecture : lectures) {
-                //System.out.println("Selected lecture: " + lecture.getName() + ", isSelected: " + lecture.isSelected());
+        List<Lecture> lectures = new ArrayList<Lecture>();
+
+        if (!selectedLectures.isEmpty()) {
+            for (Lecture lecture : selectedLectures) {
                 // 在此处添加保存逻辑//
-                lectures = StudentDAO.selectLecture(userInfo, lecture);
+                StudentDAO.selectLecture(userInfo, lecture);
+                StudentDAO.getStudentByID(userInfo.getID()).lectures.add(lecture);
             }
         } else {
             System.out.println("No lectures selected.");
         }
-        System.out.println(userInfo.getName());
-        //System.out.println("Total lectures: " + lecturesData.size());
-        //System.out.println("Selected lectures: " + selectedLectures.size());
         return lectures;
+    }
+
+    public static List<Lecture> getLectures(){
+        if(selectedLectures != null){
+            selectedLectures= selectedLectures.stream()
+                    .filter(Lecture::isSelected)
+                    .collect(Collectors.toList());
+        }
+        //System.out.println(selectedLectures);
+        return selectedLectures;
     }
 
     public void initialize (URL arg0, ResourceBundle arg1){
@@ -186,8 +195,11 @@ public class LectureChoosingController implements Initializable {
             TableColumn checkBoxColumn = new TableColumn("");
             checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
 
+
+
             checkBox.setCellValueFactory(cellData -> {
                 Lecture lecture = cellData.getValue();
+                System.out.println(lecture.isSelected());
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
                 booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
                 return booleanProp;
