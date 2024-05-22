@@ -99,6 +99,5 @@ public class Lecture {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-        //System.out.println("Lecture " + getName() + " isSelected: " + selected);
     }
 }

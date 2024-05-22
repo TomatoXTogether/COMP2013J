@@ -51,22 +51,25 @@ public class LectureDAO {
 
 
     public static Lecture getLectureByID(String lectureID) {
+        Lecture lecture = null;
         for (Lecture l : getAllLectures()) {
             if (l.getLectureID().equals(lectureID)) {
-                return l;
+                lecture = l;
+                break;
             }
         }
-        return null;
+        return lecture;
     }
 
     public static String getLecturerNameByID(int lecturerID){
+        Lecturer lecturer = null;
         for (User l : getAllLecturers()) {
-            if (l.getID() == (lecturerID)) {
-                return ((Lecturer)l).getFirstname() + " " + ((Lecturer)l).getLastname();
-
+            if (Integer.valueOf(l.getID()).equals(lecturerID)){
+                lecturer = (Lecturer) l;
+                break;
             }
         }
-        return null;
+        return lecturer.getFirstname() + " " + lecturer.getLastname();
     }
 
     public static void insertLecture(Lecture lecture) {
@@ -83,7 +86,7 @@ public class LectureDAO {
         }
     }
 
-    public static void deleteLectureByID(String lectureID) {
+    public static void deleteLectureByID(int lectureID) {
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
@@ -124,33 +127,6 @@ public class LectureDAO {
         }
 
         return lectures;
-    }
-
-    public static void giveGrade(String input, Lecture lecture, Student student){
-//        try {
-//            Connection conn = JDBCTool.getConnection();
-//            Statement st = conn.createStatement();
-//            ResultSet rs = st.executeQuery("SELECT * FROM lectures WHERE lecturerID = " + lecturerID);
-//
-//            while (rs.next()) {
-//                String lectureID = rs.getString("lectureID");
-//                String name = rs.getString("name");
-//                int room = rs.getInt("room");
-//                int building = rs.getInt("building");
-//                String schedule = rs.getString("schedule");
-//                String startDate = rs.getString("startDate");
-//                String endDate = rs.getString("endDate");
-//
-//                Lecture lecture = new Lecture(lectureID, lecturerID, name, room, building, schedule, startDate, endDate);
-//                lectures.add(lecture);
-//            }
-//
-//            rs.close();
-//            st.close();
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
 
 }

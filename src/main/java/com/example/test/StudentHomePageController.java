@@ -6,13 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
+
 
 public class StudentHomePageController {
 
@@ -96,17 +94,9 @@ public class StudentHomePageController {
                 currentStage.close();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
-                System.out.println(userInfo+"lwy");
-                System.out.println("2");
-                System.out.println(userInfo+"lwy2");
                 Parent root = loader.load();
-                System.out.println(userInfo);
-
                 StudentCoursesController controller = loader.getController();
-                System.out.println(userInfo+"3");
                 controller.setStudentInfo(userInfo);
-                System.out.println(userInfo+"4");
-                //controller.initialize(null, null);
 
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
@@ -117,7 +107,6 @@ public class StudentHomePageController {
         void studentCourseManagement(ActionEvent event) throws Exception {
                 Stage currentStage = (Stage) studentCourse.getScene().getWindow();
                 currentStage.close();
-
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("LectureChoosing.fxml"));
                 Parent root = loader.load();

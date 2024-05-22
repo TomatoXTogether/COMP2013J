@@ -139,7 +139,7 @@ public class StudentDAO {
         return lectures;
     }
 
-    public class Grade{
+    public static class Grade{
         String lectureID;
         String lectureName;
         String grade;
@@ -150,29 +150,36 @@ public class StudentDAO {
             this.grade = grade;
         }
 
-        public List<Grade> getGrade(int studentID){
+        public static List<Grade> getGrade(int studentID){
             List<Grade> grades = new ArrayList<Grade>();
 
             try {
                 Connection conn = JDBCTool.getConnection();
-                Statement st = conn.createStatement();
+                PreparedStatement ps = conn.prepareStatement("SELECT lectureID, grade FROM students WHERE studentID = ?");
+                ps.setInt(1, studentID);
+                ResultSet rs = ps.executeQuery();
+                //Statement st = conn.createStatement();
 
-                ResultSet rs = st.executeQuery("SELECT lectureID, grade FROM students WHERE studentID = " + studentID);
+                //ResultSet rs = st.executeQuery("SELECT lectureID, grade FROM students WHERE studentID = " + studentID);
 
                 while (rs.next()) {
                     String lectureID = rs.getString("lectureID");
                     String grade = rs.getString("grade");
 
                     Lecture lecture = LectureDAO.getLectureByID(lectureID);
-                    String lectureName = lecture.getName();
 
-                    Grade g = new Grade(lectureID, lectureName, grade);
-
-                    grades.add(g);
+                    if (lecture != null) {
+                        String lectureName = lecture.getName();
+                        Grade g = new Grade(lectureID, lectureName, grade);
+                        grades.add(g);
+                    } else {
+                        System.err.println("Lecture with ID " + lectureID + " not found for student ID " + studentID);
+                    }
                 }
 
                 rs.close();
-                st.close();
+                ps.close();
+                //st.close();
                 conn.close();
 
 

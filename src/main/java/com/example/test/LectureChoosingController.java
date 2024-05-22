@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,6 +39,9 @@ public class LectureChoosingController implements Initializable {
 
     @FXML
     private Button check;
+
+    @FXML
+    private Text notFound;
 
     @FXML
     private TableColumn<Lecture, String> endDate;
@@ -106,14 +110,29 @@ public class LectureChoosingController implements Initializable {
     }
 
     @FXML
-    void searchBottonAction(ActionEvent event) {
-
+    String searchBottonAction(ActionEvent event) {
+        return this.search.getText();
     }
 
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        String search=this.search.getText();
+        if (search!=null) {
+            LectureTable.getItems().clear();
+            // 调用 LectureDAO 的方法来通过讲座 ID 查找讲座
+            Lecture foundLecture = LectureDAO.getLectureByID(search);
+            if (foundLecture != null) {
+                // 处理找到的讲座对象，例如显示在界面上或进行其他操作
+                ObservableList<Lecture> lecturesList = LectureTable.getItems();
+                // 在数据源的最前面插入找到的课程
+                lecturesList.add(0, foundLecture);
+                // 刷新表格以显示更新后的数据
+                LectureTable.setItems(lecturesList);
+            } else {
+                notFound.setVisible(true);
+            }
+        }
     }
 
     @FXML
@@ -133,13 +152,13 @@ public class LectureChoosingController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
+        this.search.setText("");
+        notFound.setVisible(false);
         // 先获取之前选中的课程
         selectedLectures = lecturesData.stream()
                 .filter(Lecture::isSelected)
                 .collect(Collectors.toList());
-        //System.out.println(selectedLectures.size());
         List<Lecture> updatedLectures = LectureDAO.getAllLectures();
-        //System.out.println(selectedLectures.size());
         for (Lecture lecture : lecturesData) {
             // 更新课程对象的属性，保持勾选状态不变
             updatedLectures.stream()
@@ -147,7 +166,6 @@ public class LectureChoosingController implements Initializable {
                     .findFirst().ifPresent(updatedLecture -> updatedLecture.setSelected(lecture.isSelected()));
         }
         lecturesData.setAll(updatedLectures);
-        //System.out.println(selectedLectures.size());
         LectureTable.setItems(lecturesData);
     }
 
@@ -173,6 +191,7 @@ public class LectureChoosingController implements Initializable {
         }
         return lectures;
     }
+
     @FXML
     List<Lecture> deleteBottonAction(ActionEvent event) {
         selectedLectures = lecturesData.stream()
@@ -186,22 +205,11 @@ public class LectureChoosingController implements Initializable {
             for (Lecture lecture : selectedLectures) {
                 // 在此处添加保存逻辑//
                 StudentDAO.cancelLecture(userInfo, lecture);
-                //StudentDAO.getStudentByID(userInfo.getID()).lectures.remove(lecture);
             }
         } else {
             System.out.println("No lectures selected.");
         }
         return lectures;
-    }
-
-    public static List<Lecture> getLectures(){
-        if(selectedLectures != null){
-            selectedLectures= selectedLectures.stream()
-                    .filter(Lecture::isSelected)
-                    .collect(Collectors.toList());
-        }
-        //System.out.println(selectedLectures);
-        return selectedLectures;
     }
 
     public void initialize (URL arg0, ResourceBundle arg1){
@@ -220,7 +228,6 @@ public class LectureChoosingController implements Initializable {
 
             checkBox.setCellValueFactory(cellData -> {
                 Lecture lecture = cellData.getValue();
-                System.out.println(lecture.isSelected());
                 SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
                 booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
                 return booleanProp;

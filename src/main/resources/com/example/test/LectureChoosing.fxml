@@ -35,5 +35,6 @@
       </TableView>
       <Button fx:id="save" layoutX="457.0" layoutY="38.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
       <Button fx:id="delete" layoutX="457.0" layoutY="77.0" mnemonicParsing="false" onAction="#deleteBottonAction" prefHeight="23.0" prefWidth="59.0" text="Delete" />
+      <Text fx:id="notFound" fill="RED" layoutX="587.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture not found" visible="false" />
    </children>
 </AnchorPane>
