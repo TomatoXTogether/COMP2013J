@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StudentCoursesController implements Initializable {
@@ -50,16 +51,18 @@ public class StudentCoursesController implements Initializable {
     @FXML
     private TableColumn<Lecture, String> friday;
 
-    private static ObservableList<Lecture> lectures = FXCollections.observableArrayList();
+    private static ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     private Student userInfo;
 
     public StudentCoursesController(){
 
     }
+
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
-        setLectures();
+        loadLectures();
+        //setLectures();
         System.out.println("Set Successfully");
     }
 
@@ -95,9 +98,18 @@ public class StudentCoursesController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-        lectures = FXCollections.observableArrayList(userInfo.lectures);
+//        lecturesData = FXCollections.observableArrayList(userInfo.lectures);
+//
+//        LectureTable.setItems(lecturesData);
+    }
 
-        LectureTable.setItems(lectures);
+    private void loadLectures(){
+        if (userInfo != null) {
+            List<Lecture> lectures = StudentDAO.getAllLectures(String.valueOf(userInfo.getID()));
+            lecturesData.clear();
+            lectures.addAll(lectures);
+            LectureTable.setItems(lecturesData);
+        }
     }
 
 
@@ -110,17 +122,16 @@ public class StudentCoursesController implements Initializable {
         friday.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName() + cellData.getValue().getLecturerName()));
         //LectureChoosingController.getSelectedLectures(userInfo);
 
-        lectures = FXCollections.observableArrayList();
-        //LectureTable.setItems(lectures);
-
-//        lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
+//        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
+//        LectureTable.setItems(lectures);
+//        //lectures = FXCollections.observableArrayList(LectureChoosingController.getLectures());
 //
-//        refreshBottonAction(null);
+//       refreshBottonAction(null);
 //        LectureTable.setItems(lectures);
     }
 
-    public void setLectures() {
-        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
-        LectureTable.setItems(lectures);
-    }
+//    public void setLectures() {
+//        lectures = FXCollections.observableArrayList(StudentDAO.getAllLectures(this.userInfo));
+//        LectureTable.setItems(lectures);
+//    }
 }
