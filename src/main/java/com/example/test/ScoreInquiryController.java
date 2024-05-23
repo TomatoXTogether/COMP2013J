@@ -53,7 +53,7 @@ public class ScoreInquiryController {
     private Button refresh;
 
     @FXML
-    private TableColumn<Lecture, Integer> score;
+    private TableColumn<Lecture, String> score;
 
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
@@ -157,7 +157,12 @@ public class ScoreInquiryController {
             return new SimpleStringProperty(name);
         });
 
-        //score.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGrade()));
+
+        /**score.setCellValueFactory(cellData -> {
+                    String score = Optional.ofNullable(cellData.getValue())
+                            .map(Lecture::getGrade).orElse("");
+                    return new SimpleStringProperty(score);
+                });*/
 
 
         lecturesData = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))

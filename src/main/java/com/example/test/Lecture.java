@@ -13,6 +13,7 @@ public class Lecture {
     private String startDate;
     private String endDate;
     private boolean selected;
+    private String grade;
 
 
     public Lecture() {
@@ -103,4 +104,11 @@ public class Lecture {
         this.selected = selected;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 }
