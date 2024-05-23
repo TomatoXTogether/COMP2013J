@@ -52,7 +52,41 @@ public class StudentDAO {
         }
 
         return student;
-}
+    }
+
+    public static List<Student> getStudentsByLectureID(int lectureID) {
+        List<Student> students = new ArrayList<Student>();
+
+        try {
+            Connection conn = JDBCTool.getConnection();
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT * FROM students WHERE lectureID = " + lectureID);
+
+            while (rs.next()) {
+                int studentID = rs.getInt("studentID");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                int password = rs.getInt("password");
+                String grade = rs.getString("grade");
+                Student student = getStudentByID(studentID);
+                student.setName(student.getLectureName());
+
+
+                Student e = new Student(studentID, name, password, email);
+
+                students.add(e);
+            }
+            rs.close();
+            st.close();
+            conn.close();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return students;
+    }
 
     //以下三类用于更新学生所选课程
     //getAllLectures: 用于显示学生所选课程

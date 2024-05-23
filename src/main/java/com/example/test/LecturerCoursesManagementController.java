@@ -150,4 +150,5 @@ public class LecturerCoursesManagementController implements Initializable {
 
         refreshBottonAction(null);
     }
+
 }

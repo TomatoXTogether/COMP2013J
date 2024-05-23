@@ -7,8 +7,10 @@ public class Student extends User{
     private int studentID;
     private String name;
     private int password;
+    private String grade;
     private String email;
     public List<Lecture> lectures = new ArrayList<>();
+    private String lectureName;
 
     public Student(int studentID, String name, int password, String email){
         this.studentID = studentID;
@@ -30,7 +32,18 @@ public class Student extends User{
     public int getID() {
         return studentID;
     }
-
+    public String getGrade() {
+        return grade;
+    }
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+    public String getLectureName(){
+        return lectureName;
+    }
+    public void setLectureName(String lectureName) {
+        this.lectureName = lectureName;
+    }
     public void setID(int studentID) {
         this.studentID = studentID;
     }

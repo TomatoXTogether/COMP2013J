@@ -41,6 +41,7 @@ public class LecturerDAO {
     }
 
     public static List<Lecture> getAllLectures(Lecturer lecturer){
+        int id=lecturer.getID();
         List<Lecture> lectures = new ArrayList<Lecture>();
         try {
             Connection conn = JDBCTool.getConnection();
@@ -50,9 +51,9 @@ public class LecturerDAO {
 
             while (rs.next()) {
                 String lectureID = rs.getString("lectureID");
-                Lecture lecture = LectureDAO.getLectureByID(lectureID);
+                String grade = rs.getString("grade");
 
-                lectures.add(lecture);
+
             }
             rs.close();
             st.close();

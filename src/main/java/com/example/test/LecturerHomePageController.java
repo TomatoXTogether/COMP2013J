@@ -131,6 +131,7 @@ public class LecturerHomePageController {
                 Parent root = loader.load();
                 LecturerScoreManagementController controller = loader.getController();
                 controller.setLecturerInfo(userInfo);
+                System.out.println(userInfo);
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
                 newStage.show();
