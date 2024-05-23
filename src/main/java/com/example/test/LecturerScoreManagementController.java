@@ -82,6 +82,7 @@ public class LecturerScoreManagementController implements Initializable {
 
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
+        initialize(null, null);
     }
 
     @FXML
@@ -155,10 +156,10 @@ public class LecturerScoreManagementController implements Initializable {
         }*/
     }
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Controller initialized");
         loadLectures();
+        System.out.println(userInfo);
         lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
         /*lectureID.setCellValueFactory(cellData -> {
             String id = cellData.getValue().getLectureID();
