@@ -158,11 +158,11 @@ public class ScoreInquiryController {
         });
 
 
-        /**score.setCellValueFactory(cellData -> {
+        score.setCellValueFactory(cellData -> {
                     String score = Optional.ofNullable(cellData.getValue())
                             .map(Lecture::getGrade).orElse("");
                     return new SimpleStringProperty(score);
-                });*/
+                });
 
 
         lecturesData = FXCollections.observableArrayList(Optional.of(StudentDAO.getAllLectures(userInfo.getID()))
