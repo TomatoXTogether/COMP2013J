@@ -1,9 +1,6 @@
 package com.example.test;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,17 +82,23 @@ public class LecturerDAO {
         return (Lecturer) lecturer;
     }
 
-    public static void insertLecturer(Lecturer lecturer) {
+    public static void registerStudent(Lecturer lecturer) {
+
         try {
             Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("INSERT INTO lecturer VALUES (" + lecturer.getID() + ", '" + lecturer.getFirstname() + "', '" + lecturer.getLastname() + "', "
-                    + lecturer.getPassword() + "', '" + lecturer.getEmail() + "', '" + lecturer.getOffice() + ")");
-            rs.close();
-            st.close();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO lecturer (lecturerID, firstname, lastname, email, office, password) VALUES (?, ?, ?, ?, ?, ?)");
+
+            stmt.setInt(1, lecturer.getID());
+            stmt.setString(2,  lecturer.getLastname());
+            stmt.setString(3, lecturer.getFirstname());
+            stmt.setString(4, lecturer.getEmail());
+            stmt.setString(5, lecturer.getOffice());
+            stmt.setInt(6, lecturer.getPassword());
+            stmt.executeUpdate();
+            stmt.close();
             conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 

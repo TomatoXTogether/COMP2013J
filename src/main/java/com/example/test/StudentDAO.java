@@ -176,4 +176,24 @@ public class StudentDAO {
         return lectures;
     }
 
+    public static void registerStudent(Student student) {
+
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO students(studentID, lectureID, name, email, password, grade) VALUES (?, ?, ?, ?, ?, ?)");
+
+            stmt.setInt(1, student.getID());
+            stmt.setString(2,  null);
+            stmt.setString(3, student.getName());
+            stmt.setString(4, student.getEmail());
+            stmt.setInt(5, student.getPassword());
+            stmt.setString(6, null);
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
