@@ -50,16 +50,10 @@ public class LoginController implements Initializable {
     @FXML
     private Label errorMessageForWrong1;
 
-    //public static User user;
-
     private String account;
 
     private String password;
 
-    /*public LoginController(List<User> users){
-        //选择student， users就是students；选择lecturer， users就是lecturers
-        this.user = getUser(account, password, users);
-    }*/
 
 
     @FXML
@@ -145,8 +139,16 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void RegisterAction(ActionEvent event) {
-
+    void RegisterAction(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) login.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Register.fxml"));
+        Parent root;
+        root = loader.load();
+        RegisterController controller = loader.getController();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML

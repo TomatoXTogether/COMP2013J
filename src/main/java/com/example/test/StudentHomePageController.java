@@ -11,9 +11,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * Controller class for the Student Home Page, managing UI components and user interactions.
+ */
 public class StudentHomePageController {
-
+        // UI Components injected by FXML
         @FXML
         private Button newStudentEmail;
 
@@ -49,21 +51,33 @@ public class StudentHomePageController {
 
         private Student userInfo;
 
+        /**
+         * Constructor with Student parameter to initialize controller with student data.
+         *
+         * @param userInfo the Student object containing user details
+         */
         public StudentHomePageController(Student userInfo){
                 this.userInfo = userInfo;
         }
 
+        /**
+         * Default constructor for the controller.
+         */
         public StudentHomePageController() {
-                // 无参构造器
+                // Empty constructor
         }
 
+        /**
+         * Sets the user information and updates the displayed text fields accordingly.
+         *
+         * @param userInfo the Student object to be displayed and managed
+         */
         public void setUserInfo(Student userInfo) {
                 this.userInfo = userInfo;
                 StudName.setText(userInfo.getName());
                 atopStudName.setText(userInfo.getName());
                 studentEmail.setText(userInfo.getEmail());
                 studentID.setText(String.valueOf(userInfo.getID()));
-
         }
 
 
@@ -87,7 +101,7 @@ public class StudentHomePageController {
 
         }
 
-
+        // Navigation methods to other pages
         @FXML
         void studentClassSchedule(ActionEvent event) throws IOException {
                 Stage currentStage = (Stage) studentCourse.getScene().getWindow();

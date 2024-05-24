@@ -23,77 +23,93 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Controller class for the student course selection interface.
+ */
 public class LectureChoosingController implements Initializable {
-    //学生的选课界面
-    @FXML
-    private TableView<Lecture> LectureTable;
 
+    // UI Components
     @FXML
-    private Button back;
+    private TableView<Lecture> LectureTable;  // Table to display available lectures
 
     @FXML
-    private TableColumn<Lecture, Boolean> checkBox;
+    private Button back;// Button to navigate back to the home page
 
     @FXML
-    private TableColumn<Lecture, String> building;
+    private TableColumn<Lecture, Boolean> checkBox;  // Checkbox column for selecting lectures
 
     @FXML
-    private Button check;
+    private TableColumn<Lecture, String> building; // Column for lecture building information
 
     @FXML
-    private Text notFound;
+    private Button check;// Button to search for a specific lecture by ID
 
     @FXML
-    private TableColumn<Lecture, String> endDate;
+    private Text notFound; // Text to indicate when a searched lecture is not found
 
     @FXML
-    private TableColumn<Lecture, String> lectureID;
+    private TableColumn<Lecture, String> endDate; // Column for lecture end date information
 
     @FXML
-    private TableColumn<Lecture, String> lecturer;
+    private TableColumn<Lecture, String> lectureID; // Column for lecture ID
 
     @FXML
-    private Button myCourses;
+    private TableColumn<Lecture, String> lecturer; // Column for lecturer's name
 
     @FXML
-    private TableColumn<Lecture, String> name;
+    private Button myCourses; // Button to view the student course schedule
 
     @FXML
-    private Button refresh;
+    private TableColumn<Lecture, String> name; // Column for lecture name
 
     @FXML
-    private TableColumn<Lecture, String> room;
+    private Button refresh; // Button to refresh the table of lectures
 
     @FXML
-    private Button save;
+    private TableColumn<Lecture, String> room;  // Column for lecture room number
 
     @FXML
-    private Button delete;
+    private Button save;  // Button to save selected lectures
 
     @FXML
-    private TableColumn<Lecture, String> schedule;
+    private Button delete;  // Button to delete selected lectures
 
     @FXML
-    private TableColumn<Lecture, String> startDate;
+    private TableColumn<Lecture, String> schedule; // Column for lecture schedule information
 
     @FXML
-    private TextField search;
+    private TableColumn<Lecture, String> startDate;  // Column for lecture start date
+    @FXML
+    private TextField search; // Text field to input lecture ID for search
 
-    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
+    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList(); // List holding lecture data
 
-    private Student userInfo;
+    private Student userInfo;  // Current student's information
 
-    private static List<Lecture> selectedLectures;
+    private static List<Lecture> selectedLectures; // List of lectures selected by the student
 
-
+    /**
+     * Default constructor for LectureChoosingController.
+     */
     public void LectureChoosingController() {
-        //空构造器
+        // Empty constructor
     }
 
+    /**
+     * Sets the student's information in the controller.
+     *
+     * @param userInfo The student's information object.
+     */
    public void setStudentInfo(Student userInfo) {
         this.userInfo = userInfo;
     }
 
+    /**
+     * Handles the 'back' button action. Closes the current stage and loads the StudentHomePage.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     * @throws IOException If an error occurs while loading the FXML file.
+     */
     @FXML
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
@@ -109,12 +125,22 @@ public class LectureChoosingController implements Initializable {
         newStage.show();
     }
 
+    /**
+     * Retrieves the text from the search field when the search button is clicked.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     * @return The text in the search field.
+     */
     @FXML
     String searchBottonAction(ActionEvent event) {
         return this.search.getText();
     }
 
-
+    /**
+     * Handles the 'check' button action. Searches for a lecture by ID, displays it in the table or shows a 'not found' message.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     */
     @FXML
     void checkBottonAction(ActionEvent event) {
         String search=this.search.getText();
@@ -131,6 +157,12 @@ public class LectureChoosingController implements Initializable {
         }
     }
 
+    /**
+     * Handles the 'my courses' button action. Closes the current stage and loads the StudentCourses page.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     * @throws IOException If an error occurs while loading the FXML file.
+     */
     @FXML
     void myCoursesAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
@@ -146,6 +178,11 @@ public class LectureChoosingController implements Initializable {
         newStage.show();
     }
 
+    /**
+     * Handles the 'refresh' button action. Refreshes the table of lectures and sets the selected lectures.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     */
     @FXML
     void refreshBottonAction(ActionEvent event) {
         this.search.setText("");
@@ -163,8 +200,12 @@ public class LectureChoosingController implements Initializable {
         LectureTable.setItems(lecturesData);
     }
 
-
-
+    /**
+     * Handles the 'save' button action. Saves the selected lectures for the student.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     * @return A list of selected lectures.
+     */
     @FXML
      List<Lecture> saveBottonAction(ActionEvent event) {
         selectedLectures = lecturesData.stream()
@@ -185,6 +226,12 @@ public class LectureChoosingController implements Initializable {
         return lectures;
     }
 
+    /**
+     * Handles the 'delete' button action. Deletes the selected lectures for the student.
+     *
+     * @param event ActionEvent object triggered by the button click.
+     * @return A list of deleted lectures.
+     */
     @FXML
     List<Lecture> deleteBottonAction(ActionEvent event) {
         selectedLectures = lecturesData.stream()
@@ -204,30 +251,33 @@ public class LectureChoosingController implements Initializable {
         return lectures;
     }
 
+    /**
+     * Initializes the controller and sets up the table view bindings.
+     */
     public void initialize (URL arg0, ResourceBundle arg1){
-            //表格与实体类的属性进行绑定
-            lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
-            name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-            lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
-            building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
-            room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
-            startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-            endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-            schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
+        // Binds table columns with properties from the Lecture entity
+        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));
+        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        lecturer.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLecturerName())));
+        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
+        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
+        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
 
-            TableColumn checkBoxColumn = new TableColumn("");
-            checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+        // Sets up checkbox functionality within the table
+        TableColumn checkBoxColumn = new TableColumn("");
+        checkBox.setCellFactory(CheckBoxTableCell.forTableColumn(checkBoxColumn));
+        checkBox.setCellValueFactory(cellData -> {
+            Lecture lecture = cellData.getValue();
+            SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
+            booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
+            return booleanProp;
+        });
+        TableColumn<Lecture, Boolean> selectCol = new TableColumn<>("Select");
+        selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
 
-            checkBox.setCellValueFactory(cellData -> {
-                Lecture lecture = cellData.getValue();
-                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(lecture.isSelected());
-                booleanProp.addListener((observable, oldValue, newValue) -> lecture.setSelected(newValue));
-                return booleanProp;
-            });
-
-            TableColumn<Lecture, Boolean> selectCol = new TableColumn<>("Select");
-            selectCol.setCellFactory(CheckBoxTableCell.forTableColumn(selectCol));
-
-            refreshBottonAction(null);
+        // Calls refresh method to populate the table initially
+        refreshBottonAction(null);
         }
 }

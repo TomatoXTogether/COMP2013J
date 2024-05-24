@@ -1,20 +1,16 @@
 package com.example.test;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,47 +19,66 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * This class represents the controller for the StudentCourses view.
+ * It handles the interactions between the UI elements and the underlying data model.
+ */
 public class StudentCoursesController {
 
     @FXML
-    private TableView<Lecture> LectureTable;
+    private TableView<Lecture> LectureTable;// Table view for displaying lectures
 
     @FXML
-    private Button back;
+    private Button back; // Button to skip to home page
 
     @FXML
-    private Button lectureChoosing;
+    private Button lectureChoosing; // Button to skip to lecture choosing page
 
     @FXML
-    private Button refresh;
+    private Button refresh; // Button to refresh the lecture list table
 
     @FXML
-    private TableColumn<Lecture, String> monday;
+    private TableColumn<Lecture, String> monday;  // Column for Monday's lectures
 
     @FXML
-    private TableColumn<Lecture, String> tuesday;
+    private TableColumn<Lecture, String> tuesday; // Column for Tuesday's lectures
 
     @FXML
-    private TableColumn<Lecture, String> wednesday;
+    private TableColumn<Lecture, String> wednesday;// Column for Wednesday's lectures
 
     @FXML
-    private TableColumn<Lecture, String> thursday;
+    private TableColumn<Lecture, String> thursday;// Column for Thursday's lectures
 
     @FXML
-    private TableColumn<Lecture, String> friday;
+    private TableColumn<Lecture, String> friday; // Column for Friday's lectures
 
-    private ObservableList<Lecture> lectures = FXCollections.observableArrayList();
+    private ObservableList<Lecture> lectures = FXCollections.observableArrayList(); // List of observable lectures
 
-    private Student userInfo;
+    private Student userInfo;  // Student information
 
+    /**
+     * Default constructor.
+     */
     public StudentCoursesController(){
-        //无参构造器
+        // Empty
     }
+
+    /**
+     * Sets the student information for the controller.
+     *
+     * @param userInfo The student information object
+     */
     public void setStudentInfo(Student userInfo){
         this.userInfo = userInfo;
         initialize(null,null,userInfo);
     }
 
+    /**
+     * Navigates back to the StudentHomePage when the back button is clicked.
+     *
+     * @param event The action event triggered by the button click
+     * @throws IOException If there's an issue loading the FXML file
+     */
     @FXML
     void backBottonAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
@@ -78,7 +93,12 @@ public class StudentCoursesController {
         newStage.show();
     }
 
-
+    /**
+     * Navigates to the LectureChoosing view when the choose lectures button is clicked.
+     *
+     * @param event The action event triggered by the button click
+     * @throws IOException If there's an issue loading the FXML file
+     */
     @FXML
     void lectureChoosingAction(ActionEvent event) throws IOException {
         Stage currentStage = (Stage) back.getScene().getWindow();
@@ -94,8 +114,16 @@ public class StudentCoursesController {
         newStage.show();
     }
 
+    /**
+     * Initializes the table view with the student's lectures.
+     * Sets up the table columns to display the lecture details based on their schedule.
+     *
+     * @param url Unused parameter
+     * @param resourceBundle Unused parameter
+     * @param userInfo The student information object
+     */
     public void initialize(URL url, ResourceBundle resourceBundle, User userInfo) {
-        // 使用 Optional 来包装获取讲座列表的结果
+        // Fetches the student's lectures from the database
         lectures = FXCollections.observableArrayList(Optional.ofNullable(StudentDAO.getAllLectures(userInfo.getID()))
                 .orElseGet(Collections::emptyList));
 
