@@ -40,19 +40,28 @@ public class LecturerDAO {
         return lecturers;
     }
 
-    public static List<Lecture> getAllLectures(Lecturer lecturer){
+    public static List<Lecture> getAllLecturerCourses(Lecturer lecturer){
+        //得到老师所教的课的id
         int id=lecturer.getID();
         List<Lecture> lectures = new ArrayList<Lecture>();
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT lectureID FROM lecturer WHERE lecturerID =" + lecturer.getID());
+            ResultSet rs = st.executeQuery("SELECT * FROM lectures WHERE lecturerID =" + lecturer.getID());
 
             while (rs.next()) {
                 String lectureID = rs.getString("lectureID");
-                String grade = rs.getString("grade");
-
+                String lecturerName = lecturer.getFirstname();
+                String name = rs.getString("name");
+                int room = rs.getInt("room");
+                int building = rs.getInt("building");
+                String schedule = rs.getString("schedule");
+                String startDate = rs.getString("startDate");
+                String endDate = rs.getString("endDate");
+                //String grade = rs.getString("grade");
+                Lecture e = new Lecture(lectureID,lecturerName, name, room, building, schedule, startDate, endDate );
+                lectures.add(e);
 
             }
             rs.close();
@@ -109,7 +118,7 @@ public class LecturerDAO {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT name FROM lectures WHERE lectureID = '" + lectureID + "'");
+            ResultSet rs = st.executeQuery("SELECT name FROM lectures WHERE lecturerID = '" + lectureID + "'");
 
             if (rs.next()) {
                 lectureName = rs.getString("name");

@@ -17,12 +17,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+
 import com.example.test.Student;
 
 public class LecturerScoreManagementController {
 
     @FXML
-    public TableView<Lecture> LectureTable;
+    public TableView<lectureStudent> LectureTable;
 
     @FXML
     private TableView<Student> StudentTable;
@@ -37,13 +38,13 @@ public class LecturerScoreManagementController {
     private Button check;
 
     @FXML
-    private TableColumn<Lecture, String> lectureID;
+    private TableColumn<lectureStudent, String> lectureID;
 
     @FXML
     private Button delete;
 
     @FXML
-    private TableColumn<Lecture, String> name;
+    private TableColumn<lectureStudent, String> name;
 
     @FXML
     private TextField input;
@@ -52,13 +53,13 @@ public class LecturerScoreManagementController {
     private Button lectureChoosing;
 
     @FXML
-    private TableColumn<Student, String> studentID;
+    private TableColumn<lectureStudent, String> studentID;
 
     @FXML
-    private TableColumn<Student, String> studentName;
+    private TableColumn<lectureStudent, String> studentName;
 
     @FXML
-    private TableColumn<Student, String> email;
+    private TableColumn<lectureStudent, String> email;
 
     @FXML
     private Button newLecture;
@@ -70,11 +71,9 @@ public class LecturerScoreManagementController {
     private Button save;
 
     @FXML
-    private TableColumn<Grade, String> grade;
+    private TableColumn<lectureStudent, String> grade;
 
-    private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
-    private ObservableList<Student> studentsData = FXCollections.observableArrayList();
-    private ObservableList<Grade> gradesData = FXCollections.observableArrayList();
+    private ObservableList<lectureStudent> lecturesData = FXCollections.observableArrayList();
 
     @FXML
     private Lecturer userInfo;
@@ -91,10 +90,8 @@ public class LecturerScoreManagementController {
         this.userInfo = userInfo;
 
         System.out.println(userInfo+"7777777777");
-        loadLectures(userInfo);
         initialize(null,null,userInfo);
         System.out.println(userInfo+"9999999999");
-        loadLectures(userInfo);
     }
 
     @FXML
@@ -145,49 +142,62 @@ public class LecturerScoreManagementController {
     public void setLecturerCourseID(String lecturerCourseID) {
         this.lecturerCourseID = lecturerCourseID;
     }
-    private void loadLectures(Lecturer user) {
-        System.out.println(user+"test");
-        if (user != null) {
-            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
-
+    private void loadLectures(Lecturer lecturer) {
+        System.out.println(lecturer+"test");
+        if (lecturer != null) {
+            List<Lecture> lectures = LecturerDAO.getAllLecturerCourses(lecturer);
             lecturesData.clear(); // 清除先前的数据
 
             // 将获取到的 Lecture 对象添加到数据源中
-            lecturesData.addAll(lectures);
-            LectureTable.setItems(lecturesData);
+
 
             for (Lecture lecture : lectures) {
-                List<Student> students = StudentDAO.getStudentsByLectureID(Integer.parseInt((lecture.getLectureID())));
+
+                List<Student> students = StudentDAO.getStudentsByLectureID(lecture.getLectureID());
                 //studentsData.clear();
-                studentsData.addAll(students);
-                StudentTable.setItems(studentsData);
+
 
                 for (Student student : students) {
-                    Grade grade = new Grade(lecture.getLectureID(), lecture.getName(), student.getGrade());
-                    gradesData.add(grade);
+                    lectureStudent allInfo = new lectureStudent(lecture.getLectureID(), lecture.getName(), student.getName(), student.getID(), student.getEmail(), student.getGrade());
+                    lecturesData.addAll(allInfo);
                 }
-                StudentTable.setItems(studentsData);
-                GradeTable.setItems(gradesData);
 
             }
+            LectureTable.setItems(lecturesData);
         }
     }
 
 
     public void initialize(URL location, ResourceBundle resources,User user) {
-        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
-        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-
+        lectureID.setCellValueFactory(cellData -> {
+            String id = Optional.ofNullable(cellData.getValue())
+                    .map(lectureStudent::getLectureID)
+                    .orElse("null");
+            return new SimpleStringProperty(id);
+        });
+        name.setCellValueFactory(cellData -> {
+            String id = Optional.ofNullable(cellData.getValue())
+                    .map(lectureStudent::getLectureName)
+                    .orElse("null");
+            return new SimpleStringProperty(id);
+        });
+        grade.setCellValueFactory(cellData -> {
+            String id = Optional.ofNullable(cellData.getValue())
+                    .map(lectureStudent::getGrade)
+                    .orElse("null");
+            return new SimpleStringProperty(id);
+        });
+        email.setCellValueFactory(cellData -> {
+            String id = Optional.ofNullable(cellData.getValue())
+                    .map(lectureStudent::getEmail)
+                    .orElse("null");
+            return new SimpleStringProperty(id);
+        });
         // 初始化 StudentTable 的列绑定
-        studentID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getID())));
-        studentName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        email.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-
-        // 初始化 GradeTable 的列绑定
-        grade.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGrade()));
+        studentID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getStudentID())));
+        studentName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStudentName()));
 
         // 加载数据
         loadLectures(userInfo);
     }
-
 }

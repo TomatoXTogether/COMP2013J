@@ -54,14 +54,14 @@ public class StudentDAO {
         return student;
     }
 
-    public static List<Student> getStudentsByLectureID(int lectureID) {
+    public static List<Student> getStudentsByLectureID(String lectureID) {
         List<Student> students = new ArrayList<Student>();
 
         try {
             Connection conn = JDBCTool.getConnection();
             Statement st = conn.createStatement();
 
-            ResultSet rs = st.executeQuery("SELECT * FROM students WHERE lectureID = " + lectureID);
+            ResultSet rs = st.executeQuery("SELECT * FROM students WHERE lectureID = '" + lectureID + "'");
 
             while (rs.next()) {
                 int studentID = rs.getInt("studentID");
@@ -74,6 +74,7 @@ public class StudentDAO {
 
 
                 Student e = new Student(studentID, name, password, email);
+                e.setGrade(grade);
 
                 students.add(e);
             }

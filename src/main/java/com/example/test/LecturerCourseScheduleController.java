@@ -13,14 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class LecturerCourseScheduleController implements Initializable {
+public class LecturerCourseScheduleController{
 
     @FXML
     private TableView<Lecture> LectureTable;
@@ -62,6 +65,12 @@ public class LecturerCourseScheduleController implements Initializable {
     private Button save;
 
     @FXML
+    private Text notFound;
+
+    @FXML
+    private TextField search;
+
+    @FXML
     private TableColumn<Lecture, String> schedule;
 
     @FXML
@@ -74,19 +83,19 @@ public class LecturerCourseScheduleController implements Initializable {
     private Lecturer userInfo;
 
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
-    public  LecturerCourseScheduleController(){
+
+    public LecturerCourseScheduleController() {
         //
     }
 
-    public LecturerCourseScheduleController(Lecturer userInfo){
+    public LecturerCourseScheduleController(Lecturer userInfo) {
         this.userInfo = userInfo;
     }
 
-    public void setLecturerInfo(Lecturer userInfo){
+    public void setLecturerInfo(Lecturer userInfo) {
         this.userInfo = userInfo;
-        loadLectures();
+        initialize(null,null,userInfo);
     }
-
 
 
     @FXML
@@ -104,7 +113,20 @@ public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        String search = input.getText();
+        if (search != null && !search.trim().isEmpty()) {
+            LectureTable.getItems().clear();
+            Lecture foundLecture = LectureDAO.getLectureByID(search);
+            if (foundLecture != null) {
+                ObservableList<Lecture> lecturesList = LectureTable.getItems();
+                lecturesList.add(0, foundLecture);
+                LectureTable.setItems(lecturesList);
+            } else {
+                // 如果找不到讲座，可以在这里添加一个提示，例如显示一个标签
+                // notFound.setVisible(true);
+                System.out.println("Lecture not found.");
+            }
+        }
     }
 
     @FXML
@@ -124,7 +146,9 @@ public class LecturerCourseScheduleController implements Initializable {
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
-        loadLectures();
+        this.search.setText("");
+        notFound.setVisible(false);
+        initialize(null,null,userInfo);
     }
 
     @FXML
@@ -132,26 +156,82 @@ public class LecturerCourseScheduleController implements Initializable {
 
     }
 
-    private void loadLectures(){
-        if (userInfo != null) {
-            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
-            lecturesData.clear();
-            lecturesData.addAll(lectures);
-            LectureTable.setItems(lecturesData);
-        }
+    private void loadLectures() {
+//        List<Lecture> lectures = Optional.ofNullable(LectureDAO.getAllLectures(userInfo != null ? userInfo.getID() : null))
+//                .orElseGet(Collections::emptyList);
+//        lecturesData = FXCollections.observableArrayList(lectures);
+//        LectureTable.setItems(lecturesData);
+//        if (userInfo != null) {
+//            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
+//            lecturesData.clear();
+//            lecturesData.addAll(lectures);
+//            LectureTable.setItems(lecturesData);
+//        }
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
-        lectureName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
-        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
-        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
-        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
 
-        // Refresh the table on initialization
-        loadLectures();
+    public void initialize(URL location, ResourceBundle resources, User userInfo) {
+        lecturesData = FXCollections.observableArrayList(Optional.ofNullable(LecturerDAO.getAllLecturerCourses((Lecturer) userInfo))
+                .orElseGet(Collections::emptyList));
+        lectureID.setCellValueFactory(cellData -> {
+            String id = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getLectureID)
+                    .orElse("");
+            return new SimpleStringProperty(id);
+        });
+
+        lectureName.setCellValueFactory(cellData -> {
+            String lectureName = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getName)
+                    .orElse("");
+            return new SimpleStringProperty(lectureName);
+        });
+
+        building.setCellValueFactory(cellData -> {
+            String buildingName = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getBuilding)
+                    .orElse(0));
+            return new SimpleStringProperty(buildingName);
+        });
+
+        room.setCellValueFactory(cellData -> {
+            String roomName = String.valueOf(Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getRoom)
+                    .orElse(0));
+            return new SimpleStringProperty(roomName);
+        });
+
+        schedule.setCellValueFactory(cellData -> {
+            String scheduleValue = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getSchedule)
+                    .orElse("");
+            return new SimpleStringProperty(scheduleValue);
+        });
+
+        startDate.setCellValueFactory(cellData -> {
+            String start = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getStartDate)
+                    .orElse("");
+            return new SimpleStringProperty(start);
+        });
+
+        endDate.setCellValueFactory(cellData -> {
+            String end = Optional.ofNullable(cellData.getValue())
+                    .map(Lecture::getEndDate)
+                    .orElse("");
+            return new SimpleStringProperty(end);
+        });
+        lecturesData = FXCollections.observableArrayList(Optional.of(LecturerDAO.getAllLecturerCourses((Lecturer) userInfo))
+                .orElseGet(Collections::emptyList));
+        LectureTable.setItems(lecturesData);
+        // 初始加载讲座数据
+        //loadLectures(null);
+//        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
+//        lectureName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+//        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
+//        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
+//        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
+//        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
+//        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
+//        loadLectures();
     }
 }
-
