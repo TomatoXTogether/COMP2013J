@@ -71,16 +71,6 @@ public class LecturerDAO {
         }
         return lectures;
     }
-    public static Lecturer getLecturerByID(int lecturerID) {
-        User lecturer = null;
-        for (User l : getAllLecturers()) {
-            if (l.getID() == lecturerID) {
-                lecturer = l;
-                break;
-            }
-        }
-        return (Lecturer) lecturer;
-    }
 
     public static void registerStudent(Lecturer lecturer) {
 
@@ -102,38 +92,4 @@ public class LecturerDAO {
         }
     }
 
-    public static void deleteLecturerByID(int lecturerID) {
-        try {
-            Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("DELETE FROM lecturer WHERE lecturerID = " + lecturerID);
-            rs.close();
-            st.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static String getLectureNameByID(String lectureID) {
-        String lectureName = null;
-
-        try {
-            Connection conn = JDBCTool.getConnection();
-            Statement st = conn.createStatement();
-
-            ResultSet rs = st.executeQuery("SELECT name FROM lectures WHERE lecturerID = '" + lectureID + "'");
-
-            if (rs.next()) {
-                lectureName = rs.getString("name");
-            }
-
-            rs.close();
-            st.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return lectureName;
-    }
 }
