@@ -121,8 +121,16 @@ public class LecturerScoreManagementController {
     }
 
     @FXML
-    void deleteBottonAction(ActionEvent event) {
-
+    void jumpToCourseManagement(ActionEvent event) throws IOException{
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerCourse.fxml"));
+        Parent root = loader.load();
+        LecturerCoursesManagementController controller = loader.getController();
+        controller.setLecturerInfo(userInfo);
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     @FXML
@@ -132,16 +140,6 @@ public class LecturerScoreManagementController {
 
     @FXML
     void lectureChoosingAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void refreshBottonAction(ActionEvent event) {
-        loadLectures(userInfo);
-    }
-
-    @FXML
-    void saveBottonAction(ActionEvent event) {
 
     }
 

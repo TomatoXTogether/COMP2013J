@@ -152,8 +152,16 @@ public class LecturerCourseScheduleController{
     }
 
     @FXML
-    void saveBottonAction(ActionEvent event) {
-
+    void jumpToScore(ActionEvent event) throws IOException{
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerScoreManagement.fxml"));
+        Parent root = loader.load();
+        LecturerScoreManagementController controller = loader.getController();
+        controller.setLecturerInfo(userInfo);
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
     }
 
     private void loadLectures() {

@@ -121,6 +121,19 @@ public class LecturerCoursesManagementController implements Initializable {
     }
 
     @FXML
+    void jumpToSchedule(ActionEvent event) throws IOException{
+        Stage currentStage = (Stage) back.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerCourseSchedule.fxml"));
+        Parent root = loader.load();
+        LecturerCourseScheduleController controller = loader.getController();
+        controller.setLecturerInfo(userInfo);
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+    }
+
+    @FXML
     void lectureChoosingAction(ActionEvent event) {
 
     }

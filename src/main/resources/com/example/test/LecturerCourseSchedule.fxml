@@ -10,16 +10,15 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.LecturerCourseScheduleController">
    <children>
-      <Text layoutX="152.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecture List">
+      <Text layoutX="182.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Lecture List">
          <font>
             <Font size="31.0" />
          </font>
       </Text>
       <Button fx:id="back" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" onAction="#backBottonAction" prefHeight="39.0" prefWidth="74.0" text="Back" />
-      <Button fx:id="refresh" layoutX="369.0" layoutY="58.0" mnemonicParsing="false" onAction="#refreshBottonAction" prefHeight="23.0" prefWidth="59.0" text="Refresh" />
-      <TextField fx:id="input" layoutX="544.0" layoutY="58.0" onAction="#inputBottonAction" />
-      <Button fx:id="check" layoutX="713.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
-      <Button fx:id="lectureChoosing" layoutX="802.0" layoutY="50.0" mnemonicParsing="false" onAction="#lectureChoosingAction" prefHeight="39.0" prefWidth="124.0" text="Lecture Choosing" />
+      <TextField fx:id="input" layoutX="512.0" layoutY="59.0" onAction="#inputBottonAction" />
+      <Button fx:id="check" layoutX="685.0" layoutY="58.0" mnemonicParsing="false" onAction="#checkBottonAction" text="Check" />
+      <Button fx:id="scoreMnagement" layoutX="777.0" layoutY="50.0" mnemonicParsing="false" onAction="#jumpToScore" prefHeight="39.0" prefWidth="149.0" text="Score Management" />
       <TableView fx:id="LectureTable" layoutX="74.0" layoutY="136.0" prefHeight="606.0" prefWidth="852.0">
          <columns>
             <TableColumn fx:id="lectureID" editable="false" prefWidth="118.0" resizable="false" sortable="false" text="Lecture ID" />
@@ -31,8 +30,5 @@
             <TableColumn fx:id="endDate" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="End Date" />
          </columns>
       </TableView>
-      <Button fx:id="save" layoutX="457.0" layoutY="58.0" mnemonicParsing="false" onAction="#saveBottonAction" prefHeight="23.0" prefWidth="59.0" text="Save" />
-      <Button fx:id="delete" layoutX="457.0" layoutY="90.0" mnemonicParsing="false" onAction="#deleteBottonAction" prefHeight="23.0" prefWidth="59.0" text="Delete" />
-      <Button fx:id="newLecture" layoutX="802.0" layoutY="742.0" mnemonicParsing="false" onAction="#lectureChoosingAction" prefHeight="39.0" prefWidth="124.0" text="New lecture" />
    </children>
 </AnchorPane>

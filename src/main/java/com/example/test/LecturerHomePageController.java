@@ -32,6 +32,9 @@ public class LecturerHomePageController {
         private Text lecturerOffice;
 
         @FXML
+        private Text lecturerPassword;
+
+        @FXML
         private Button lecturerScore;
 
         @FXML
@@ -69,6 +72,7 @@ public class LecturerHomePageController {
                 lecturerEmail.setText(userInfo.getEmail());
                 lecturerID.setText(String.valueOf(userInfo.getID()));
                 welcomeLecturerName.setText(userInfo.getFirstname() + " " + userInfo.getLastname());
+                lecturerPassword.setText(String.valueOf(userInfo.getPassword()));
         }
 
         @FXML
