@@ -80,7 +80,7 @@ public class RegisterController implements Initializable {
     @FXML
     void RegisterAction(ActionEvent event) throws IOException {
         try {
-            if(Objects.equals(nameText.getText(), "") || Objects.equals(emailText.getText(), "") || Objects.equals(firstNameText.getText(), "") || Objects.equals(lastNameText.getText(), "") || Objects.equals(officeText.getText(), "")) {
+            if((Objects.equals(choseIdentity.getValue(), "Student") && (Objects.equals(nameText.getText(), "") || Objects.equals(emailText.getText(), ""))) || (Objects.equals(choseIdentity.getValue(), "Lecturer") && (Objects.equals(firstNameText.getText(), "") || Objects.equals(lastNameText.getText(), "") || Objects.equals(officeText.getText(), "") ||Objects.equals(emailText.getText(), "")))) {
                 errorMessageForEmpty.setVisible(true);
             }else {
                 int newAccount = Integer.parseInt(Account.getText());
@@ -102,6 +102,7 @@ public class RegisterController implements Initializable {
                         LecturerDAO.registerLecturer(newLecturer);
                         break;
                     default:
+
                         break;
 
                 }

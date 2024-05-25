@@ -56,6 +56,9 @@ public class LecturerHomePageController {
 
         @FXML
         private Text welcomeLecturerName;
+        
+        @FXML
+        private Button backToLogin;
 
         private Lecturer userInfo;
 
@@ -76,6 +79,20 @@ public class LecturerHomePageController {
                 welcomeLecturerName.setText(userInfo.getFirstname() + " " + userInfo.getLastname());
                 lecturerPassword.setText(String.valueOf(userInfo.getPassword()));
         }
+
+        @FXML
+        void backToLoginBottonAction(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) backToLogin.getScene().getWindow();
+                currentStage.close();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                Parent root = loader.load();
+
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+        }
+
 
         @FXML
         void lecturerCourseManagement(ActionEvent event) throws IOException {

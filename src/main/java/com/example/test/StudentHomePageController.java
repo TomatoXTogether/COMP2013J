@@ -49,6 +49,9 @@ public class StudentHomePageController {
         @FXML
         private Button studentScore;
 
+        @FXML
+        private Button backToLogin;
+
         private Student userInfo;
 
         /**
@@ -80,6 +83,18 @@ public class StudentHomePageController {
                 studentID.setText(String.valueOf(userInfo.getID()));
         }
 
+        @FXML
+        void backToLoginBottonAction(ActionEvent event) throws IOException {
+                Stage currentStage = (Stage) backToLogin.getScene().getWindow();
+                currentStage.close();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                Parent root = loader.load();
+
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+        }
 
         @FXML
         void changeStudentEmail(ActionEvent event) {

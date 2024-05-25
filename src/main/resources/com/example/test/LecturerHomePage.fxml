@@ -129,5 +129,6 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <Button fx:id="backToLogin" layoutX="881.0" layoutY="62.0" mnemonicParsing="false" onAction="#backToLoginBottonAction" prefHeight="53.0" prefWidth="99.0" text="Back to Login" />
    </children>
 </AnchorPane>
