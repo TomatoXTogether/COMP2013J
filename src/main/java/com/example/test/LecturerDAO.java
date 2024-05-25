@@ -92,4 +92,46 @@ public class LecturerDAO {
         }
     }
 
+    public static void updateEmail(int lecturerID, String newEmail) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE lecturer SET email = ? WHERE lecturerID = ?");
+            stmt.setString(1, newEmail);
+            stmt.setInt(2, lecturerID);
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void updateOffice(int lecturerID, String newOffice) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE lecturer SET office = ? WHERE lecturerID = ?");
+            stmt.setString(1, newOffice);
+            stmt.setInt(2, lecturerID);
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void updatePassword(int lecturerID, int newPassword) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE lecturer SET password = ? WHERE lecturerID = ?");
+            stmt.setInt(1, newPassword);
+            stmt.setInt(2, lecturerID);
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }

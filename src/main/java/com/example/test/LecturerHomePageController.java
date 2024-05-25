@@ -6,10 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class LecturerHomePageController {
 
@@ -101,7 +103,15 @@ public class LecturerHomePageController {
         }
         @FXML
         void changeLecturerEmail(ActionEvent event) {
-
+                TextInputDialog dialog = new TextInputDialog(userInfo.getEmail());
+                dialog.setTitle("Change Email");
+                dialog.setHeaderText("Enter new email:");
+                Optional<String> result = dialog.showAndWait();
+                result.ifPresent(newEmail -> {
+                        LecturerDAO.updateEmail(userInfo.getID(), newEmail);
+                        userInfo.setEmail(newEmail);
+                        lecturerEmail.setText(newEmail);
+                });
         }
 
         @FXML
@@ -116,16 +126,29 @@ public class LecturerHomePageController {
 
         @FXML
         void changeLecturerOffice(ActionEvent event) {
-
+                TextInputDialog dialog = new TextInputDialog(userInfo.getOffice());
+                dialog.setTitle("Change Office");
+                dialog.setHeaderText("Enter new office:");
+                Optional<String> result = dialog.showAndWait();
+                result.ifPresent(newOffice -> {
+                        LecturerDAO.updateOffice(userInfo.getID(), newOffice);
+                        userInfo.setOffice(newOffice);
+                        lecturerOffice.setText(newOffice);
+                });
         }
 
         @FXML
         void changeLecturerPassword(ActionEvent event) {
-
+                TextInputDialog dialog = new TextInputDialog(String.valueOf(userInfo.getPassword()));
+                dialog.setTitle("Change Password");
+                dialog.setHeaderText("Enter new password:");
+                Optional<String> result = dialog.showAndWait();
+                result.ifPresent(newPassword -> {
+                        LecturerDAO.updatePassword(userInfo.getID(), Integer.parseInt(newPassword));
+                        userInfo.setPassword(Integer.parseInt(newPassword));
+                        lecturerPassword.setText(newPassword);
+                });
         }
-
-
-
 
         @FXML
         void lecturerScoreManagement(ActionEvent event) throws IOException{
