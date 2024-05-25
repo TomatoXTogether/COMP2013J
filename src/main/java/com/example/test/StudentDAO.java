@@ -196,4 +196,21 @@ public class StudentDAO {
         }
     }
 
+    public static void updateStudentGrade(int studentID, String lectureID, String newGrade) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE students SET grade = ? WHERE studentID = ? AND lectureID = ?");
+            stmt.setString(1, newGrade);
+            stmt.setInt(2, studentID);
+            stmt.setString(3, lectureID);
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

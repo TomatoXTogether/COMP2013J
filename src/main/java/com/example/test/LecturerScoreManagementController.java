@@ -80,6 +80,13 @@ public class LecturerScoreManagementController {
     @FXML
     private String lecturerCourseID;
 
+    @FXML
+    private TextField newGradeField;
+
+    @FXML
+    private Button updateGradeButton;
+
+
 
 
     public void LecturerScoreManagementController(Lecturer userInfo){
@@ -137,6 +144,22 @@ public class LecturerScoreManagementController {
     void saveBottonAction(ActionEvent event) {
 
     }
+
+    @FXML
+    void updateGradeButtonAction(ActionEvent event) {
+        lectureStudent selectedStudent = LectureTable.getSelectionModel().getSelectedItem();
+        if (selectedStudent != null && !newGradeField.getText().isEmpty()) {
+            String newGrade = newGradeField.getText();
+            selectedStudent.setGrade(newGrade);
+
+            // 更新数据库中的成绩
+            StudentDAO.updateStudentGrade(selectedStudent.getStudentID(), selectedStudent.getLectureID(), newGrade);
+
+            // 刷新表格数据
+            LectureTable.refresh();
+        }
+    }
+
 
 
     public void setLecturerCourseID(String lecturerCourseID) {
@@ -199,5 +222,8 @@ public class LecturerScoreManagementController {
 
         // 加载数据
         loadLectures(userInfo);
+
+        // 修改成绩
+        updateGradeButtonAction(null);
     }
 }
