@@ -32,5 +32,6 @@
             <TableColumn fx:id="checkBox" editable="false" minWidth="0.0" prefWidth="0.0" resizable="false" sortable="false" />
          </columns>
       </TableView>
+      <Button fx:id="reset" layoutX="684.0" layoutY="89.0" mnemonicParsing="false" onAction="#resetBottonAction" prefHeight="23.0" prefWidth="51.0" text="Reset" />
    </children>
 </AnchorPane>

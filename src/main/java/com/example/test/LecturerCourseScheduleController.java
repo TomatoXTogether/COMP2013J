@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class LecturerCourseScheduleController{
 
@@ -113,43 +114,22 @@ public class LecturerCourseScheduleController{
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-        String search = input.getText();
-        if (search != null && !search.trim().isEmpty()) {
-            LectureTable.getItems().clear();
-            Lecture foundLecture = LectureDAO.getLectureByID(search);
-            if (foundLecture != null) {
-                ObservableList<Lecture> lecturesList = LectureTable.getItems();
-                lecturesList.add(0, foundLecture);
-                LectureTable.setItems(lecturesList);
-            } else {
-                // 如果找不到讲座，可以在这里添加一个提示，例如显示一个标签
-                // notFound.setVisible(true);
-                System.out.println("Lecture not found.");
-            }
-        }
+        filterLectures();
     }
 
     @FXML
-    void deleteBottonAction(ActionEvent event) {
-
+    void resetBottonAction(ActionEvent event) {
+        input.clear();
+        LectureTable.setItems(lecturesData);
+        LectureTable.getSelectionModel().clearSelection();
     }
+
 
     @FXML
     void inputBottonAction(ActionEvent event) {
-
+        filterLectures();
     }
 
-    @FXML
-    void lectureChoosingAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void refreshBottonAction(ActionEvent event) {
-        this.search.setText("");
-        notFound.setVisible(false);
-        initialize(null,null,userInfo);
-    }
 
     @FXML
     void jumpToScore(ActionEvent event) throws IOException{
@@ -164,17 +144,30 @@ public class LecturerCourseScheduleController{
         newStage.show();
     }
 
-    private void loadLectures() {
-//        List<Lecture> lectures = Optional.ofNullable(LectureDAO.getAllLectures(userInfo != null ? userInfo.getID() : null))
-//                .orElseGet(Collections::emptyList);
-//        lecturesData = FXCollections.observableArrayList(lectures);
-//        LectureTable.setItems(lecturesData);
-//        if (userInfo != null) {
-//            List<Lecture> lectures = LectureDAO.getLecturesByLecturerID(String.valueOf(userInfo.getID()));
-//            lecturesData.clear();
-//            lecturesData.addAll(lectures);
-//            LectureTable.setItems(lecturesData);
-//        }
+    private void filterLectures(){
+        String filterText = input.getText().trim().toLowerCase();
+        if (filterText.isEmpty()) {
+            LectureTable.setItems(lecturesData);
+        } else {
+            List<Lecture> filteredList = lecturesData.stream()
+                    .filter(lecture -> lecture.getLectureID().toLowerCase().contains(filterText) ||
+                            lecture.getName().toLowerCase().contains(filterText) ||
+                            lecture.getLecturerName().toLowerCase().contains(filterText) ||
+                            String.valueOf(lecture.getBuilding()).toLowerCase().contains(filterText) ||
+                            String.valueOf(lecture.getRoom()).toLowerCase().contains(filterText) ||
+                            lecture.getStartDate().contains(filterText) ||
+                            lecture.getEndDate().contains(filterText) ||
+                            lecture.getSchedule().toLowerCase().contains(filterText))
+                    .collect(Collectors.toList());
+
+            ObservableList<Lecture> filteredData = FXCollections.observableArrayList(filteredList);
+            LectureTable.setItems(filteredData);
+            if (!filteredData.isEmpty()) {
+                LectureTable.getSelectionModel().select(0);
+                LectureTable.scrollTo(0);
+                LectureTable.getSelectionModel().clearSelection();
+            }
+        }
     }
 
     public void initialize(URL location, ResourceBundle resources, User userInfo) {
@@ -231,15 +224,5 @@ public class LecturerCourseScheduleController{
         lecturesData = FXCollections.observableArrayList(Optional.of(LecturerDAO.getAllLecturerCourses((Lecturer) userInfo))
                 .orElseGet(Collections::emptyList));
         LectureTable.setItems(lecturesData);
-        // 初始加载讲座数据
-        //loadLectures(null);
-//        lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLectureID()));
-//        lectureName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-//        building.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getBuilding())));
-//        room.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getRoom())));
-//        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSchedule()));
-//        startDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStartDate()));
-//        endDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEndDate()));
-//        loadLectures();
     }
 }

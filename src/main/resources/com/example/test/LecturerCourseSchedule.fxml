@@ -30,5 +30,6 @@
             <TableColumn fx:id="endDate" editable="false" prefWidth="100.0" resizable="false" sortable="false" text="End Date" />
          </columns>
       </TableView>
+      <Button fx:id="reset" layoutX="685.0" layoutY="89.0" mnemonicParsing="false" onAction="#resetBottonAction" prefHeight="23.0" prefWidth="51.0" text="Reset" />
    </children>
 </AnchorPane>

@@ -16,9 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
-
-import com.example.test.Student;
+import java.util.stream.Collectors;
 
 public class LecturerScoreManagementController {
 
@@ -117,7 +115,7 @@ public class LecturerScoreManagementController {
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        filterLectures();
     }
 
     @FXML
@@ -135,13 +133,36 @@ public class LecturerScoreManagementController {
 
     @FXML
     void inputBottonAction(ActionEvent event) {
-
+        filterLectures();
     }
 
     @FXML
-    void lectureChoosingAction(ActionEvent event) {
+    void filterLectures(){
+        String filterText = input.getText().trim().toLowerCase();
 
+        if (filterText.isEmpty()) {
+            LectureTable.setItems(lecturesData);
+        } else {
+            List<lectureStudent> filteredList = lecturesData.stream()
+                    .filter(ls ->
+                            String.valueOf(ls.getLectureID()).toLowerCase().contains(filterText) ||
+                                    ls.getLectureName().toLowerCase().contains(filterText) ||
+                                    ls.getStudentName().toLowerCase().contains(filterText) ||
+                                    String.valueOf(ls.getStudentID()).toLowerCase().contains(filterText) ||
+                                    ls.getEmail().toLowerCase().contains(filterText) ||
+                                    ls.getGrade().toLowerCase().contains(filterText))
+                    .collect(Collectors.toList());
+
+            ObservableList<lectureStudent> filteredData = FXCollections.observableArrayList(filteredList);
+            LectureTable.setItems(filteredData);
+
+            if (!filteredData.isEmpty()) {
+                LectureTable.getSelectionModel().select(0);
+                LectureTable.scrollTo(0);
+            }
+        }
     }
+
 
     @FXML
     void updateGradeButtonAction(ActionEvent event) {
@@ -158,26 +179,23 @@ public class LecturerScoreManagementController {
         }
     }
 
-
-
-    public void setLecturerCourseID(String lecturerCourseID) {
-        this.lecturerCourseID = lecturerCourseID;
+    @FXML
+    private void resetBottomAction(ActionEvent event){
+        input.clear();
+        LectureTable.setItems(lecturesData);
+        LectureTable.getSelectionModel().clearSelection();
     }
+
+
     private void loadLectures(Lecturer lecturer) {
         System.out.println(lecturer+"test");
         if (lecturer != null) {
             List<Lecture> lectures = LecturerDAO.getAllLecturerCourses(lecturer);
-            lecturesData.clear(); // 清除先前的数据
-
-            // 将获取到的 Lecture 对象添加到数据源中
-
+            lecturesData.clear();
 
             for (Lecture lecture : lectures) {
-
                 List<Student> students = StudentDAO.getStudentsByLectureID(lecture.getLectureID());
                 //studentsData.clear();
-
-
                 for (Student student : students) {
                     lectureStudent allInfo = new lectureStudent(lecture.getLectureID(), lecture.getName(), student.getName(), student.getID(), student.getEmail(), student.getGrade());
                     lecturesData.addAll(allInfo);
@@ -214,14 +232,11 @@ public class LecturerScoreManagementController {
                     .orElse("null");
             return new SimpleStringProperty(id);
         });
-        // 初始化 StudentTable 的列绑定
+
         studentID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getStudentID())));
         studentName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStudentName()));
 
-        // 加载数据
         loadLectures(userInfo);
-
-        // 修改成绩
         updateGradeButtonAction(null);
     }
 }

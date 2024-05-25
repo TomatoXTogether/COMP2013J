@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class LecturerCoursesManagementController implements Initializable {
 
@@ -84,7 +85,7 @@ public class LecturerCoursesManagementController implements Initializable {
     private ObservableList<Lecture> lecturesData = FXCollections.observableArrayList();
 
     public void LecturerCoursesManagementController(Lecturer userInfo){
-        //空构造器
+        //
     }
 
     public void setLecturerInfo(Lecturer userInfo){
@@ -107,17 +108,44 @@ public class LecturerCoursesManagementController implements Initializable {
 
     @FXML
     void checkBottonAction(ActionEvent event) {
-
+        filterLectures();
     }
 
-    @FXML
-    void deleteBottonAction(ActionEvent event) {
-
-    }
 
     @FXML
     void inputBottonAction(ActionEvent event) {
+        filterLectures();
+    }
+    @FXML
+    void resetBottonAction(ActionEvent event) {
+        input.clear();
+        LectureTable.setItems(lecturesData);
+        LectureTable.getSelectionModel().clearSelection();
+    }
+    private void filterLectures(){
+        String filterText = input.getText().trim().toLowerCase();
+        if (filterText.isEmpty()) {
+            LectureTable.setItems(lecturesData);
+        } else {
+            List<Lecture> filteredList = lecturesData.stream()
+                    .filter(lecture -> lecture.getLectureID().toLowerCase().contains(filterText) ||
+                            lecture.getName().toLowerCase().contains(filterText) ||
+                            lecture.getLecturerName().toLowerCase().contains(filterText) ||
+                            String.valueOf(lecture.getBuilding()).toLowerCase().contains(filterText) ||
+                            String.valueOf(lecture.getRoom()).toLowerCase().contains(filterText) ||
+                            lecture.getStartDate().contains(filterText) ||
+                            lecture.getEndDate().contains(filterText) ||
+                            lecture.getSchedule().toLowerCase().contains(filterText))
+                    .collect(Collectors.toList());
 
+            ObservableList<Lecture> filteredData = FXCollections.observableArrayList(filteredList);
+            LectureTable.setItems(filteredData);
+            if (!filteredData.isEmpty()) {
+                LectureTable.getSelectionModel().select(0);
+                LectureTable.scrollTo(0);
+                LectureTable.getSelectionModel().clearSelection();
+            }
+        }
     }
 
     @FXML
@@ -133,10 +161,6 @@ public class LecturerCoursesManagementController implements Initializable {
         newStage.show();
     }
 
-    @FXML
-    void lectureChoosingAction(ActionEvent event) {
-
-    }
 
     @FXML
     void refreshBottonAction(ActionEvent event) {
@@ -146,10 +170,6 @@ public class LecturerCoursesManagementController implements Initializable {
         LectureTable.setItems(lecturesData);
     }
 
-    @FXML
-    void saveBottonAction(ActionEvent event) {
-
-    }
     public void initialize (URL arg0, ResourceBundle arg1){
         //表格与实体类的属性进行绑定
         lectureID.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLectureID())));

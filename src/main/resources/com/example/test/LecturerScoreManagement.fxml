@@ -33,5 +33,6 @@
       </TableView>
       <TextField fx:id="newGradeField" layoutX="74.0" layoutY="758.0" promptText="Enter new grade" />
       <Button fx:id="updateGradeButton" layoutX="250.0" layoutY="758.0" mnemonicParsing="false" onAction="#updateGradeButtonAction" text="Update Grade" />
+      <Button fx:id="reset" layoutX="713.0" layoutY="89.0" mnemonicParsing="false" onAction="#resetBottomAction" prefHeight="23.0" prefWidth="51.0" text="Reset" />
    </children>
 </AnchorPane>
