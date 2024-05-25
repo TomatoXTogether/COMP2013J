@@ -2,12 +2,18 @@ package com.example.test;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
@@ -16,7 +22,7 @@ public class RegisterController implements Initializable {
     private TextField Account;
 
     @FXML
-    private PasswordField Password;
+    private TextField Password;
 
     @FXML
     private Text account;
@@ -72,15 +78,68 @@ public class RegisterController implements Initializable {
     private Button save;
 
     @FXML
-    void RegisterAction(ActionEvent event) {
-        String newAccount = Account.getText();
-        String newPassword = Password.getText();
+    void RegisterAction(ActionEvent event) throws IOException {
+        try {
+            if(Objects.equals(nameText.getText(), "") || Objects.equals(emailText.getText(), "") || Objects.equals(firstNameText.getText(), "") || Objects.equals(lastNameText.getText(), "") || Objects.equals(officeText.getText(), "")) {
+                errorMessageForEmpty.setVisible(true);
+            }else {
+                int newAccount = Integer.parseInt(Account.getText());
+                int newPassword = Integer.parseInt(Password.getText());
+                String newName = nameText.getText();
+                String newEmail = emailText.getText();
+                String newFirstName = firstNameText.getText();
+                String newLastName = lastNameText.getText();
+                String newOffice = officeText.getText();
 
+                switch (choseIdentity.getValue()) {
+                    case "Student":
+                        Student newStudent = new Student(newAccount, newName, newPassword, newEmail);
+                        StudentDAO.registerStudent(newStudent);
+                        break;
+
+                    case "Lecturer":
+                        Lecturer newLecturer = new Lecturer(newAccount, newFirstName, newLastName, newPassword, newEmail, newOffice);
+                        LecturerDAO.registerLecturer(newLecturer);
+                        break;
+                    default:
+                        break;
+
+                }
+                Stage currentStage = (Stage) register.getScene().getWindow();
+                currentStage.close();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+                Parent root;
+                root = loader.load();
+                LoginController controller = loader.getController();
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.show();
+            }
+
+        } catch (NumberFormatException e) {
+                errorMessageForEmpty.setVisible(true);
+        }
     }
 
     @FXML
     void ResetAction(ActionEvent event) {
+        switch (choseIdentity.getValue()) {
+            case "Student":
+                Account.setText("");
+                Password.setText("");
+                nameText.setText("");
+                emailText.setText("");
+                break;
 
+            case "Lecturer":
+                Account.setText("");
+                Password.setText("");
+                emailText.setText("");
+                firstNameText.setText("");
+                lastNameText.setText("");
+                officeText.setText("");
+                break;
+        }
     }
 
     @FXML
@@ -127,6 +186,8 @@ public class RegisterController implements Initializable {
     void saveBottonAction(ActionEvent event) {
         switch (choseIdentity.getValue()) {
             case "Student":
+                reset.setVisible(true);
+                register.setVisible(true);
                 Account.setVisible(true);
                 account.setVisible(true);
                 name.setVisible(true);
@@ -142,9 +203,12 @@ public class RegisterController implements Initializable {
                 office.setVisible(false);
                 officeText.setVisible(false);
 
+
                 break;
 
             case "Lecturer":
+                reset.setVisible(true);
+                register.setVisible(true);
                 Account.setVisible(true);
                 account.setVisible(true);
                 firstName.setVisible(true);
@@ -159,6 +223,10 @@ public class RegisterController implements Initializable {
                 Password.setVisible(true);
                 name.setVisible(false);
                 nameText.setVisible(false);
+
+                break;
+
+            default:
 
                 break;
         }

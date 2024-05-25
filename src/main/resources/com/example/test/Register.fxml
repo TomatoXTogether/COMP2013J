@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.FloatMap?>
@@ -37,8 +36,7 @@
          </font>
       </Text>
       <Button fx:id="register" layoutX="556.0" layoutY="510.0" mnemonicParsing="false" onAction="#RegisterAction" text="Register" visible="false" />
-      <PasswordField fx:id="Password" layoutX="592.0" layoutY="389.0" onAction="#enterPassword" promptText="Enter your password" visible="false" />
-      <Label fx:id="errorMessageForEmpty" layoutX="383.0" layoutY="514.0" text="Please enter your all information for your account!" textFill="#cc1919" visible="false" />
+      <Label fx:id="errorMessageForEmpty" layoutX="383.0" layoutY="558.0" text="Please enter your all information for your account!" textFill="#cc1919" visible="false" />
       <Text fx:id="name" layoutX="236.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" visible="false" />
       <TextField fx:id="nameText" accessibleText="int" layoutX="304.0" layoutY="389.0" onAction="#enterName" promptText="Enter your name" visible="false" />
       <Text fx:id="email" layoutX="524.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" visible="false" />
@@ -50,5 +48,6 @@
       <Text fx:id="office" layoutX="524.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Office" visible="false" />
       <TextField fx:id="officeText" accessibleText="int" layoutX="592.0" layoutY="434.0" onAction="#enterOffice" promptText="Enter your office" visible="false" />
       <Button fx:id="save" layoutX="631.0" layoutY="294.0" mnemonicParsing="false" onAction="#saveBottonAction" text="Save" />
+      <TextField fx:id="Password" accessibleText="int" layoutX="592.0" layoutY="389.0" onAction="#enterPassword" promptText="Enter your password" visible="false" />
    </children>
 </AnchorPane>

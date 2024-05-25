@@ -72,7 +72,7 @@ public class LecturerDAO {
         return lectures;
     }
 
-    public static void registerStudent(Lecturer lecturer) {
+    public static void registerLecturer(Lecturer lecturer) {
 
         try {
             Connection conn = JDBCTool.getConnection();
