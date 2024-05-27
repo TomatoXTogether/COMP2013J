@@ -105,7 +105,11 @@ public class StudentDAO {
                 String lectureID = rs.getString("lectureID");
                 String grade = rs.getString("grade");
                 Lecture lecture = LectureDAO.getLectureByID(lectureID);
-                lecture.setGrade(grade);
+
+                if (lecture != null) {
+                    lecture.setGrade(grade);
+                }
+
 
                 lectures.add(lecture);
                 StudentDAO.getStudentByID(studentID).lectures = lectures;
@@ -125,12 +129,13 @@ public class StudentDAO {
         try {
             Connection conn = JDBCTool.getConnection();
 
-            PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM students WHERE studentID = ? AND lectureID = ?");
+            PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*), lectureID FROM students WHERE studentID = ? AND lectureID = ?");
             checkStmt.setInt(1, student.getID());
             checkStmt.setString(2, lecture.getLectureID());
             ResultSet rs = checkStmt.executeQuery();
             rs.next();
             int count = rs.getInt(1);
+            String lectureID = rs.getString(2);
             checkStmt.close();
 
             if(count == 0){
@@ -143,6 +148,14 @@ public class StudentDAO {
                 stmt.setInt(5, student.getPassword());
                 stmt.setString(6, "null");
                 stmt.executeUpdate();
+
+                student.lectures.add(lecture);
+                stmt.close();
+            }else if (count == 1 && lectureID.equals("null")){
+                PreparedStatement stmt = conn.prepareStatement("UPDATE students SET lectureID = ? WHERE studentID = ?");
+
+                stmt.setString(1, lecture.getLectureID() );
+                stmt.setInt(2, student.getID());
 
                 student.lectures.add(lecture);
                 stmt.close();
@@ -183,11 +196,11 @@ public class StudentDAO {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO students(studentID, lectureID, name, email, password, grade) VALUES (?, ?, ?, ?, ?, ?)");
 
             stmt.setInt(1, student.getID());
-            stmt.setString(2,  null);
+            stmt.setString(2,  "null");
             stmt.setString(3, student.getName());
             stmt.setString(4, student.getEmail());
             stmt.setInt(5, student.getPassword());
-            stmt.setString(6, null);
+            stmt.setString(6, "null");
             stmt.executeUpdate();
             stmt.close();
             conn.close();
