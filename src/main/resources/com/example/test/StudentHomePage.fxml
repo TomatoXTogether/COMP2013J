@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -8,19 +9,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.StudentHomePageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test.StudentHomePageController">
    <children>
       <Separator layoutX="200.0" layoutY="125.0" prefWidth="800.0" />
       <Separator layoutX="200.0" orientation="VERTICAL" prefHeight="800.0" />
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="37.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../Github/databaseProject/COMP2013J/project/src/photo/lecturer.jpg" />
-         </image>
-      </ImageView>
-      <Button fx:id="studentCourse" layoutX="535.0" layoutY="197.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="105.0" prefWidth="351.0" text="Course Management">
+      <Button fx:id="studentCourse" layoutX="412.0" layoutY="151.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="200.0" prefWidth="200.0" text="Course Management">
          <font>
-            <Font size="24.0" />
-         </font></Button>
+            <Font name="Comic Sans MS" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor></Button>
       <Button fx:id="studentClass" layoutX="535.0" layoutY="384.0" mnemonicParsing="false" onAction="#studentClassSchedule" prefHeight="105.0" prefWidth="351.0" text="My Courses Schedule">
          <font>
             <Font size="24.0" />
@@ -29,21 +28,6 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="307.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Student/2.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="315.0" layoutY="538.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Github/COLLEGE/其他/lecturer3.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="41.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Github/COLLEGE/其他/lecturer4.jpg" />
-         </image>
-      </ImageView>
       <Button fx:id="newStudentID" layoutX="1.0" layoutY="296.0" mnemonicParsing="false" onAction="#changeStudentID" prefHeight="23.0" prefWidth="200.0" text="Change ID">
          <font>
             <Font size="12.0" />
@@ -109,21 +93,11 @@
             <Font size="12.0" />
          </font>
       </Button>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="307.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Student/1.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="307.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Student/3.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="41.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Github/databaseProject/COMP2013J/project/src/main/PHOTO/student.jpg" />
-         </image>
-      </ImageView>
       <Button fx:id="backToLogin" layoutX="871.0" layoutY="52.0" mnemonicParsing="false" onAction="#backToLoginBottonAction" prefHeight="53.0" prefWidth="99.0" text="Back to Login" />
+      <ImageView fitHeight="207.0" fitWidth="207.0" layoutX="577.0" layoutY="148.0">
+         <image>
+            <Image url="@images/微信图片_20240527095116.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
