@@ -13,91 +13,102 @@
    <children>
       <Separator layoutX="200.0" layoutY="125.0" prefWidth="800.0" />
       <Separator layoutX="200.0" orientation="VERTICAL" prefHeight="800.0" />
-      <Button fx:id="studentCourse" layoutX="412.0" layoutY="151.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="200.0" prefWidth="200.0" text="Course Management">
+      <Button fx:id="studentCourse" layoutX="535.0" layoutY="208.0" mnemonicParsing="false" onAction="#studentCourseManagement" prefHeight="105.0" prefWidth="351.0" text="Course Management">
          <font>
             <Font name="Comic Sans MS" size="24.0" />
          </font>
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></Button>
-      <Button fx:id="studentClass" layoutX="535.0" layoutY="384.0" mnemonicParsing="false" onAction="#studentClassSchedule" prefHeight="105.0" prefWidth="351.0" text="My Courses Schedule">
+      <Button fx:id="studentClass" layoutX="535.0" layoutY="388.0" mnemonicParsing="false" onAction="#studentClassSchedule" prefHeight="105.0" prefWidth="351.0" text="My Courses Schedule">
          <font>
-            <Font size="24.0" />
+            <Font name="Comic Sans MS" size="24.0" />
          </font></Button>
       <Button fx:id="studentScore" layoutX="535.0" layoutY="560.0" mnemonicParsing="false" onAction="#studentScoreInquiry" prefHeight="105.0" prefWidth="351.0" text="Score Inquiry">
          <font>
-            <Font size="24.0" />
+            <Font name="Comic Sans MS" size="24.0" />
          </font></Button>
-      <Button fx:id="newStudentID" layoutX="1.0" layoutY="296.0" mnemonicParsing="false" onAction="#changeStudentID" prefHeight="23.0" prefWidth="200.0" text="Change ID">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="newStudentName" layoutX="1.0" layoutY="418.0" mnemonicParsing="false" onAction="#changeStudentName" prefHeight="23.0" prefWidth="200.0" text="Change Name">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="newStudentEmail" layoutX="1.0" layoutY="535.0" mnemonicParsing="false" onAction="#changeStudentEmail" prefHeight="23.0" prefWidth="200.0" text="Change Email">
-         <font>
-            <Font size="12.0" />
-         </font>
-      </Button>
       <Text layoutX="367.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Student">
          <font>
-            <Font size="33.0" />
+            <Font name="Comic Sans MS" size="33.0" />
          </font>
       </Text>
       <Text layoutX="11.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Text layoutX="1.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Text layoutX="1.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Text layoutX="1.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
-      <Text fx:id="atopStudName" layoutX="660.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="194.0">
+      <Text fx:id="atopStudName" layoutX="620.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="194.0">
          <font>
-            <Font size="33.0" />
+            <Font name="Comic Sans MS" size="33.0" />
          </font>
       </Text>
       <Text fx:id="studentID" layoutX="1.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Text fx:id="StudName" layoutX="1.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Text fx:id="studentEmail" layoutX="1.0" layoutY="530.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="200.0">
          <font>
-            <Font size="18.0" />
+            <Font name="Comic Sans MS" size="18.0" />
          </font>
       </Text>
       <Button fx:id="newStudentPassword" layoutX="1.0" layoutY="624.0" mnemonicParsing="false" onAction="#changeStudentPassword" prefHeight="23.0" prefWidth="200.0" text="Change Password">
          <font>
-            <Font size="12.0" />
+            <Font name="Comic Sans MS" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="backToLogin" layoutX="871.0" layoutY="52.0" mnemonicParsing="false" onAction="#backToLoginBottonAction" prefHeight="53.0" prefWidth="99.0" text="Back to Login" />
-      <ImageView fitHeight="207.0" fitWidth="207.0" layoutX="577.0" layoutY="148.0">
+      <Button fx:id="backToLogin" layoutX="871.0" layoutY="52.0" mnemonicParsing="false" onAction="#backToLoginBottonAction" prefHeight="53.0" prefWidth="99.0" text="Back to Login">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font></Button>
+      <ImageView fitHeight="177.0" fitWidth="177.0" layoutX="276.0" layoutY="158.0">
          <image>
             <Image url="@images/微信图片_20240527095116.jpg" />
          </image>
       </ImageView>
+      <ImageView layoutX="829.0" layoutY="60.0">
+         <image>
+            <Image url="@images/返回.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="177.0" fitWidth="177.0" layoutX="280.0" layoutY="355.0">
+         <image>
+            <Image url="@images/微信图片_20240527095140.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="168.0" fitWidth="177.0" layoutX="283.0" layoutY="553.0">
+         <image>
+            <Image url="@images/微信图片_20240527195124.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="146.0" fitWidth="154.0" layoutX="23.0" layoutY="13.0">
+         <image>
+            <Image url="@images/微信图片_20240527200632.jpg" />
+         </image>
+      </ImageView>
+      <Separator layoutX="14.0" layoutY="206.0" prefHeight="3.0" prefWidth="184.0" />
+      <Separator layoutX="14.0" layoutY="477.0" prefHeight="3.0" prefWidth="184.0" />
+      <Separator layoutX="9.0" layoutY="368.0" prefHeight="3.0" prefWidth="184.0" />
    </children>
 </AnchorPane>

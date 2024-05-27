@@ -78,6 +78,9 @@ public class RegisterController implements Initializable {
     private Button save;
 
     @FXML
+    private Button back;
+
+    @FXML
     void RegisterAction(ActionEvent event) throws IOException {
         try {
             if((Objects.equals(choseIdentity.getValue(), "Student") && (Objects.equals(nameText.getText(), "") || Objects.equals(emailText.getText(), ""))) || (Objects.equals(choseIdentity.getValue(), "Lecturer") && (Objects.equals(firstNameText.getText(), "") || Objects.equals(lastNameText.getText(), "") || Objects.equals(officeText.getText(), "") ||Objects.equals(emailText.getText(), "")))) {
@@ -250,6 +253,19 @@ public class RegisterController implements Initializable {
             return null;
         }
     });
+
+    @FXML
+    void backToLogin(ActionEvent event) throws IOException {
+        Stage currentStage = (Stage) register.getScene().getWindow();
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        Parent root;
+        root = loader.load();
+        LoginController controller = loader.getController();
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
