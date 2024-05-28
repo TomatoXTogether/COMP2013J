@@ -225,5 +225,20 @@ public class StudentDAO {
         }
     }
 
+    public static void changePassword(Student student, int password) {
+        try {
+            Connection conn = JDBCTool.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE students SET password = ? WHERE studentID = ?");
+            stmt.setInt(1, password);
+            stmt.setInt(2, student.getID());
+            stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
