@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -17,16 +18,13 @@ import java.io.IOException;
 public class StudentHomePageController {
         // UI Components injected by FXML
         @FXML
-        private Button newStudentEmail;
+        private Button changeStudentPassword;
 
         @FXML
-        private Button newStudentID;
+        private TextField newPasswordText;
 
         @FXML
-        private Button newStudentName;
-
-        @FXML
-        private Button newStudentPassword;
+        private Button save;
 
         @FXML
         private Button studentClass;
@@ -97,29 +95,24 @@ public class StudentHomePageController {
         }
 
         @FXML
-        void changeStudentEmail(ActionEvent event) {
-
-        }
-
-        @FXML
-        void changeStudentID(ActionEvent event) {
-
-        }
-
-        @FXML
-        void changeStudentName(ActionEvent event) {
-
-        }
-
-        @FXML
         void changeStudentPassword(ActionEvent event) {
-
+                newPasswordText.setVisible(true);
+                save.setVisible(true);
         }
+
+        @FXML
+        void saveNewPassword(ActionEvent event) {
+                int newPassword = Integer.parseInt(newPasswordText.getText());
+                StudentDAO.changePassword(userInfo, newPassword);
+                newPasswordText.setVisible(false);
+                save.setVisible(false);
+        }
+
 
         // Navigation methods to other pages
         @FXML
         void studentClassSchedule(ActionEvent event) throws IOException {
-                Stage currentStage = (Stage) studentCourse.getScene().getWindow();
+                Stage currentStage = (Stage) studentClass.getScene().getWindow();
                 currentStage.close();
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentCourses.fxml"));
