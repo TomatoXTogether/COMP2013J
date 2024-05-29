@@ -67,7 +67,6 @@ public class LecturerHomePageController {
         }
 
         public LecturerHomePageController() {
-                // 无参构造器
         }
 
         public void setUserInfo(Lecturer userInfo) {

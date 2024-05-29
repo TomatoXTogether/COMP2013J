@@ -7,10 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Controller class for the Student Home Page, managing UI components and user interactions.
@@ -22,9 +24,6 @@ public class StudentHomePageController {
 
         @FXML
         private TextField newPasswordText;
-
-        @FXML
-        private Button save;
 
         @FXML
         private Button studentClass;
@@ -96,18 +95,16 @@ public class StudentHomePageController {
 
         @FXML
         void changeStudentPassword(ActionEvent event) {
-                newPasswordText.setVisible(true);
-                save.setVisible(true);
+                TextInputDialog dialog = new TextInputDialog(String.valueOf(userInfo.getPassword()));
+                dialog.setTitle("Change Password");
+                dialog.setHeaderText("Enter new password:");
+                Optional<String> result = dialog.showAndWait();
+                result.ifPresent(newPassword -> {
+                        StudentDAO.changePassword(userInfo, Integer.parseInt(newPassword));
+                        userInfo.setPassword(Integer.parseInt(newPassword));
+                        newPasswordText.setText(newPassword);
+                });
         }
-
-        @FXML
-        void saveNewPassword(ActionEvent event) {
-                int newPassword = Integer.parseInt(newPasswordText.getText());
-                StudentDAO.changePassword(userInfo, newPassword);
-                newPasswordText.setVisible(false);
-                save.setVisible(false);
-        }
-
 
         // Navigation methods to other pages
         @FXML
