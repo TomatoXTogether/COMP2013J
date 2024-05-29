@@ -128,5 +128,10 @@
       <Separator layoutY="457.0" prefHeight="3.0" prefWidth="200.0" />
       <Separator layoutX="3.0" layoutY="341.0" prefHeight="3.0" prefWidth="200.0" />
       <Separator layoutX="3.0" layoutY="195.0" prefHeight="3.0" prefWidth="200.0" />
+      <ImageView layoutX="840.0" layoutY="68.0">
+         <image>
+            <Image url="@images/返回.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
