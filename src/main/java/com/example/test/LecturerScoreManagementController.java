@@ -27,7 +27,7 @@ public class LecturerScoreManagementController {
     private TableView<Student> StudentTable;
 
     @FXML
-    public TableView<Grade> GradeTable;
+    public TableView<String> GradeTable;
 
     @FXML
     private Button back;
