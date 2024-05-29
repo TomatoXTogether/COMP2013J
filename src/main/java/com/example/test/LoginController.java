@@ -77,7 +77,6 @@ public class LoginController implements Initializable {
                 }
                 Student student = (Student) getUser(account, password, students);
                 if ( student!= null){
-                    System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("StudentHomePage.fxml"));
@@ -93,7 +92,6 @@ public class LoginController implements Initializable {
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForEmpty.setVisible(false);
                     errorMessageForWrong.setVisible(true);
-                    System.out.println("Wrong account or password");
                 }
                 break;
             case "Lecturer":
@@ -102,11 +100,9 @@ public class LoginController implements Initializable {
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForWrong.setVisible(false);
                     errorMessageForEmpty.setVisible(true);
-                    System.out.println("Please enter your account and password");
                 }
                 Lecturer lecturer = (Lecturer) getUser(account, password, lectures);
                 if (lecturer != null){
-                    System.out.println("Login Successfully");
                     Stage currentStage = (Stage) login.getScene().getWindow();
                     currentStage.close();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("LecturerHomePage.fxml"));
@@ -122,7 +118,6 @@ public class LoginController implements Initializable {
                     errorMessageForWrong1.setVisible(false);
                     errorMessageForEmpty.setVisible(false);
                     errorMessageForWrong.setVisible(true);
-                    System.out.println("Wrong account or password");
                 }
                 break;
             default:

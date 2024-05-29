@@ -89,13 +89,6 @@ public class LectureChoosingController implements Initializable {
     private static List<Lecture> selectedLectures; // List of lectures selected by the student
 
     /**
-     * Default constructor for LectureChoosingController.
-     */
-    public void LectureChoosingController() {
-        // Empty constructor
-    }
-
-    /**
      * Sets the student's information in the controller.
      *
      * @param userInfo The student's information object.
@@ -220,8 +213,6 @@ public class LectureChoosingController implements Initializable {
                 StudentDAO.selectLecture(userInfo, lecture);
                 StudentDAO.getStudentByID(userInfo.getID()).lectures.add(lecture);
             }
-        } else {
-            System.out.println("No lectures selected.");
         }
         return lectures;
     }
@@ -245,8 +236,6 @@ public class LectureChoosingController implements Initializable {
             for (Lecture lecture : selectedLectures) {
                 StudentDAO.cancelLecture(userInfo, lecture);
             }
-        } else {
-            System.out.println("No lectures selected.");
         }
         return lectures;
     }

@@ -24,6 +24,7 @@ public class Student extends User{
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -32,18 +33,23 @@ public class Student extends User{
     public int getID() {
         return studentID;
     }
+
     public String getGrade() {
         return grade;
     }
+
     public void setGrade(String grade) {
         this.grade = grade;
     }
+
     public String getLectureName(){
         return lectureName;
     }
+
     public void setLectureName(String lectureName) {
         this.lectureName = lectureName;
     }
+
     public void setID(int studentID) {
         this.studentID = studentID;
     }
@@ -52,12 +58,15 @@ public class Student extends User{
     public int getPassword() {
         return password;
     }
+
     public void setPassword(int password) {
         this.password = password;
     }
+
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }

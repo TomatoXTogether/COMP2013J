@@ -73,13 +73,5 @@ public class Lecturer extends User{
     public void setOffice(String office) {
         this.office = office;
     }
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        System.out.println("Lecture " + getFirstname() + " isSelected: " + selected);
-    }
 
 }

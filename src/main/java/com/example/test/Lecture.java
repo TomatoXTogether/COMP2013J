@@ -1,6 +1,5 @@
 package com.example.test;
 
-import java.util.List;
 
 public class Lecture {
 
@@ -94,7 +93,6 @@ public class Lecture {
     public void setEndDate(String end) {
         this.endDate = endDate;
     }
-
 
     public boolean isSelected() {
         return selected;

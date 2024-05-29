@@ -94,9 +94,7 @@ public class LecturerScoreManagementController {
     public void setLecturerInfo(Lecturer userInfo){
         this.userInfo = userInfo;
 
-        System.out.println(userInfo+"7777777777");
         initialize(null,null,userInfo);
-        System.out.println(userInfo+"9999999999");
     }
 
     @FXML
